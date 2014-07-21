@@ -1,0 +1,31 @@
+{
+  "name": "reqlite",
+  "version": "0.0.1",
+  "description": "",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --check-leaks -t 20000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/neumino/reqlite"
+  },
+  "keywords": [],
+  "author": "Michel Tu <orphee@gmail.com> (http://justonepixel.com/)",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/neumino/reqlite/issues"
+  },
+  "dependencies":{
+    "bluebird": ">= 2.0.0",
+    "rethinkdb": ">= 1.13.0-3",
+    "minimist": "0.2.0"
+  },
+  "devDependencies": {
+    "mocha": ">= 1.20.0"
+  }
+}
