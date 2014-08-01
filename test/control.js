@@ -30,6 +30,13 @@ describe('control.js', function(){
             done();
         });
     });
+    it('default', function(done) {
+        r.expr({a: 1})('b').default("bar").run(connection).then(function(result) {
+            assert.equal(result, "bar");
+            done();
+        }).error(done);
+    });
+
 
     after(function() {
         connection.close();
