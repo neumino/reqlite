@@ -156,6 +156,32 @@ describe('join.js', function(){
             done();
         }).error(done);
     });
+    it('zip', function(done) {
+        r.table("join").eqJoin("id", r.table("join"), {index: "link"})
+            .map(function(doc) {
+                return {
+                    left: doc("left"),
+                    right: doc("right").without("id")
+                }
+            }).zip().run(connection).then(function(result) {
+
+            result.sort(function(left, right) {
+                if (left.id === right.id) {
+                    return left.age-right.age
+                }
+                else {
+                    return left.id-right.id
+                }
+            });
+            assert.deepEqual(result, [
+                {id: 1, age: 22, name: "Sophie", link: 1},
+                {id: 2, age: 27, name: "Michel", link: 2},
+                {id: 3, age: 11, name: "Lucky", link: 3},
+                {id: 3, age: 29, name: "Laurent", link: 3}
+                ]);
+            done();
+        }).error(done);
+    });
 
 
     after(function() {
