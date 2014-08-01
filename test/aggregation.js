@@ -41,7 +41,33 @@ describe('Operators', function(){
             });
         }, 100)
     });
-    // array bool date null number string object
+
+    it('reduce', function(done) {
+        r.expr([1,2,3]).reduce(function(left, right) {
+            return left.add(right)
+        }).run(connection).then(function(result) {
+           assert.equal(result, 6);
+           done();
+        }).error(done);
+    });
+    it('reduce - singleton', function(done) {
+        r.expr([3]).reduce(function(left, right) {
+            return left.add(right)
+        }).run(connection).then(function(result) {
+           assert.equal(result, 3);
+           done();
+        }).error(done);
+    });
+    it('reduce - empty', function(done) {
+        r.expr([]).reduce(function(left, right) {
+            return left.add(right)
+        }).run(connection).then(function(result) {
+            done(new Error("Was expecting an error"))
+        }).error(function(err) {
+            assert(err.message.match(/^Cannot reduce over an empty stream/))
+            done();
+        });
+    });
 
     it('contains - value - true', function(done) {
         r.expr([1,2,3]).contains(1).run(connection).then(function(result) {
