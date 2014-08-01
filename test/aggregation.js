@@ -69,6 +69,27 @@ describe('Operators', function(){
         });
     });
 
+    it('distinct - 1', function(done) {
+        r.expr([1,2,3, 1,2,5,4,3]).distinct().run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [1,2,3,4,5]);
+            done();
+        }).error(done);
+    });
+    it('distinct - 2', function(done) {
+        r.expr([1]).distinct().run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [1]);
+            done();
+        }).error(done);
+    });
+    it('distinct - 3', function(done) {
+        r.expr([{a:1},{a:1}, {a: 2},{a:1}, {a: 2}, {a: 1}, {a: 1}, {a: 2}, {a: 1}, {a: 3}]).distinct().run(connection).then(function(result) {
+            assert.deepEqual(result, [{a:3}, {a:2}, {a:1}]);
+            done();
+        }).error(done);
+    });
+
     it('contains - value - true', function(done) {
         r.expr([1,2,3]).contains(1).run(connection).then(function(result) {
            assert.equal(result, true);
