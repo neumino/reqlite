@@ -6,9 +6,8 @@ var nothing = require(__dirname+'/../lib/index.js');
 
 var connection;
 
-// Test for the first version of ReQLite
 
-describe('Tests for the first version of ReQLite', function(){
+describe('Operators', function(){
     before(function(done) {
         setTimeout(function() { // Delay for nodemon to restart the server
             r.connect(config).then(function(conn) {
@@ -197,23 +196,7 @@ describe('Tests for the first version of ReQLite', function(){
            done();
         }).error(done);
     });
-    after(function() {
-        connection.close();
-    });
-});
-describe('Tests for the first version of ReQLite', function(){
-    before(function(done) {
-        setTimeout(function() { // Delay for nodemon to restart the server
-            r.connect(config).then(function(conn) {
-                connection = conn;
-                r.dbDrop("reqlite").run(connection).error(function() {
-                    // Ignore the error
-                }).finally(function(result) {
-                    done();
-                });
-            }).error(done);
-        }, 100)
-    });
+
     it('Add - number', function(done) {
         r.expr(20).add(12).run(connection).then(function(result) {
            assert.equal(result, 32);
@@ -253,41 +236,55 @@ describe('Tests for the first version of ReQLite', function(){
            done();
         }).error(done);
     });
-    it('Mod - number', function(done) {
+    it('Mod - number - 1', function(done) {
         r.expr(20).mod(7).run(connection).then(function(result) {
            assert.equal(result, 6);
            done();
         }).error(done);
     });
-    it('Mod - number', function(done) {
+    it('Mod - number - 2', function(done) {
         r.expr(19).mod(7).run(connection).then(function(result) {
            assert.equal(result, 5);
            done();
         }).error(done);
     });
-    it('Mod - number', function(done) {
+    it('Mod - number - 3', function(done) {
         r.expr(17).mod(7).run(connection).then(function(result) {
            assert.equal(result, 3);
            done();
         }).error(done);
     });
-    after(function() {
-        connection.close();
+    it('Mod - error - 1', function(done) {
+        r.expr('17').mod(7).run(connection).then(function(result) {
+           done(new Error("Was expecting an error"));
+        }).error(function(err) {
+            assert(err.message.match(/^Expected type NUMBER but found STRING/));
+            done();
+        });
     });
-});
-
-describe('Tests for the first version of ReQLite', function(){
-    before(function(done) {
-        setTimeout(function() { // Delay for nodemon to restart the server
-            r.connect(config).then(function(conn) {
-                connection = conn;
-                r.dbDrop("reqlite").run(connection).error(function() {
-                    // Ignore the error
-                }).finally(function(result) {
-                    done();
-                });
-            }).error(done);
-        }, 100)
+    it('Mod - error - 2', function(done) {
+        r.expr(17).mod('7').run(connection).then(function(result) {
+           done(new Error("Was expecting an error"));
+        }).error(function(err) {
+            assert(err.message.match(/^Expected type NUMBER but found STRING/));
+            done();
+        });
+    });
+    it('Mod - error - 3', function(done) {
+        r.expr(17.2).mod(7).run(connection).then(function(result) {
+           done(new Error("Was expecting an error"));
+        }).error(function(err) {
+            assert(err.message.match(/^Number not an integer: 17.2/));
+            done();
+        });
+    });
+    it('Mod - error - 4', function(done) {
+        r.expr(17).mod(7.4).run(connection).then(function(result) {
+           done(new Error("Was expecting an error"));
+        }).error(function(err) {
+            assert(err.message.match(/^Number not an integer: 7.4/));
+            done();
+        });
     });
     it('Append', function(done) {
         r.expr([10,11,12]).append(17).run(connection).then(function(result) {
@@ -301,6 +298,49 @@ describe('Tests for the first version of ReQLite', function(){
            done();
         }).error(done);
     });
+    it('difference', function(done) {
+        r.expr([10,10,11,12]).difference([10, 13]).run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [11, 12]);
+            done();
+        }).error(done);
+    });
+    it('setInsert', function(done) {
+        r.expr([10,11,12,11]).setInsert(13).run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [10, 11, 12, 13]);
+            done();
+        }).error(done);
+    });
+    it('setUnion - 1', function(done) {
+        r.expr([10,11,12,11]).setUnion([14]).run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [10, 11, 12, 14]);
+            done();
+        }).error(done);
+    });
+    it('setUnion - 2', function(done) {
+        r.expr([10,11,12,11]).setUnion([12, 14]).run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [10, 11, 12, 14]);
+            done();
+        }).error(done);
+    });
+    it('setIntersection', function(done) {
+        r.expr([10,11,12,11]).setIntersection([12, 14]).run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [12]);
+            done();
+        }).error(done);
+    });
+    it('setDifference', function(done) {
+        r.expr([10,11,12,11]).setDifference([12, 14]).run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [10, 11]);
+            done();
+        }).error(done);
+    });
+
     it('keys', function(done) {
         r.expr({foo:2, bar: 1, buzz: 12}).keys().run(connection).then(function(result) {
             result.sort();
@@ -330,7 +370,6 @@ describe('Tests for the first version of ReQLite', function(){
             done();
         });
     });
-
 
 
     after(function() {
