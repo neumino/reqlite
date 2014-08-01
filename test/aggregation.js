@@ -43,12 +43,31 @@ describe('Operators', function(){
     });
     // array bool date null number string object
 
-    it('contains - 1', function(done) {
+    it('contains - value - true', function(done) {
         r.expr([1,2,3]).contains(1).run(connection).then(function(result) {
            assert.equal(result, true);
            done();
         }).error(done);
     });
+    it('contains - value - false', function(done) {
+        r.expr([1,2,3]).contains(4).run(connection).then(function(result) {
+           assert.equal(result, false);
+           done();
+        }).error(done);
+    });
+    it('contains - function - true', function(done) {
+        r.expr([1,2,3]).contains(function(row) { return r.row.eq(2) }).run(connection).then(function(result) {
+           assert.equal(result, true);
+           done();
+        }).error(done);
+    });
+    it('contains - function - false', function(done) {
+        r.expr([1,2,3]).contains(function(row) { return r.row.eq(4) }).run(connection).then(function(result) {
+           assert.equal(result, false);
+           done();
+        }).error(done);
+    });
+
 
     after(function() {
         connection.close();

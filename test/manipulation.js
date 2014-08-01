@@ -109,6 +109,113 @@ describe('manipulation.js', function(){
         }).error(done);
     });
 
+    it('difference', function(done) {
+        r.expr([10,10,11,12]).difference([10, 13]).run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [11, 12]);
+            done();
+        }).error(done);
+    });
+    it('setInsert', function(done) {
+        r.expr([10,11,12,11]).setInsert(13).run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [10, 11, 12, 13]);
+            done();
+        }).error(done);
+    });
+    it('setUnion - 1', function(done) {
+        r.expr([10,11,12,11]).setUnion([14]).run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [10, 11, 12, 14]);
+            done();
+        }).error(done);
+    });
+    it('setUnion - 2', function(done) {
+        r.expr([10,11,12,11]).setUnion([12, 14]).run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [10, 11, 12, 14]);
+            done();
+        }).error(done);
+    });
+    it('setIntersection', function(done) {
+        r.expr([10,11,12,11]).setIntersection([12, 14]).run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [12]);
+            done();
+        }).error(done);
+    });
+    it('setDifference', function(done) {
+        r.expr([10,11,12,11]).setDifference([12, 14]).run(connection).then(function(result) {
+            result.sort(function(left, right) { return left-right });
+            assert.deepEqual(result, [10, 11]);
+            done();
+        }).error(done);
+    });
+    it('hasFields - object - 1', function(done) {
+        r.expr({a: 1}).hasFields('a').run(connection).then(function(result) {
+            assert.equal(result, true);
+            done();
+        }).error(done);
+    });
+    it('hasFields - object - 2', function(done) {
+        r.expr({a: 1}).hasFields('a', 'b').run(connection).then(function(result) {
+            assert.equal(result, false);
+            done();
+        }).error(done);
+    });
+    it('hasFields - object - 3', function(done) {
+        r.expr({a: 1, b: 2}).hasFields('a', 'b').run(connection).then(function(result) {
+            assert.equal(result, true);
+            done();
+        }).error(done);
+    });
+    it('hasFields - object - 4', function(done) {
+        r.expr({a: 1, b: 2}).hasFields('a', 'b', 'a').run(connection).then(function(result) {
+            assert.equal(result, true);
+            done();
+        }).error(done);
+    });
+    it('hasFields - sequence - 1', function(done) {
+        r.expr([{a: 1}, {b: 2}, {a: 3}]).hasFields('a').run(connection).then(function(result) {
+            assert.deepEqual(result, [{a: 1}, {a: 3}]);
+            done();
+        }).error(done);
+    });
+    it('hasFields - sequence - 1', function(done) {
+        r.expr([{a: 1}, {b: 2}, {a: 3}]).hasFields('a', 'b').run(connection).then(function(result) {
+            assert.deepEqual(result, []);
+            done();
+        }).error(done);
+    });
+    it('keys', function(done) {
+        r.expr({foo:2, bar: 1, buzz: 12}).keys().run(connection).then(function(result) {
+            result.sort();
+            assert.deepEqual(result, ["bar", "buzz", "foo"]);
+            done();
+        }).error(done);
+    });
+    it('object', function(done) {
+        r.object("a", 1, "b", 10).run(connection).then(function(result) {
+            assert.deepEqual(result, {a: 1, b: 10});
+            done();
+        }).error(done);
+    });
+    it('object - odd number of arguments', function(done) {
+        r.object("a", 1, "b").run(connection).then(function(result) {
+            done(new Error("Was expecting an error"));
+        }).error(function(err) {
+            assert(err.message.match(/^OBJECT expects an even number of arguments \(but found 3/))
+            done();
+        });
+    });
+    it('object - non string key', function(done) {
+        r.object(2, 1).run(connection).then(function(result) {
+            done(new Error("Was expecting an error"));
+        }).error(function(err) {
+            assert(err.message.match(/^Expected type STRING but found NUMBER/))
+            done();
+        });
+    });
 
     after(function() {
         connection.close();
