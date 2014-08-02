@@ -246,10 +246,41 @@ describe('manipulation.js', function(){
             assert.deepEqual(result, [10,11,12,13, 20, 21]);
             done();
         }).error(done);
-
     });
-
+    it('deleteAt - 1', function(done) {
+        r.expr([10, 11, 12, 13]).deleteAt(2).run(connection).then(function(result) {
+            assert.deepEqual(result, [10,11,13]);
+            done();
+        }).error(done);
+    });
+    it('deleteAt - 2', function(done) {
+        r.expr([10, 11, 12, 13]).deleteAt(1,2).run(connection).then(function(result) {
+            assert.deepEqual(result, [10,13]);
+            done();
+        }).error(done);
+    });
+    it('deleteAt - 3', function(done) {
+        r.expr([10, 11, 12, 13]).deleteAt(-1).run(connection).then(function(result) {
+            assert.deepEqual(result, [10,11,12]);
+            done();
+        }).error(done);
+    });
+    it('deleteAt - 4', function(done) {
+        r.expr([10, 11, 12, 13]).deleteAt(-2,-1).run(connection).then(function(result) {
+            assert.deepEqual(result, [10,11,13]);
+            done();
+        }).error(done);
+    });
+    it('deleteAt - 5', function(done) {
+        r.expr([10, 11, 12, 13]).deleteAt(2,1).run(connection).then(function(result) {
+            done(new Error("Was expecting error"))
+        }).error(function(err) {
+            assert(err.message.match(/^Start index `2` is greater than end index `1`/));
+            done();
+        });
+    });
     
+    /*
     it('keys', function(done) {
         r.expr({foo:2, bar: 1, buzz: 12}).keys().run(connection).then(function(result) {
             result.sort();
@@ -279,6 +310,7 @@ describe('manipulation.js', function(){
             done();
         });
     });
+    */
 
     after(function() {
         connection.close();
