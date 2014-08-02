@@ -214,6 +214,27 @@ describe('manipulation.js', function(){
             done();
         });
     });
+    it('spliceAt - 1', function(done) {
+        r.expr([10, 11, 12, 13]).spliceAt(0, [20, 21]).run(connection).then(function(result) {
+            assert.deepEqual(result, [20,21,10,11,12,13]);
+            done();
+        }).error(done);
+    });
+    it('spliceAt - 2', function(done) {
+        r.expr([10, 11, 12, 13]).spliceAt(0, [20,10, 21]).run(connection).then(function(result) {
+            assert.deepEqual(result, [20,10,21,10,11,12,13]);
+            done();
+        }).error(done);
+    });
+    it('spliceAt - 3', function(done) {
+        r.expr([10, 11, 12, 13]).spliceAt(90, [20,10, 21]).run(connection).then(function(result) {
+            done(new Error("Was expecting an error"));
+        }).error(function(err) {
+            assert(err.message.match(/^Index `90` out of bounds for array of size: `4`/));
+            done();
+        });
+
+    });
 
     
     /*
