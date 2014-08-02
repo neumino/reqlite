@@ -176,7 +176,30 @@ describe('Operators', function(){
             done();
         }).error(done);
     });
-
+    it('max - 1', function(done) {
+        r.expr([1,2,3,4]).max().run(connection).then(function(result) {
+            assert.equal(result, 4);
+            done();
+        }).error(done);
+    });
+    it('max - 2', function(done) {
+        r.expr([{a:1},{a:2},{a:3},{a:4}]).max('a').run(connection).then(function(result) {
+            assert.deepEqual(result, {a:4});
+            done();
+        }).error(done);
+    });
+    it('max - 3', function(done) {
+        r.expr([{a:1},{b:10},{a:2},{a:3},{a:4}]).max('a').run(connection).then(function(result) {
+            assert.deepEqual(result, {a:4});
+            done();
+        }).error(done);
+    });
+    it('max - 4', function(done) {
+        r.expr([{b:10},{a:20},{a:3},{a:1},{a:4}]).max('a').run(connection).then(function(result) {
+            assert.deepEqual(result, {a:20});
+            done();
+        }).error(done);
+    });
 
 
 
