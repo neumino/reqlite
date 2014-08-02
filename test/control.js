@@ -37,6 +37,22 @@ describe('control.js', function(){
         }).error(done);
     });
 
+
+    it('coerceTo - array - 1', function(done) {
+        r.expr({a: 1, b: 2}).coerceTo("array").run(connection).then(function(result) {
+            assert.deepEqual(result, [['a', 1], ['b', 2]]);
+            done();
+        }).error(done);
+    });
+    it('coerceTo - array - 2', function(done) {
+        r.db("reqlitetest").table("control").coerceTo("array").run(connection).then(function(result) {
+            assert.deepEqual(result, []);
+            done();
+        }).error(done);
+    });
+
+
+
     it('json - 1', function(done) {
         r.json("2").run(connection).then(function(result) {
             assert.equal(result, 2);
