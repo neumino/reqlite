@@ -214,6 +214,13 @@ describe('manipulation.js', function(){
             done();
         });
     });
+    it('insertAt - 5', function(done) {
+        r.expr([10, 11, 12, 13]).insertAt(-1, 20).run(connection).then(function(result) {
+            assert.deepEqual(result, [10,11,12,13,20]);
+            done();
+        }).error(done);
+    });
+
     it('spliceAt - 1', function(done) {
         r.expr([10, 11, 12, 13]).spliceAt(0, [20, 21]).run(connection).then(function(result) {
             assert.deepEqual(result, [20,21,10,11,12,13]);
@@ -233,11 +240,16 @@ describe('manipulation.js', function(){
             assert(err.message.match(/^Index `90` out of bounds for array of size: `4`/));
             done();
         });
+    });
+    it('spliceAt - 4', function(done) {
+        r.expr([10, 11, 12, 13]).spliceAt(-1, [20, 21]).run(connection).then(function(result) {
+            assert.deepEqual(result, [10,11,12,13, 20, 21]);
+            done();
+        }).error(done);
 
     });
 
     
-    /*
     it('keys', function(done) {
         r.expr({foo:2, bar: 1, buzz: 12}).keys().run(connection).then(function(result) {
             result.sort();
@@ -267,7 +279,6 @@ describe('manipulation.js', function(){
             done();
         });
     });
-    */
 
     after(function() {
         connection.close();
