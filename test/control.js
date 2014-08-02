@@ -37,6 +37,37 @@ describe('control.js', function(){
         }).error(done);
     });
 
+    it('json - 1', function(done) {
+        r.json("2").run(connection).then(function(result) {
+            assert.equal(result, 2);
+            done();
+        }).error(done);
+    });
+    it('json - 2', function(done) {
+        r.json("[1,2,3]").run(connection).then(function(result) {
+            assert.deepEqual(result, [1,2,3]);
+            done();
+        }).error(done);
+    });
+    it('json - 3', function(done) {
+        r.json("[1,2,3]").map(function() {
+            return 2
+        }).run(connection).then(function(result) {
+            assert.deepEqual(result, [2, 2, 2]);
+            done();
+        }).error(done);
+    });
+    it('json - 4', function(done) {
+        r.json(",3]").run(connection).then(function(result) {
+            done(new Error("Was expecting an error"));
+        }).error(function(err) {
+            assert(err.message.match(/^Failed to parse ",3]" as JSON/))
+            done();
+        });
+    });
+
+
+
 
     after(function() {
         connection.close();
