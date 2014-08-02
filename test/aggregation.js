@@ -115,6 +115,19 @@ describe('Operators', function(){
         });
     });
 
+    it('sum - 1', function(done) {
+        r.expr([1,2,3,4]).sum().run(connection).then(function(result) {
+            assert.equal(result, 10);
+            done();
+        }).error(done);
+    });
+    it('sum - 2', function(done) {
+        r.expr([{a:1},{a:2},{a:3},{a:4}]).sum('a').run(connection).then(function(result) {
+            assert.equal(result, 10);
+            done();
+        }).error(done);
+    });
+
     it('distinct - 1', function(done) {
         r.expr([1,2,3, 1,2,5,4,3]).distinct().run(connection).then(function(result) {
             result.sort(function(left, right) { return left-right });
