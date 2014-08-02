@@ -62,6 +62,31 @@ describe('Operators', function(){
             done();
         }).error(done);
     });
+    it('group', function(done) {
+        r.table("agg").group("sex").count().run(connection).then(function(result) {
+            result.sort(function(left, right) {
+                if (left.group > left.right) {
+                    return 1;
+                }
+                else if (left.group < left.right) {
+                    return -1;
+                }
+                return 0;
+            })
+            assert.deepEqual(result, [
+                {group: "male", reduction: 2},
+                {group: "female", reduction: 1},
+                {group: "dog", reduction: 1},
+                ])
+            done();
+        }).error(done);
+    });
+    it('ungroup', function(done) {
+        r.table("agg").group("sex").ungroup().count().run(connection).then(function(result) {
+            assert.equal(result, 3)
+            done();
+        }).error(done);
+    });
 
     it('reduce', function(done) {
         r.expr([1,2,3]).reduce(function(left, right) {
