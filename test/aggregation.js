@@ -6,10 +6,10 @@ var nothing = require(__dirname+'/../lib/index.js');
 
 var connection;
 
-var michel = {id: 1, age: 27, name: "Michel", coins: [1, 2, 5, 10]};
-var laurent = {id: 2, age: 29, name: "Laurent", coins: [2, 5]};
-var sophie = {id: 3, age: 22, name: "Sophie", coins: [1, 2, 10]};
-var lucky = {id: 4, age: 11, name: "Lucky", coins: []};
+var michel = {id: 1, age: 27, name: "Michel", sex: "male"};
+var laurent = {id: 2, age: 29, name: "Laurent", sex: "male"};
+var sophie = {id: 3, age: 22, name: "Sophie", sex: "female"};
+var lucky = {id: 4, age: 11, name: "Lucky", sex: "dog"};
 
 
 
@@ -40,6 +40,27 @@ describe('Operators', function(){
                 });
             });
         }, 100)
+    });
+
+
+    it('group', function(done) {
+        r.table("agg").group("sex").run(connection).then(function(result) {
+            result.sort(function(left, right) {
+                if (left.group > left.right) {
+                    return 1;
+                }
+                else if (left.group < left.right) {
+                    return -1;
+                }
+                return 0;
+            })
+            assert.deepEqual(result, [
+                {group: "male", reduction: [michel, laurent]},
+                {group: "female", reduction: [sophie]},
+                {group: "dog", reduction: [lucky]},
+                ])
+            done();
+        }).error(done);
     });
 
     it('reduce', function(done) {
@@ -119,4 +140,5 @@ describe('Operators', function(){
     after(function() {
         connection.close();
     });
+
 });
