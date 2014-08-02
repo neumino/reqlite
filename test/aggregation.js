@@ -152,6 +152,33 @@ describe('Operators', function(){
             done();
         }).error(done);
     });
+    it('min - 1', function(done) {
+        r.expr([1,2,3,4]).min().run(connection).then(function(result) {
+            assert.equal(result, 1);
+            done();
+        }).error(done);
+    });
+    it('min - 2', function(done) {
+        r.expr([{a:1},{a:2},{a:3},{a:4}]).min('a').run(connection).then(function(result) {
+            assert.deepEqual(result, {a:1});
+            done();
+        }).error(done);
+    });
+    it('min - 3', function(done) {
+        r.expr([{a:1},{b:10},{a:2},{a:3},{a:4}]).min('a').run(connection).then(function(result) {
+            assert.deepEqual(result, {a:1});
+            done();
+        }).error(done);
+    });
+    it('min - 4', function(done) {
+        r.expr([{b:10},{a:2},{a:3},{a:1},{a:4}]).min('a').run(connection).then(function(result) {
+            assert.deepEqual(result, {a:1});
+            done();
+        }).error(done);
+    });
+
+
+
 
     it('distinct - 1', function(done) {
         r.expr([1,2,3, 1,2,5,4,3]).distinct().run(connection).then(function(result) {
