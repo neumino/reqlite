@@ -287,6 +287,75 @@ describe('Operators', function(){
         });
     });
 
+    it('random - 1', function(done) {
+        r.random().run(connection).then(function(result) {
+           assert.equal(typeof result, 'number');
+           assert(result>0);
+           assert(result<1);
+           done();
+        }).error(done);
+    });
+    it('random - 2', function(done) {
+        r.random(10).run(connection).then(function(result) {
+            assert.equal(typeof result, 'number');
+            assert(result>=0);
+            assert(result<10);
+            done();
+        }).error(done);
+    });
+    it('random - 3', function(done) {
+        r.random(10, 15).run(connection).then(function(result) {
+            assert.equal(typeof result, 'number');
+            assert(result>=10);
+            assert(result<15);
+            done();
+        }).error(done);
+    });
+    it('random - 4', function(done) {
+        r.random(0.2).run(connection).then(function(result) {
+            done(new Error("Was expecting error"));
+        }).error(function(err) {
+            assert(err.message.match(/^Upper bound .* could not be safely converted to an integer/));
+            done();
+        });
+    });
+    it('random - 5', function(done) {
+        r.random(0, 0.2).run(connection).then(function(result) {
+            done(new Error("Was expecting error"));
+        }).error(function(err) {
+            assert(err.message.match(/^Upper bound .* could not be safely converted to an integer/));
+            done();
+        });
+    });
+    it('random - 6', function(done) {
+        r.random(0.2, 2).run(connection).then(function(result) {
+            done(new Error("Was expecting error"));
+        }).error(function(err) {
+            assert(err.message.match(/^Lower bound .* could not be safely converted to an integer/));
+            done();
+        });
+    });
+    it('random - 7', function(done) {
+        r.random(0.2, 1.5, {float: true}).run(connection).then(function(result) {
+            assert.equal(typeof result, 'number');
+            assert(result>=0.2);
+            assert(result<1.5);
+            done();
+        }).error(done);
+    });
+    it('random - 8', function(done) {
+        r.random(0.2, {float: true}).run(connection).then(function(result) {
+            assert.equal(typeof result, 'number');
+            assert(result>=0);
+            assert(result<0.2);
+            done();
+        }).error(done);
+    });
+
+
+
+
+
     after(function() {
         connection.close();
     });
