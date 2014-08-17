@@ -1,0 +1,3 @@
+#!/bin/bash
+
+node /home/michel/projects/rethinkdb-all/meteor/reqlite/lib/node.js "$@"
