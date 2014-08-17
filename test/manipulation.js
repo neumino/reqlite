@@ -280,7 +280,33 @@ describe('manipulation.js', function(){
         });
     });
     
-    /*
+    it('changeAt - 1', function(done) {
+        r.expr([10, 11, 12, 13]).changeAt(0,"foo").run(connection).then(function(result) {
+            assert.deepEqual(result, ["foo",11,12,13]);
+            done();
+        }).error(done);
+    });
+    it('changeAt - 2', function(done) {
+        r.expr([10, 11, 12, 13]).changeAt(-1,"foo").run(connection).then(function(result) {
+            assert.deepEqual(result, [10,11,12,"foo"]);
+            done();
+        }).error(done);
+    });
+    it('changeAt - 3', function(done) {
+        r.expr([10, 11, 12, 13]).changeAt(2,"foo").run(connection).then(function(result) {
+            assert.deepEqual(result, [10,11,"foo",13]);
+            done();
+        }).error(done);
+    });
+    it('spliceAt - 3', function(done) {
+        r.expr([10, 11, 12, 13]).changeAt(90, "foo").run(connection).then(function(result) {
+            done(new Error("Was expecting an error"));
+        }).error(function(err) {
+            assert(err.message.match(/^Index `90` out of bounds for array of size: `4`/));
+            done();
+        });
+    });
+
     it('keys', function(done) {
         r.expr({foo:2, bar: 1, buzz: 12}).keys().run(connection).then(function(result) {
             result.sort();
@@ -310,7 +336,6 @@ describe('manipulation.js', function(){
             done();
         });
     });
-    */
 
     after(function() {
         connection.close();

@@ -41,6 +41,41 @@ describe('string.js', function(){
         }, 100)
     });
 
+    it('split - 1', function(done) {
+        r.expr("bonjour").split().run(connection).then(function(result) {
+            assert.deepEqual(result, ['b', 'o', 'n', 'j', 'o', 'u', 'r']);
+            done();
+        }).error(done);
+    });
+    it('split - 2', function(done) {
+        r.expr("bonjour").split('', 4).run(connection).then(function(result) {
+            assert.deepEqual(result, ['b', 'o', 'n', 'j', 'our']);
+            done();
+        }).error(done);
+    });
+    it('split - 3', function(done) {
+        r.expr("bonjour").split('', 40).run(connection).then(function(result) {
+            assert.deepEqual(result, ['b', 'o', 'n', 'j', 'o', 'u', 'r']);
+            done();
+        }).error(done);
+    });
+    it('split - 4', function(done) {
+        r.expr("bonjour").split('', 7).run(connection).then(function(result) {
+            assert.deepEqual(result, ['b', 'o', 'n', 'j', 'o', 'u', 'r']);
+            done();
+        }).error(done);
+    });
+    it('split - 5', function(done) {
+        r.expr("bonjour").split('=', 7).run(connection).then(function(result) {
+            assert.deepEqual(result, ['bonjour']);
+            done();
+        }).error(done);
+    });
+
+
+
+
+    /*
     it('upcase', function(done) {
         r.expr("foo").upcase().run(connection).then(function(result) {
             assert.equal(result, "FOO");
@@ -53,7 +88,7 @@ describe('string.js', function(){
             done();
         }).error(done);
     });
-
+    */
 
 
     after(function() {

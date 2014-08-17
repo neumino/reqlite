@@ -115,6 +115,94 @@ describe('Operators', function(){
         });
     });
 
+    it('sum - 1', function(done) {
+        r.expr([1,2,3,4]).sum().run(connection).then(function(result) {
+            assert.equal(result, 10);
+            done();
+        }).error(done);
+    });
+    it('sum - 2', function(done) {
+        r.expr([{a:1},{a:2},{a:3},{a:4}]).sum('a').run(connection).then(function(result) {
+            assert.equal(result, 10);
+            done();
+        }).error(done);
+    });
+    it('sum - 3', function(done) {
+        r.expr([{a:1},{b:10},{a:2},{a:3},{a:4}]).sum('a').run(connection).then(function(result) {
+            assert.equal(result, 10);
+            done();
+        }).error(done);
+    });
+
+    it('avg - 1', function(done) {
+        r.expr([1,2,3,4]).avg().run(connection).then(function(result) {
+            assert.equal(result, 2.5);
+            done();
+        }).error(done);
+    });
+    it('avg - 2', function(done) {
+        r.expr([{a:1},{a:2},{a:3},{a:4}]).avg('a').run(connection).then(function(result) {
+            assert.equal(result, 2.5);
+            done();
+        }).error(done);
+    });
+    it('avg - 3', function(done) {
+        r.expr([{a:1},{b:10},{a:2},{a:3},{a:4}]).avg('a').run(connection).then(function(result) {
+            assert.equal(result, 2.5);
+            done();
+        }).error(done);
+    });
+    it('min - 1', function(done) {
+        r.expr([1,2,3,4]).min().run(connection).then(function(result) {
+            assert.equal(result, 1);
+            done();
+        }).error(done);
+    });
+    it('min - 2', function(done) {
+        r.expr([{a:1},{a:2},{a:3},{a:4}]).min('a').run(connection).then(function(result) {
+            assert.deepEqual(result, {a:1});
+            done();
+        }).error(done);
+    });
+    it('min - 3', function(done) {
+        r.expr([{a:1},{b:10},{a:2},{a:3},{a:4}]).min('a').run(connection).then(function(result) {
+            assert.deepEqual(result, {a:1});
+            done();
+        }).error(done);
+    });
+    it('min - 4', function(done) {
+        r.expr([{b:10},{a:2},{a:3},{a:1},{a:4}]).min('a').run(connection).then(function(result) {
+            assert.deepEqual(result, {a:1});
+            done();
+        }).error(done);
+    });
+    it('max - 1', function(done) {
+        r.expr([1,2,3,4]).max().run(connection).then(function(result) {
+            assert.equal(result, 4);
+            done();
+        }).error(done);
+    });
+    it('max - 2', function(done) {
+        r.expr([{a:1},{a:2},{a:3},{a:4}]).max('a').run(connection).then(function(result) {
+            assert.deepEqual(result, {a:4});
+            done();
+        }).error(done);
+    });
+    it('max - 3', function(done) {
+        r.expr([{a:1},{b:10},{a:2},{a:3},{a:4}]).max('a').run(connection).then(function(result) {
+            assert.deepEqual(result, {a:4});
+            done();
+        }).error(done);
+    });
+    it('max - 4', function(done) {
+        r.expr([{b:10},{a:20},{a:3},{a:1},{a:4}]).max('a').run(connection).then(function(result) {
+            assert.deepEqual(result, {a:20});
+            done();
+        }).error(done);
+    });
+
+
+
     it('distinct - 1', function(done) {
         r.expr([1,2,3, 1,2,5,4,3]).distinct().run(connection).then(function(result) {
             result.sort(function(left, right) { return left-right });
