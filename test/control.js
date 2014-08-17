@@ -30,6 +30,15 @@ describe('control.js', function(){
             done();
         });
     });
+    it('r.error - wront type', function(done) {
+        r.error(1).run(connection).then(function(result) {
+            done(new Error("Was expecting an error"));
+        }).error(function(err) {
+            assert(err.message.match(/^Expected type STRING but found NUMBER/));
+            done();
+        });
+    });
+
     it('default', function(done) {
         r.expr({a: 1})('b').default("bar").run(connection).then(function(result) {
             assert.equal(result, "bar");
@@ -65,8 +74,6 @@ describe('control.js', function(){
             done();
         });
     });
-
-
 
 
     after(function() {
