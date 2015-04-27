@@ -40,7 +40,7 @@ describe('control.js', function(){
     });
 
     it('default', function(done) {
-        r.expr({a: 1})('b').default("bar").run(connection).then(function(result) {
+        r.expr({a: 1}).getField('b').default("bar").run(connection).then(function(result) {
             assert.equal(result, "bar");
             done();
         }).error(done);
