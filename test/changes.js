@@ -22,11 +22,11 @@ describe('changes.js', function(){
       r.connect(config.rethinkdb).bind({}).then(function(conn) {
         connections.rethinkdb = conn;
         // Use the rethinkdb connection to validate the tests
-        mainConnection = conn;
+        //mainConnection = conn;
         return r.connect(config.reqlite);
       }).then(function(conn) {
         connections.reqlite = conn;
-        //mainConnection = conn;
+        mainConnection = conn;
         this.query = r.dbCreate(TEST_DB);
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
@@ -612,11 +612,31 @@ describe('changes.js', function(){
     }).catch(done);
   });
 
+  /*
   it('changes - 38', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).changes().zip();
     query.run(mainConnection).then(function(feed) {
-      feed.next().error(function(error) {
+      feed.next().then(function(result) {
+        done(new Error('Unexpected result'));
+      }).error(function(error) {
         assert.equal(error.message.split(':')[0], 'ZIP can only be called on the result of a join in')
+        return r.db(TEST_DB).table(TEST_TABLE).get(0).delete().run(mainConnection);
+      }).then(function(result) {
+        done();
+      });
+
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 0}).run(mainConnection);
+    }).catch(done);
+  });
+
+
+  it('changes - 39', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().skip(2);
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        console.log(result);
+      }).error(function(error) {
+        assert.equal(error.message, 'ZIP can only be called on the result of a join in')
         return r.db(TEST_DB).table(TEST_TABLE).get(0).delete().run(mainConnection);
       }).then(function() {
         done();
