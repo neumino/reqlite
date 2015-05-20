@@ -612,6 +612,19 @@ describe('changes.js', function(){
     }).catch(done);
   });
 
+  it('changes - 38', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().zip();
+    query.run(mainConnection).then(function(feed) {
+      feed.next().error(function(error) {
+        assert.equal(error.message.split(':')[0], 'ZIP can only be called on the result of a join in')
+        return r.db(TEST_DB).table(TEST_TABLE).get(0).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      });
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 0}).run(mainConnection);
+    }).catch(done);
+  });
+
   /*
   */
 });
