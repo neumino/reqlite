@@ -629,19 +629,23 @@ describe('changes.js', function(){
   });
 
 
-  /*
   it('changes - 39', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).changes().skip(2);
     query.run(mainConnection).then(function(feed) {
       feed.next().then(function(result) {
-        console.log(result);
-      }).error(function(error) {
-        assert.equal(error.message, 'ZIP can only be called on the result of a join in')
-        return r.db(TEST_DB).table(TEST_TABLE).get(0).delete().run(mainConnection);
+        assert.deepEqual(result, {new_val: {id: 12}, old_val: null});
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11, 12).delete().run(mainConnection);
       }).then(function() {
         done();
       });
-      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 0}).run(mainConnection);
+
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 12}).run(mainConnection);
     }).catch(done);
   });
 
