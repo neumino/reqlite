@@ -1,5 +1,4 @@
 Reqlite - RethinkDB implemented in pure JavaScript
-
 =====
 
 # What is it?
