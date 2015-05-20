@@ -11,6 +11,9 @@ a table, insert documents, filter them, open a chanfeed etc.
 node ./lib/node.js
 ```
 
+# Does it work?
+
+Most of the methods work. There are currently 2000+ tests passing.
 
 # Why?
 
@@ -18,7 +21,7 @@ The main reasons why this project was started were:
 
 - Provide an easy way for node developers to test their code without having
 to start a RethinkDB server.
-- Maybe Meteor will use it to build a mini-rethinkdb - See https://github.com/Slava/meteor-rethinkdb
+- Maybe Meteor will use it to build a mini-rethinkdb - See [meteor-rethinkdb](https://github.com/Slava/meteor-rethinkdb)
 - Because it's kind of fun :-)
 
 
