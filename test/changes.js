@@ -660,7 +660,10 @@ describe('changes.js', function(){
         return feed.next();
       }).error(function(error) {
         assert(error.message, 'No more rows in the Feed.');
-        done();
+
+        r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11, 12).delete().run(mainConnection).then(function(result) {
+          done();
+        }).catch(done);
       });
 
       return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
@@ -670,6 +673,28 @@ describe('changes.js', function(){
       return r.db(TEST_DB).table(TEST_TABLE).insert({id: 12}).run(mainConnection);
     }).catch(done);
   });
+
+  it('changes - 41', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().slice(1, 2);
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {new_val: {id: 11}, old_val: null});
+        return feed.next();
+      }).error(function(error) {
+        assert(error.message, 'No more rows in the Feed.');
+        r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11, 12).delete().run(mainConnection).then(function() {
+          done();
+        }).catch(done);
+      }).catch(done);
+
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 12}).run(mainConnection);
+    }).catch(done);
+  });
+
 
   /*
   */
