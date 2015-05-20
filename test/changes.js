@@ -612,7 +612,6 @@ describe('changes.js', function(){
     }).catch(done);
   });
 
-  /*
   it('changes - 38', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).changes().zip();
     query.run(mainConnection).then(function(feed) {
@@ -630,6 +629,7 @@ describe('changes.js', function(){
   });
 
 
+  /*
   it('changes - 39', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).changes().skip(2);
     query.run(mainConnection).then(function(feed) {
