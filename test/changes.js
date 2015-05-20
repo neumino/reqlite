@@ -707,6 +707,31 @@ describe('changes.js', function(){
     }).catch(done);
   });
 
+  it('changes - 43', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().map(function(doc) {
+      return r.expr({foo: 'bar'}).merge(doc);
+    });
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {foo: 'bar', new_val: {id: 10}, old_val: null});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {foo: 'bar', new_val: {id: 11}, old_val: null});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {foo: 'bar', new_val: {id: 12}, old_val: null});
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11, 12).delete().run(mainConnection);
+      }).then(function(result) {
+        done();
+      }).catch(done);
+
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 12}).run(mainConnection);
+    }).catch(done);
+  });
 
   /*
   */
