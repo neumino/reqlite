@@ -1,4 +1,15 @@
-exports.host = process.env['WERCKER_RETHINKDB_HOST'] || 'localhost';
-exports.port = process.env['WERCKER_RETHINKDB_PORT'] || 28015;
-exports.db = 'reqlitetest';
-exports.authKey = '';
+module.exports = {};
+
+module.exports.reqlite = {
+  host: 'localhost',
+  port: 28016,
+  db: 'reqlitetest',
+  authKey: ''
+}
+
+module.exports.rethinkdb = {
+  host: 'localhost',
+  port: 28015,
+  db: 'reqlitetest',
+  authKey: ''
+}
