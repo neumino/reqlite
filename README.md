@@ -53,7 +53,7 @@ See the [issues tracker](https://github.com/neumino/reqlite/issues)
 
 # Who did that?
 
-Most [Michel Tu](https://github.com/neumino), but hopefully people will love this project and send tons
+Mostly [Michel Tu](https://github.com/neumino), but hopefully people will love this project and send tons
 of pull requests!
 
 
