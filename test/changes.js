@@ -708,20 +708,17 @@ describe('changes.js', function(){
   });
 
   it('changes - 43', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).changes().map(function(doc) {
-      return r.expr({foo: 'bar'}).merge(doc);
-    });
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().offsetsOf({new_val: {id: 10}, old_val: null})
     query.run(mainConnection).then(function(feed) {
       feed.next().then(function(result) {
-        assert.deepEqual(result, {foo: 'bar', new_val: {id: 10}, old_val: null});
+        assert.deepEqual(result, 0);
         return feed.next();
       }).then(function(result) {
-        assert.deepEqual(result, {foo: 'bar', new_val: {id: 11}, old_val: null});
-        return feed.next();
-      }).then(function(result) {
-        assert.deepEqual(result, {foo: 'bar', new_val: {id: 12}, old_val: null});
+        assert.deepEqual(result, 4);
+        return feed.close();
+      }).then(function() {
         return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11, 12).delete().run(mainConnection);
-      }).then(function(result) {
+      }).then(function() {
         done();
       }).catch(done);
 
@@ -730,6 +727,10 @@ describe('changes.js', function(){
       return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
     }).then(function() {
       return r.db(TEST_DB).table(TEST_TABLE).insert({id: 12}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).get(10).delete().run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
     }).catch(done);
   });
 
