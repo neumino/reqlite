@@ -695,6 +695,18 @@ describe('changes.js', function(){
     }).catch(done);
   });
 
+  it('changes - 42', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().slice(1, 2, {leftBound: 'open'});
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        done(new Error('Unexpected error'));
+      }).error(function(error) {
+        assert(error.message, 'No more rows in the Feed.');
+        done();
+      }).catch(done);
+    }).catch(done);
+  });
+
 
   /*
   */
