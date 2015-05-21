@@ -1,7 +1,7 @@
 Reqlite - RethinkDB in JavaScript
 =====
 
-# What is it?
+## What is it?
 
 Reqlite is an implementation of a ReQL server in JavaScript. Meaning that
 you can connect to reqlite with the RethinkDB driver and send queries (create
@@ -11,11 +11,11 @@ a table, insert documents, filter them, open a chanfeed etc.
 node ./lib/node.js
 ```
 
-# Does it work?
+## Does it work?
 
 Most of the methods work. There are currently 2000+ tests passing.
 
-# Why?
+## Why?
 
 The main reasons why this project was started were:
 
@@ -26,12 +26,12 @@ to start a RethinkDB server.
 - Because it's kind of fun :-)
 
 
-# Version of RethinkDB supported
+## Version of RethinkDB supported
 
 It currently tries to match RethinkDB 2.0.x.
 
 
-# Run tests
+## Run tests
 
 Most of the tests run queries against RethinkDB and reqlite at the same time, and compare the output.
 Start RethinkDB on port `28015`
@@ -49,34 +49,37 @@ Then run:
 npm test
 ```
 
-# Roadmap
+## Roadmap
 
 There are tons of things left to do!
 See the [issues tracker](https://github.com/neumino/reqlite/issues)
 
 
-# Who did that?
+## Who did that?
 
 Mostly [Michel Tu](https://github.com/neumino), but hopefully people will love this project and send tons
 of pull requests!
 
 
-# Contribute
+## Contribute
 
 File a bug, write a test or send a pull request. Don't be shy :)
 
 
-# Contact
+## Contact
 
-Michel Tu: [@neumino](https://twitter.com/neumino), [orphee@gmail.com](orphee@gmail.com)
+Michel Tu:
+- [neumino@freenode](irc://irc.freenode.org/rethinkdb)
+- [@neumino](https://twitter.com/neumino)
+- [orphee@gmail.com](orphee@gmail.com)
 
 
-# License
+## License
 
 MIT, see the LICENSE FILE
 
 
-# Note
+## Note
 
 This is a personal project and has nothing to do with my current employer (whoever that is) or
 a previous one (whoever that is).
