@@ -11,3 +11,5 @@ before_script:
   - sleep 10
 after_script:
   - killall rethinkdb
+notifications:
+  email: false
