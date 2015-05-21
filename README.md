@@ -1,6 +1,8 @@
 Reqlite - RethinkDB in JavaScript
 =====
 
+[![Build Status](https://travis-ci.org/neumino/reqlite.svg?branch=master)](https://travis-ci.org/neumino/reqlite)
+
 ## What is it?
 
 Reqlite is an implementation of a ReQL server in JavaScript. Meaning that
