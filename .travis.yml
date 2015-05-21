@@ -6,7 +6,7 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install rethinkdb -y --force-yes
 before_script:
-  - rethinkdb --daemon
+  - sudo rethinkdb --daemon
   - npm install
   - node ./lib/node.js --port-offset 1 &
   - sleep 10
