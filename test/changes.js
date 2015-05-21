@@ -26,6 +26,8 @@ describe('changes.js', function(){
         return r.connect(config.reqlite);
       }).then(function(conn) {
         connections.reqlite = conn;
+        // Comment the next line to run the tests on RethinkDB
+        // They should all pass...
         mainConnection = conn;
         this.query = r.dbCreate(TEST_DB);
         return this.query.run(connections.reqlite);
@@ -757,6 +759,324 @@ describe('changes.js', function(){
         done();
       }).catch(done);
 
+      r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+      })
+    }).catch(done);
+  });
+
+  it('changes - 45', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().hasFields('new_val')
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {new_val: {id: 10}, old_val: null});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {new_val: {id: 11}, old_val: null});
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      }).catch(done);
+
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).get(10).delete().run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 46', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().merge({foo: 'bar'})
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {foo: 'bar', new_val: {id: 10}, old_val: null});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {foo: 'bar', new_val: {id: 11}, old_val: null});
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      }).catch(done);
+
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 47', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().pluck('new_val')
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {new_val: {id: 10}});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {new_val: null});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {new_val: {id: 11}});
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      }).catch(done);
+
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).get(10).delete().run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 48', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().without('old_val')
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {new_val: {id: 10}});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {new_val: null});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {new_val: {id: 11}});
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      }).catch(done);
+
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).get(10).delete().run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 49', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().withFields('new_val')
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {new_val: {id: 10}});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {new_val: {id: 11}});
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      }).catch(done);
+
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).get(10).delete().run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 50', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().getField('new_val')
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {id: 10});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, null);
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {id: 11});
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      }).catch(done);
+
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).get(10).delete().run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 51', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes()
+      .getField('new_val').getField('location')
+      .intersects(r.circle(r.point(30, 20), 1000))
+
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {$reql_type$: "GEOMETRY", coordinates: [30, 20], type: 'Point'});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {$reql_type$: "GEOMETRY", coordinates: [30.0001, 20.0001], type: 'Point'});
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11, 12).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      }).catch(done);
+
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10, location: r.point(30, 20)}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11, location: r.point(0, 0)}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 12, location: r.point(30.0001, 20.0001)}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 52', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes()
+      .getField('new_val').getField('location')
+      .includes(r.point(30, 20))
+
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.equal(result.$reql_type$, "GEOMETRY")
+        assert.deepEqual(result.coordinates[0][0][0], 30) // Just checking that we have the appropriate document
+        return feed.next();
+      }).then(function(result) {
+        assert.equal(result.$reql_type$, "GEOMETRY")
+        assert.deepEqual(result.coordinates[0][0][0], 30.0001)
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      }).catch(done);
+
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10, location: r.circle(r.point(30, 20), 1000)}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11, location: r.circle(r.point(0, 0), 1000)}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 12, location: r.circle(r.point(30.0001, 20.0001), 1000)}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 53', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes()('new_val')
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {id: 10});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, null);
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {id: 11});
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      }).catch(done);
+
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).get(10).delete().run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 54', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().forEach(function(change) {
+      return {}
+    })
+    compare(query, done);
+  });
+
+  it('changes - 55', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().innerJoin(
+      [{id: 10, foo: 'bar'}, {id: 11, foo: 'buzz'}],
+      function(change, right) {
+      return change('new_val')('id').eq(right('id')).default(false)
+    })
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {left: {new_val: {id: 10}, old_val: null}, right: {id: 10, foo: 'bar'}});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {left: {new_val: {id: 11}, old_val: null}, right: {id: 11, foo: 'buzz'}});
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      }).catch(done);
+
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 55', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().outerJoin(
+      [{id: 10, foo: 'bar'}, {id: 11, foo: 'buzz'}],
+      function(change, right) {
+      return change('new_val')('id').eq(right('id')).default(false)
+    })
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {left: {new_val: {id: 10}, old_val: null}, right: {id: 10, foo: 'bar'}});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {left: {new_val: {id: 11}, old_val: null}, right: {id: 11, foo: 'buzz'}});
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      }).catch(done);
+
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 55', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).changes().eqJoin(
+        r.row('new_val')('id'),
+        r.db(TEST_DB).table(TEST_TABLE)
+    )
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(result) {
+        assert.deepEqual(result, {left: {new_val: {id: 10}, old_val: null}, right: {id: 10}});
+        return feed.next();
+      }).then(function(result) {
+        assert.deepEqual(result, {left: {new_val: {id: 11}, old_val: null}, right: {id: 11}});
+        return feed.close();
+      }).then(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).getAll(10, 11).delete().run(mainConnection);
+      }).then(function() {
+        done();
+      }).catch(done);
+
+    }).then(function() {
       return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
     }).then(function() {
       return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
