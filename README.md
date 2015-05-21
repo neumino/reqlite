@@ -22,6 +22,7 @@ The main reasons why this project was started were:
 - Provide an easy way for node developers to test their code without having
 to start a RethinkDB server.
 - Maybe Meteor will use it to build a mini-rethinkdb - See [meteor-rethinkdb](https://github.com/Slava/meteor-rethinkdb)
+- Use it on Windows instead of running a Docker container in Vagrant
 - Because it's kind of fun :-)
 
 
