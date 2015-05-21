@@ -651,7 +651,7 @@ describe('changes.js', function(){
     }).catch(done);
   });
 
-  it('changes - 39', function(done) {
+  it('changes - 40', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).changes().limit(2);
     query.run(mainConnection).then(function(feed) {
       feed.next().then(function(result) {
