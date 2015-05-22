@@ -4,11 +4,13 @@ You can contribute in different ways:
 
 1. Open an issue. If you do, please provide enough information for us to be
 able to reproduce the bug:
+
 - The query that failed
 - The expected output
 - The data in your table if your query involve accessing data from a table
 
 2. Submit a pull requests. Before submiting a pull request:
+
 - Make sure that the tests pass.
 - Follow the existing coding style, there are no strong rules at the moment, but please
 try to keep a similar style.
