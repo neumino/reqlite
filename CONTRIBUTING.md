@@ -2,20 +2,20 @@
 
 You can contribute in different ways:
 
-1. Open an issue. If you do, please provide enough information for us to be
+- Open an issue. If you do, please provide enough information for us to be
 able to reproduce the bug:
 
-- The query that failed
-- The expected output
-- The data in your table if your query involve accessing data from a table
+  - The query that failed.
+  - The expected output.
+  - The data in your table if your query involve accessing data from a table.
 
-2. Submit a pull requests. Before submiting a pull request:
+- Submit a pull requests. Before submiting a pull request:
 
-- Make sure that the tests pass.
-- Follow the existing coding style, there are no strong rules at the moment, but please
-try to keep a similar style.
-- If you fix a bug, add a test. This make merging the request easier since with Travis, we
-won't have to locally test your code
+  - Make sure that the tests pass.
+  - Follow the existing coding style, there are no strong rules at the moment, but please
+  try to keep a similar style.
+  - If you fix a bug, add a test. This make merging the request easier since with Travis, we
+  won't have to locally test your code
 
 
 ## How Reqlite works?
@@ -30,7 +30,8 @@ The main function you are probably interested is `Query.prototype.evaluate`.
 ## How the tests work?
 
 You can add a test by adding the following code:
-```
+
+```js
 it('<method tested> - <num of the test>', function(done) {
   var query = r.expr(1) // Write your query here
   compare(query, done);
@@ -41,8 +42,7 @@ The method `compare` will execute the query against Reqlite and RethinkDB and co
 If your output includes generated keys, random numbers, you can provide a third argument to `compare`
 to alter the results:
 
-```
-```
+```js
 it('<method tested> - <num of the test>', function(done) {
   var query = r.table('test').insert({}) // Write your query here
   compare(query, done, function(result) {
@@ -51,9 +51,8 @@ it('<method tested> - <num of the test>', function(done) {
   });
 });
 ```
-```
 
-## Have more questions
+## Have more questions?
 
 Open an issue such that we can improve the docs, the code and everything else.
 
