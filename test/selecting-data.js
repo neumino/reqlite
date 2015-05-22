@@ -412,6 +412,14 @@ describe('selecting-data.js', function(){
     compare(query, done);
   });
 
+  it('filter - 15', function(done) {
+    var query = r.expr([1,2,3,4,5]).filter(function(doc) {
+      return 0;
+    })
+    compare(query, done);
+  });
+
+
   /*
   // See rethinkdb/rethinkdb/issues/4189
   it('filter - 15', function(done) {
