@@ -10,6 +10,9 @@ var MISSING_ID = 'nonExistingId';
 
 var compare = require(__dirname+'/util.js').generateCompare(connections);
 
+// Use integers for primary keys if possible. That way we can easily delete
+// generated primary keys with just looking for strings.
+
 describe('writing-data.js', function(){
   before(function(done) {
     setTimeout(function() { // Delay for nodemon to restart the server
@@ -134,16 +137,6 @@ describe('writing-data.js', function(){
   });
 
   it('insert - 11', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).insert([{}, {}, {}])
-    compare(query, done, function(result) {
-      assert.equal(result.generated_keys.length, 3);
-      delete result.generated_keys;
-      return result;
-    });
-  });
-
-  /*
-  it('insert - 11', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({
       id: 103, // primary key already used
       foo: 'bar<new>'
@@ -156,6 +149,22 @@ describe('writing-data.js', function(){
       id: 103, // primary key already used
       buzz: 'extra<buzz>'
     }, {conflict: 'update', returnChanges: true})
+    compare(query, done);
+  });
+
+  it('insert - 12', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert([{}, {}, {}])
+    compare(query, done, function(result) {
+      assert.equal(result.generated_keys.length, 3);
+      delete result.generated_keys;
+      return result;
+    });
+  });
+  it('insert - 12 - follow up', function(done) {
+    // We need to clean here as we have different primary keys in reqlite and rethinkdb
+    var query = r.db(TEST_DB).table(TEST_TABLE).filter(function(doc) {
+      return doc('id').typeOf().eq("STRING")
+    }).delete()
     compare(query, done);
   });
 
