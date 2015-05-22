@@ -93,6 +93,22 @@ describe('manipulating-tables.js', function(){
     compare(query, done);
   });
 
+  it('tableCreate - 9', function(done) {
+    var query = r.tableCreate('foo_bar');
+    compare(query, done, function(result) {
+      return result.tables_created;
+    });
+  });
+
+  it('tableCreate - 9 - follow up', function(done) {
+    var query = r.tableDrop('foo_bar');
+    compare(query, done, function(result) {
+      return result.tables_dropped;
+    });
+  });
+
+
+
   it('tableList - 1', function(done) { // run after the tableCreate tests and before the tableDrop tests
     var query = r.db(TEST_DB).tableList();
     compare(query, done, function(tables) {

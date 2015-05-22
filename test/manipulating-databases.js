@@ -53,6 +53,20 @@ describe('manipulating-databases.js', function(){
   });
 
   it('dbCreate - 5', function(done) {
+    var query = r.dbCreate('foo_bar');
+    compare(query, done, function(doc) {
+      delete doc.config_changes[0].new_val.id
+      return doc;
+    });
+  });
+  it('dbCreate - 5 - follow up', function(done) {
+    var query = r.dbDrop('foo_bar');
+    compare(query, done, function(result) {
+      return result.dbs_dropped;
+    });
+  });
+
+  it('dbCreate - 6', function(done) {
     var query = r.dbCreate(TEST_DB); // The database exists
     compare(query, done);
   });
