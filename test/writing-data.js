@@ -332,6 +332,7 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({buzz: 4}, {returnChanges: true});
     compare(query, done);
   });
+
   it('update - 24 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1);
     compare(query, done);
@@ -399,6 +400,7 @@ describe('writing-data.js', function(){
     })
     compare(query, done);
   });
+
   it('replace - 5 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).orderBy('id');
     compare(query, done);
