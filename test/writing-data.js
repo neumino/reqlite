@@ -134,6 +134,16 @@ describe('writing-data.js', function(){
   });
 
   it('insert - 11', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert([{}, {}, {}])
+    compare(query, done, function(result) {
+      assert.equal(result.generated_keys.length, 3);
+      delete result.generated_keys;
+      return result;
+    });
+  });
+
+  /*
+  it('insert - 11', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({
       id: 103, // primary key already used
       foo: 'bar<new>'
