@@ -535,6 +535,11 @@ describe('transformations.js', function(){
     compare(query, done);
   });
 
+  it('orderBy - 44', function(done) {
+    var query = r.expr([1,2,3]).orderBy({index: 'foo'})
+    compare(query, done);
+  });
+
   it('skip - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).orderBy('id').skip(0);
     compare(query, done);
