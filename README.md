@@ -65,20 +65,19 @@ of pull requests!
 
 ## Contribute
 
-File a bug, write a test or send a pull request. Don't be shy :)
-
+See [CONTRIBUTING.md](https://github.com/neumino/reqlite/blob/master/CONTRIBUTING.md), don't be shy :)
 
 ## Contact
 
 Michel Tu:
-- [neumino@freenode](irc://irc.freenode.org/rethinkdb)
+- [neumino@freenode.org](irc://irc.freenode.org/rethinkdb)
 - [@neumino](https://twitter.com/neumino)
 - [orphee@gmail.com](orphee@gmail.com)
 
 
 ## License
 
-MIT, see the LICENSE FILE
+MIT, see the [LICENSE FILE](https://github.com/neumino/reqlite/blob/master/LICENSE)
 
 
 ## Note
