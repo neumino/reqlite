@@ -168,6 +168,78 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
+  it('insert - 13', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: true});
+    compare(query, done);
+  });
+  it('insert - 13 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(true)
+    compare(query, done);
+  });
+  it('insert - 13 - follow up - 2', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(true).delete()
+    compare(query, done);
+  });
+
+  it('insert - 14', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: null});
+    compare(query, done);
+  });
+  it('insert - 14 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(null)
+    compare(query, done);
+  });
+  it('insert - 14 - follow up - 2', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(null).delete()
+    compare(query, done);
+  });
+
+  it('insert - 15', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: r.point(0, 0)});
+    compare(query, done);
+  });
+  it('insert - 15 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.point(0, 0))
+    compare(query, done);
+  });
+  it('insert - 15 - follow up - 2', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.point(0, 0)).delete()
+    compare(query, done);
+  });
+
+  it('insert - 16', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: r.time(1986, 11, 3, 'Z')});
+    compare(query, done);
+  });
+  it('insert - 16 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.time(1986, 11, 3, 'Z'))
+    compare(query, done);
+  });
+  it('insert - 16 - follow up - 2', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: r.time(1986, 11, 3, '+00:00')});
+    compare(query, done, function(e) {
+      delete e.first_error;
+      return e;
+    });
+  });
+  it('insert - 16 - follow up - 3', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.time(1986, 11, 3, 'Z')).delete()
+    compare(query, done);
+  });
+
+  it('insert - 17', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: new Buffer('Hello world')});
+    compare(query, done);
+  });
+  it('insert - 17 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(new Buffer('Hello world'))
+    compare(query, done);
+  });
+  it('insert - 17 - follow up - 2', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(new Buffer('Hello world')).delete();
+    compare(query, done);
+  });
+
   it('update - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({foo: 20, bar: 30});
     compare(query, done);
