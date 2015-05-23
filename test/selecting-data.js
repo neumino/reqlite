@@ -338,6 +338,21 @@ describe('selecting-data.js', function(){
     compare(query, done);
   });
 
+  it('between - 22', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).between(200, 300, {index: 'barmulti'});
+    compare(query, done);
+  });
+
+  it('between - 23', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'barmulti'}).between(200, 300, {index: 'barmulti'});
+    compare(query, done);
+  });
+
+  it('between - 24', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).between(200, 300, {index: 'barmulti'});
+    compare(query, done);
+  });
+
   it('filter - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).filter({id: 1}).orderBy('id');
     compare(query, done);
