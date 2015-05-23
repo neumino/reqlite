@@ -9,7 +9,7 @@ before_install:
 before_script:
   - sudo rethinkdb --daemon
   - npm install
-  - node ./lib/node.js --port-offset 1 &
+  - ./bin/reqlite --port-offset 1 &
   - sleep 10
 after_script:
   - rethinkdb
