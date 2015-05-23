@@ -67,7 +67,7 @@ of pull requests!
 
 See [CONTRIBUTING.md](https://github.com/neumino/reqlite/blob/master/CONTRIBUTING.md), don't be shy :)
 
-See also the [contributors](https://github.com/neumino/reqlite/graphs/contributors)
+Huge thanks to the [contributors](https://github.com/neumino/reqlite/graphs/contributors)
 
 ## Contact
 
