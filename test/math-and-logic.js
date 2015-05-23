@@ -2373,7 +2373,10 @@ describe('math-and-logic.js', function(){
     compare(query, done)
   })
 
-
+  it('and - 401', function(done) {
+    var query = r.and()
+    compare(query, done)
+  })
 
   it('or - 1', function(done) {
     var query = r.expr("foo").or("foo")
@@ -4420,6 +4423,11 @@ describe('math-and-logic.js', function(){
 
   it('or - 400', function(done) {
     var query = r.expr(r.binary(new Buffer("hello"))).or(r.binary(new Buffer("hello")))
+    compare(query, done)
+  })
+
+  it('or - 401', function(done) {
+    var query = r.or()
     compare(query, done)
   })
 

@@ -1406,6 +1406,14 @@ describe('document-manipulation.js', function(){
     compare(query, done);
   });
 
+  it('literal - 5', function(done) {
+    var query = r.expr({}).merge({a: r.literal('a', 'b')})
+    compare(query, done, function(e) {
+      console.log(e);
+      return e;
+    });
+  });
+
   it('object - 1', function(done) {
     var query = r.object('foo', 1, 'bar', 2)
     compare(query, done);

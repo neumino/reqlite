@@ -839,6 +839,11 @@ describe('control-structures.js', function(){
     compare(query, done)
   })
 
+  it('coerceTo - 55', function(done) {
+    var query = r.expr('foo').coerceTo('bar', 'buzz');
+    compare(query, done)
+  })
+
   it('typeOf - 1', function(done) {
     var query = r.expr("foo").typeOf()
     compare(query, done)
@@ -1080,6 +1085,10 @@ describe('control-structures.js', function(){
     compare(query, done);
   });
 
+  it('forEach - 6', function(done) {
+    var query = r.expr('foo').forEach('foo', 'bar');
+    compare(query, done);
+  });
 
   it('asc - 1', function(done) {
     var query = r.asc('foo')

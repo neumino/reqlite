@@ -305,6 +305,11 @@ describe('aggregation.js', function(){
     compare(query, done);
   });
 
+  it('group - 21',  function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).group().count()
+    compare(query, done);
+  });
+
   it('ungroup - 1', function(done) {
     var query = r.expr([
       {id: 1, foo: 2},
@@ -914,6 +919,11 @@ describe('aggregation.js', function(){
     var query = r.expr([1,2,3]).contains(function(value) {
       return r.db(TEST_DB).table(TEST_TABLE)
     });
+    compare(query, done);
+  });
+
+  it('contains - 18', function(done) {
+    var query = r.expr([1,2,3]).contains();
     compare(query, done);
   });
 
