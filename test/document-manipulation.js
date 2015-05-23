@@ -1408,10 +1408,7 @@ describe('document-manipulation.js', function(){
 
   it('literal - 5', function(done) {
     var query = r.expr({}).merge({a: r.literal('a', 'b')})
-    compare(query, done, function(e) {
-      console.log(e);
-      return e;
-    });
+    compare(query, done);
   });
 
   it('object - 1', function(done) {

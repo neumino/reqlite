@@ -182,6 +182,11 @@ describe('string-manipulation.js', function(){
     compare(query, done);
   });
 
+  it('upcase - 3', function(done) {
+    var query = r.expr("C'est l'été.").upcase()
+    compare(query, done);
+  });
+
   it('downcase - 1', function(done) {
     var query = r.expr("Sentence about LaTeX.").downcase()
     compare(query, done);
@@ -197,11 +202,10 @@ describe('string-manipulation.js', function(){
     compare(query, done);
   });
 
-  /* TODO
-  it('upcase - 2', function(done) {
-    var query = r.expr("C'est l'été.").upcase()
+  it('downcase - 4', function(done) {
+    var query = r.expr("C'ÉTÉ ouhYou").downcase()
     compare(query, done);
   });
-  */
+
 
 });
