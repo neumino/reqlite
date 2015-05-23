@@ -10,7 +10,7 @@ you can connect to reqlite with the RethinkDB driver and send queries (create
 a table, insert documents, filter them, open a chanfeed etc.
 
 ```
-node ./lib/node.js
+./bin/reqlite
 ```
 
 ## Does it work?
