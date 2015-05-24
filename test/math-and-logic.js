@@ -334,7 +334,7 @@ describe('math-and-logic.js', function(){
   });
 
   it('and - 1', function(done) {
-    var query = r.expr("foo").and("foo")
+    var query = r.expr("foo").and("bar")
     compare(query, done)
   })
 
