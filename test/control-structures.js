@@ -453,6 +453,7 @@ describe('control-structures.js', function(){
     }, true);
   });
 
+  /*
   it('range - 5', function(done) { // less than one batch
     var query = r.range();
     compare(query, done, function(stream1, stream2) {
@@ -479,6 +480,7 @@ describe('control-structures.js', function(){
       get();
     }, true);
   });
+  */
 
   it('range - 6', function(done) {
     var query = r.range(1,2,3,4);
@@ -930,8 +932,6 @@ describe('control-structures.js', function(){
     compare(query, done);
   })
 
-  //TODO: Test and implement http
-
   it('json - 6', function(done) {
     var query = r.json(JSON.stringify([1,2,3]))
     compare(query, done);
@@ -1239,6 +1239,18 @@ describe('control-structures.js', function(){
     })
   })
 
+  //TODO Uncomment r.range - 5
+  it('http - 1', function(done) {
+    var query = r.http('http://httpbin.org/get');
+    compare(query, done);
+  })
+
+  it('http - 1', function(done) {
+    var query = r.expr([1,2,3, r.http('http://httpbin.org/get')]);
+    compare(query, done);
+  })
+
   /*
+    //compare(query, done, function(e) { console.log(JSON.stringify(e, null, 4)); return e; });
   */
 });

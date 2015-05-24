@@ -24,7 +24,8 @@
     "bluebird": ">= 2.0.0",
     "minimist": "0.2.0",
     "geolib": "2.0.14",
-    "moment": "2.10.3"
+    "moment": "2.10.3",
+    "request": "2.55.0"
   },
   "devDependencies": {
     "mocha": ">= 1.20.0",
