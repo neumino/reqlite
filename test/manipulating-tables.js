@@ -107,8 +107,6 @@ describe('manipulating-tables.js', function(){
     });
   });
 
-
-
   it('tableList - 1', function(done) { // run after the tableCreate tests and before the tableDrop tests
     var query = r.db(TEST_DB).tableList();
     compare(query, done, function(tables) {
@@ -228,7 +226,6 @@ describe('manipulating-tables.js', function(){
     compare(query, done);
   });
 
-
   it('indexList - 1', function(done) { // run after the indexDrop test
     var query = r.db(TEST_DB).table(TEST_TABLE).indexList();
     compare(query, done);
@@ -248,6 +245,7 @@ describe('manipulating-tables.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).indexCreate(TEST_INDEX);
     compare(query, done);
   });
+
   it('indexRename - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).indexRename(TEST_INDEX, TEST_INDEX2);
     compare(query, done);
