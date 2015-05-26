@@ -59,8 +59,8 @@ describe('writing-data.js', function(){
   it('insert - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert([
       {id: 2, foo: 0, bar: 0},
-      {id: 3, foo: 0, bar: 0},
       {id: 4, foo: 0, bar: 0},
+      {id: 3, foo: 0, bar: 0},
     ]);
     compare(query, done);
   });
@@ -123,6 +123,7 @@ describe('writing-data.js', function(){
       })
     });
     compare(query, done);
+    //compare(query, done, function(e) { console.log(''); console.log(JSON.stringify(e, null, 4)); return e; });
   });
 
   it('insert - 10', function(done) {
@@ -211,6 +212,7 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: r.time(1986, 11, 3, 'Z')});
     compare(query, done);
   });
+
   it('insert - 16 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(r.time(1986, 11, 3, 'Z'))
     compare(query, done);
@@ -240,6 +242,7 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
+  /*
   it('update - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({foo: 20, bar: 30});
     compare(query, done);
