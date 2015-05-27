@@ -242,7 +242,6 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
-  /*
   it('update - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({foo: 20, bar: 30});
     compare(query, done);
@@ -252,6 +251,7 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
+  /*
   it('update - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(MISSING_ID).update({foo: 20, bar: 30});
     compare(query, done);
