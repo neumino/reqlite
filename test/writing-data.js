@@ -302,7 +302,6 @@ describe('writing-data.js', function(){
     });
     compare(query, done);
   });
-  /*
   it('update - 7 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).orderBy('id');
     compare(query, done);
@@ -354,7 +353,7 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).update(r.js('(function(doc) { return {copyId: doc.id} })'), {nonAtomic: true})
     compare(query, done);
   });
-  it('update - 13 - follow up', function(done) {
+  it('update - 14 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).orderBy('id');
     compare(query, done);
   });
@@ -441,6 +440,7 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
+  /*
   it('replace - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).replace({id: 1, foo: 200});
     compare(query, done);

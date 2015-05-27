@@ -1,11 +1,11 @@
 var Promise = require('bluebird');
 
   new Promise(function(resolve, reject) {
-    resolve(2);
+    throw new Error('foo');
   }).then(function(foo) {
     return 3
-  }).finally(function() {
-    return 4
-  }).then(function(result) {
-    console.log(result);
+  }).catch(function() {
+    console.log(1);
+  }).catch(function(result) {
+    console.log(2);
   });
