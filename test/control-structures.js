@@ -84,7 +84,7 @@ describe('control-structures.js', function(){
 
         done();
       });
-    }, 300)
+    }, 500)
   });
 
   it('args - 1', function(done) {
@@ -381,7 +381,7 @@ describe('control-structures.js', function(){
     compare(query, done);
   });
 
-  it('count - 3', function(done) {
+  it('error - 3', function(done) {
     var query = r.error(1);
     compare(query, done);
   });
@@ -452,35 +452,6 @@ describe('control-structures.js', function(){
       get();
     }, true);
   });
-
-  /*
-  it('range - 5', function(done) { // less than one batch
-    var query = r.range();
-    compare(query, done, function(stream1, stream2) {
-      var index = 50;
-      var result = {
-        stream1: [],
-        stream2: []
-      }
-      function get() {
-        stream1.next().then(function(row) {
-          result.stream1.push(row);
-          return stream2.next();
-        }).then(function(row) {
-          result.stream2.push(row);
-          if (index-- > 0) {
-            get();
-          }
-          else {
-            assert.deepEqual(result.stream1, result.stream2);
-            done();
-          }
-        })
-      }
-      get();
-    }, true);
-  });
-  */
 
   it('range - 6', function(done) {
     var query = r.range(1,2,3,4);
@@ -952,7 +923,6 @@ describe('control-structures.js', function(){
     compare(query, done);
   })
 
-
   it('toJSON - 1', function(done) {
     var query = r.expr({foo: 'bar', buzz: [1,2,3]}).toJSON()
     compare(query, done, function(result) {
@@ -1005,7 +975,6 @@ describe('control-structures.js', function(){
     var query = r.uuid('foo')
     compare(query, done);
   });
-
 
   it('forEach - 1', function(done) {
     var query = r.expr([
@@ -1249,6 +1218,36 @@ describe('control-structures.js', function(){
     var query = r.expr([1,2,3, r.http('http://httpbin.org/get')]);
     compare(query, done);
   })
+
+  /*
+  it('range - 5', function(done) { // less than one batch
+    var query = r.range();
+    compare(query, done, function(stream1, stream2) {
+      var index = 50;
+      var result = {
+        stream1: [],
+        stream2: []
+      }
+      function get() {
+        stream1.next().then(function(row) {
+          result.stream1.push(row);
+          return stream2.next();
+        }).then(function(row) {
+          result.stream2.push(row);
+          if (index-- > 0) {
+            get();
+          }
+          else {
+            assert.deepEqual(result.stream1, result.stream2);
+            done();
+          }
+        })
+      }
+      get();
+    }, true);
+  });
+  */
+
 
   /*
     //compare(query, done, function(e) { console.log(JSON.stringify(e, null, 4)); return e; });
