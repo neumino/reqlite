@@ -316,7 +316,6 @@ describe('aggregation.js', function(){
     compare(query, done);
   });
 
-  /*
   it('ungroup - 1', function(done) {
     var query = r.expr([
       {id: 1, foo: 2},
@@ -583,7 +582,7 @@ describe('aggregation.js', function(){
     compare(query, done);
   });
 
-  it('sum - 7', function(done) {
+  it('sum - 8', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).sum(function(doc) {
       return r.branch(
           doc('id').eq(2),
@@ -700,6 +699,11 @@ describe('aggregation.js', function(){
 
   it('min - 9', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).min('foo', {index: 'barmulti'});
+    compare(query, done);
+  });
+
+  it('min -10', function(done) {
+    var query = r.expr([]).min();
     compare(query, done);
   });
 
@@ -939,6 +943,7 @@ describe('aggregation.js', function(){
     var query = r.expr([1,2,3,4]).contains(r.row.eq(2))
     compare(query, done);
   });
+  /*
   */
 
 });
