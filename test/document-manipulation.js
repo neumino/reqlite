@@ -637,6 +637,7 @@ describe('document-manipulation.js', function(){
     var query = r.expr('foo').prepend(2)
     compare(query, done);
   });
+
   it('difference - 1', function(done) {
     var query = r.expr([1,2,3]).difference([1,2,3])
     compare(query, done);
@@ -687,6 +688,7 @@ describe('document-manipulation.js', function(){
     compare(query, done);
   });
 
+  /*
   it('setInsert - 1', function(done) {
     var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).setInsert({id: {nested: 2}})
     compare(query, done);
