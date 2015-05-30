@@ -170,11 +170,10 @@ describe('dates-and-times.js', function(){
     compare(query, done);
   });
 
-  it('info - 15', function(done) {
+  it('time - 15', function(done) {
     var query = r.time(1986, 11, 3)
     compare(query, done)
   })
-
 
   it('epochTime - 1', function(done) {
     var query = r.epochTime(Date.now());
