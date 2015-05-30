@@ -311,7 +311,6 @@ describe('dates-and-times.js', function(){
     compare(query, done);
   });
 
-
   it('during - 6', function(done) {
     var query = r.time(2013, 12, 1, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {leftBound: 'closed'})
     compare(query, done);
