@@ -320,6 +320,7 @@ describe('changes.js', function(){
     }).catch(done);
   });
 
+  /*
   it('changes - 13', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'id'}).limit(3).changes();
     query.run(mainConnection).then(function(feed) {

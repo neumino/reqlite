@@ -116,7 +116,6 @@ describe('string-manipulation.js', function(){
     compare(query, done);
   });
 
-
   it('split - 1', function(done) {
     var query = r.expr("foo  bar bax").split()
     compare(query, done);
@@ -207,5 +206,7 @@ describe('string-manipulation.js', function(){
     compare(query, done);
   });
 
+  /*
+  */
 
 });

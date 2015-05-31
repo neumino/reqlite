@@ -370,10 +370,8 @@ describe('joins.js', function(){
         'id',
         r.db(TEST_DB).table(TEST_TABLE2)
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
-    //compare(query, done);
-    compare(query, done, function(e) { console.log(''); console.log(e); return e; });
+    compare(query, done);
   });
-  /*
 
   it('eqJoin - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).eqJoin(
