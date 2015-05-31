@@ -853,7 +853,6 @@ describe('geo.js', function(){
     compare(query, done);
   });
 
-
   it('intersects - 14', function(done) {
     var query = r.polygon(
         [-122,37],
@@ -1074,7 +1073,6 @@ describe('geo.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).getNearest('bar', {index: 'location'}).orderBy('id');;
     compare(query, done);
   });
-
 
   /*
   //TODO
