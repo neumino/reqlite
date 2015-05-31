@@ -356,9 +356,7 @@ describe('transformations.js', function(){
     compare(query, done, function(result) {
       return [result[0].foo, result[1].foo, result[2].foo,result[3].foo]
     });
-    compare(query, done, function(e) { console.log(''); console.log(e); return e; });
   });
-  /*
 
   it('orderBy - 11', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: MISSING_INDEX})
