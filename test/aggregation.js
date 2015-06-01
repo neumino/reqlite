@@ -316,6 +316,17 @@ describe('aggregation.js', function(){
     compare(query, done);
   });
 
+  it('group - 22', function(done) {
+    var query = r.expr([
+        {name: "Michel", grownUp: true},
+        {name: "Laurent", grownUp: true},
+        {name: "Sophie", grownUp: true},
+        {name: "Luke", grownUp: false},
+        {name: "Mino", grownUp: false}
+    ]).group('grownUp').orderBy(r.row).ungroup().orderBy(r.row)
+    compare(query, done);
+  });
+
   it('ungroup - 1', function(done) {
     var query = r.expr([
       {id: 1, foo: 2},
