@@ -990,6 +990,11 @@ describe('transformations.js', function(){
     compare(query, done);
   });
 
+  it('sample - 8', function(done) {
+    var query = r.expr([1,2,3,4]).sample(-1);
+    compare(query, done);
+  });
+
 
 
   /*
