@@ -1211,12 +1211,20 @@ describe('control-structures.js', function(){
   //TODO Uncomment r.range - 5
   it('http - 1', function(done) {
     var query = r.http('http://httpbin.org/get');
-    compare(query, done);
+    compare(query, done, function(result) {
+      // The distribution may be added in the user agent (like on Travis)
+      delete result.headers["User-Agent"]
+      return result;
+    });
   })
 
-  it('http - 1', function(done) {
+  it('http - 2', function(done) {
     var query = r.expr([1,2,3, r.http('http://httpbin.org/get')]);
-    compare(query, done);
+    compare(query, done, function(result) {
+      // The distribution may be added in the user agent (like on Travis)
+      delete result.headers["User-Agent"]
+      return result;
+    });
   })
 
   /*
