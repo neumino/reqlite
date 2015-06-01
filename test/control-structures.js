@@ -132,6 +132,22 @@ describe('control-structures.js', function(){
     compare(query, done);
   });
 
+  it('args - 10', function(done) {
+    var query = r.args([10, 20, 30]);
+    compare(query, done);
+  });
+
+  it('args - 11', function(done) {
+    var query = r.args([]);
+    compare(query, done);
+  });
+
+  it('args - 12', function(done) {
+    var query = r.args();
+    compare(query, done);
+  });
+
+
   it('binary - 1', function(done) {
     var query = r.binary(new Buffer('Hello world'));
     compare(query, done);
