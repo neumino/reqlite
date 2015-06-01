@@ -97,33 +97,14 @@ describe('new.js', function(){
   });
 
 
-  //TODO Uncomment r.range - 5
+  //Test playground
+
   /*
-  it('http - 1', function(done) {
-    var query = r.http('http://httpbin.org/get');
-    compare(query, done);
-  })
-
-  it('http - 2', function(done) {
-    var query = r.expr([1,2,3, r.http('http://httpbin.org/get')]);
-    compare(query, done);
-  })
-
-  it('http - 3', function(done) {
-    var query = r.error(r.http('http://httpbin.org/'));
-    compare(query, done);
-  })
-
-  it('http - 3', function(done) {
-    var query = r.db(TEST_DB).table(r.http('http://httpbin.org/'));
-    compare(query, done);
-  })
-  */
-
   it('eq - 1', function(done) {
     var query = r.expr([{id: 10}, {id: 22}, {id: 3}, {id: 1}, {id: 23}, {id: 4}, {id: 211}, {id: 3},{id: 5}]).orderBy('id');
-    //compare(query, done);
+    compare(query, done);
   });
+  */
 
   /*
     compare(query, done, function(e) { console.log(''); console.log(e); return e; });
