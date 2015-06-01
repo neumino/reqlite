@@ -170,11 +170,10 @@ describe('dates-and-times.js', function(){
     compare(query, done);
   });
 
-  it('info - 15', function(done) {
+  it('time - 15', function(done) {
     var query = r.time(1986, 11, 3)
     compare(query, done)
   })
-
 
   it('epochTime - 1', function(done) {
     var query = r.epochTime(Date.now());
@@ -311,7 +310,6 @@ describe('dates-and-times.js', function(){
         {leftBound: r.expr('close').add('d')})
     compare(query, done);
   });
-
 
   it('during - 6', function(done) {
     var query = r.time(2013, 12, 1, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {leftBound: 'closed'})

@@ -114,11 +114,16 @@ describe('joins.js', function(){
     }, 400)
   });
 
+  it('check init join - 1', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy(r.row);
+    compare(query, done);
+  });
+
   it('innerJoin - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).innerJoin(
         r.db(TEST_DB).table(TEST_TABLE2),
         true
-    ).orderBy(r.row('left')('id'), r.row('right')('id'));
+    ).orderBy(r.row);
     compare(query, done);
   });
 

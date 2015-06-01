@@ -97,36 +97,32 @@ describe('new.js', function(){
   });
 
 
-
-  it('lt - 45', function(done) {
-    var query = r.expr({
-      "new_val": {
-        "bar": 0,
-        "copyId": 2,
-        "foo": 2,
-        "id": 2
-      },
-      "old_val": {
-        "bar": 0,
-        "copyId": 2,
-        "foo": 1,
-        "id": 2
-      }
-    }).lt({
-      "new_val": {
-        "bar": 0,
-        "copyId": 3,
-        "foo": 2,
-        "id": 3
-      },
-      "old_val": {
-        "bar": 0,
-        "copyId": 3,
-        "foo": 1,
-        "id": 3
-      }
-    });
+  //TODO Uncomment r.range - 5
+  /*
+  it('http - 1', function(done) {
+    var query = r.http('http://httpbin.org/get');
     compare(query, done);
+  })
+
+  it('http - 2', function(done) {
+    var query = r.expr([1,2,3, r.http('http://httpbin.org/get')]);
+    compare(query, done);
+  })
+
+  it('http - 3', function(done) {
+    var query = r.error(r.http('http://httpbin.org/'));
+    compare(query, done);
+  })
+
+  it('http - 3', function(done) {
+    var query = r.db(TEST_DB).table(r.http('http://httpbin.org/'));
+    compare(query, done);
+  })
+  */
+
+  it('eq - 1', function(done) {
+    var query = r.expr([{id: 10}, {id: 22}, {id: 3}, {id: 1}, {id: 23}, {id: 4}, {id: 211}, {id: 3},{id: 5}]).orderBy('id');
+    //compare(query, done);
   });
 
   /*
