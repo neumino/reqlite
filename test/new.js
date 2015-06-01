@@ -123,7 +123,6 @@ describe('new.js', function(){
   it('eq - 1', function(done) {
     var query = r.expr([{id: 10}, {id: 22}, {id: 3}, {id: 1}, {id: 23}, {id: 4}, {id: 211}, {id: 3},{id: 5}]).orderBy('id');
     //compare(query, done);
-    compare(query, done, function(e) { console.log(''); console.log(e); return e; });
   });
 
   /*
