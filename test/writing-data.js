@@ -252,6 +252,14 @@ describe('writing-data.js', function(){
       return result
     });
   });
+  it('insert - 18 - follow up', function(done) {
+    // We need to clean here as we have different primary keys in reqlite and rethinkdb
+    var query = r.db(TEST_DB).table(TEST_TABLE).filter(function(doc) {
+      return doc('id').typeOf().eq("STRING")
+    }).delete()
+    compare(query, done);
+  });
+
 
   it('update - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({foo: 20, bar: 30});
@@ -293,7 +301,8 @@ describe('writing-data.js', function(){
   });
   it('update - 5 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).orderBy('id');
-    compare(query, done);
+    //compare(query, done);
+    compare(query, done, function(e) { console.log(''); console.log(e); return e; });
   });
 
   it('update - 6', function(done) {
