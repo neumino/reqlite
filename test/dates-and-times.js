@@ -691,6 +691,78 @@ describe('dates-and-times.js', function(){
     compare(query, done);
   });
 
+  it('constant time - 1', function(done) {
+    var query = r.monday
+    compare(query, done);
+  });
+  it('constant time - 2', function(done) {
+    var query = r.tuesday
+    compare(query, done);
+  });
+  it('constant time - 3', function(done) {
+    var query = r.wednesday
+    compare(query, done);
+  });
+  it('constant time - 4', function(done) {
+    var query = r.thursday
+    compare(query, done);
+  });
+  it('constant time - 5', function(done) {
+    var query = r.friday
+    compare(query, done);
+  });
+  it('constant time - 6', function(done) {
+    var query = r.saturday
+    compare(query, done);
+  });
+  it('constant time - 7', function(done) {
+    var query = r.sunday
+    compare(query, done);
+  });
+  it('constant time - 8', function(done) {
+    var query = r.january
+    compare(query, done);
+  });
+  it('constant time - 9', function(done) {
+    var query = r.february
+    compare(query, done);
+  });
+  it('constant time - 10', function(done) {
+    var query = r.march
+    compare(query, done);
+  });
+  it('constant time - 11', function(done) {
+    var query = r.april
+    compare(query, done);
+  });
+  it('constant time - 12', function(done) {
+    var query = r.may
+    compare(query, done);
+  });
+  it('constant time - 13', function(done) {
+    var query = r.june
+    compare(query, done);
+  });
+  it('constant time - 14', function(done) {
+    var query = r.july
+    compare(query, done);
+  });
+  it('constant time - 15', function(done) {
+    var query = r.september
+    compare(query, done);
+  });
+  it('constant time - 16', function(done) {
+    var query = r.october
+    compare(query, done);
+  });
+  it('constant time - 17', function(done) {
+    var query = r.november
+    compare(query, done);
+  });
+  it('constant time - 18', function(done) {
+    var query = r.december
+    compare(query, done);
+  });
   /*
   */
 });
