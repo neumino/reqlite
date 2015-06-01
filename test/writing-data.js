@@ -242,6 +242,17 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
+  it('insert - 18', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({}, {returnChanges: true})
+    compare(query, done, function(result) {
+      assert(typeof result.generated_keys[0] === 'string');
+      assert(result.changes.length === 1);
+      delete result.generated_keys;
+      delete result.changes
+      return result
+    });
+  });
+
   it('update - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({foo: 20, bar: 30});
     compare(query, done);
