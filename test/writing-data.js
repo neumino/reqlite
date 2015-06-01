@@ -301,8 +301,7 @@ describe('writing-data.js', function(){
   });
   it('update - 5 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).orderBy('id');
-    //compare(query, done);
-    compare(query, done, function(e) { console.log(''); console.log(e); return e; });
+    compare(query, done);
   });
 
   it('update - 6', function(done) {

@@ -48,7 +48,6 @@ describe('math-and-logic.js', function(){
     }, 300)
   });
 
-  /*
   it('add - 1', function(done) {
     var query = r.expr(2).add(3);
     compare(query, done);
@@ -4576,7 +4575,6 @@ describe('math-and-logic.js', function(){
     var query = r.ne('bar');
     compare(query, done);
   });
-  */
 
   it('lt - 1', function(done) {
     var query = r.expr(2).lt(1);
