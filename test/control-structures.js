@@ -1222,7 +1222,7 @@ describe('control-structures.js', function(){
     var query = r.expr([1,2,3, r.http('http://httpbin.org/get')]);
     compare(query, done, function(result) {
       // The distribution may be added in the user agent (like on Travis)
-      delete result.headers["User-Agent"]
+      delete result[3].headers["User-Agent"]
       return result;
     });
   })
