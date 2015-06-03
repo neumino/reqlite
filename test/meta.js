@@ -40,7 +40,6 @@ describe('meta.js', function(){
         this.query = r.dbCreate(TEST_DB);
         return this.query.run(connections.rethinkdb);
       }).catch(function(e) { // ignore errors
-        console.log(e);
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
