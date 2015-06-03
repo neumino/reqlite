@@ -1272,7 +1272,6 @@ describe('control-structures.js', function(){
   });
   */
 
-
   /*
     //compare(query, done, function(e) { console.log(JSON.stringify(e, null, 4)); return e; });
   */
