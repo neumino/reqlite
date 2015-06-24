@@ -162,7 +162,7 @@ describe('control-structures.js', function(){
     var query = r.binary(new Buffer('a')).count();
     compare(query, done);
   });
-  
+
   it('do - 1', function(done) {
     var query = r.expr('hello').do(function(value) {
       return value.add('bar');
@@ -1239,6 +1239,15 @@ describe('control-structures.js', function(){
     compare(query, done, function(result) {
       // The distribution may be added in the user agent (like on Travis)
       delete result[3].headers["User-Agent"]
+      return result;
+    });
+  })
+
+  it('http - 3', function(done) {
+    var query = r.http('http://httpbin.org/image/png', { resultFormat: 'binary' });
+    compare(query, done, function(result) {
+      // The distribution may be added in the user agent (like on Travis)
+      console.log('result', result);
       return result;
     });
   })
