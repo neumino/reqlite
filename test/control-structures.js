@@ -1245,11 +1245,7 @@ describe('control-structures.js', function(){
 
   it('http - 3', function(done) {
     var query = r.http('http://httpbin.org/image/png', { resultFormat: 'binary' });
-    compare(query, done, function(result) {
-      // The distribution may be added in the user agent (like on Travis)
-      console.log('result', result);
-      return result;
-    });
+    compare(query, done);
   })
 
   /*
