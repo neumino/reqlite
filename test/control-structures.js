@@ -1243,8 +1243,18 @@ describe('control-structures.js', function(){
     });
   })
 
-  it('http - 3', function(done) {
+  it('http - binary', function(done) {
     var query = r.http('http://httpbin.org/image/png', { resultFormat: 'binary' });
+    compare(query, done);
+  })
+
+  it('http - header - 1', function(done) {
+    var query = r.http('http://httpbin.org/get', { header: { 'User-Agent': 'NotDefault/1.0' } });
+    compare(query, done);
+  })
+
+  it('http - header - 2', function(done) {
+    var query = r.http('http://httpbin.org/get', { header: [ 'User-Agent: NotDefault/1.0' ] });
     compare(query, done);
   })
 
