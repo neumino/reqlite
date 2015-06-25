@@ -1258,6 +1258,11 @@ describe('control-structures.js', function(){
     compare(query, done);
   })
 
+  it('http - params', function(done) {
+    var query = r.http('http://httpbin.org/get', { params: { foo: 'bar' } });
+    compare(query, done);
+  })
+
   /*
   it('range - 5', function(done) { // less than one batch
     var query = r.range();
