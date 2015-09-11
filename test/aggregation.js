@@ -327,6 +327,16 @@ describe('aggregation.js', function(){
     compare(query, done);
   });
 
+  it('group - 23', function(done) {
+    var query = r.expr([
+      {id: 1, x: 3},
+      {id: 1, x: 4},
+      {id: 2, x: 5},
+      {id: 3, x: 6}
+    ]).group("id").map(function(item){return 2}).ungroup().orderBy(r.row)
+    compare(query, done);
+  });
+
   it('ungroup - 1', function(done) {
     var query = r.expr([
       {id: 1, foo: 2},
