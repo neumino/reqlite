@@ -1,6 +1,6 @@
 {
   "name": "reqlite",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "",
   "main": "lib/index.js",
   "bin": {
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "mocha": ">= 1.20.0",
-    "rethinkdb": ">= 2.0.0",
-    "rethinkdbdash": ">= 2.0.0"
+    "rethinkdb": "~ 2.0.0",
+    "rethinkdbdash": "~ 2.0.0"
   }
 }

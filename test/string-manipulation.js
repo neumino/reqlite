@@ -166,6 +166,11 @@ describe('string-manipulation.js', function(){
     compare(query, done);
   });
 
+  it('split - 11', function(done) {
+    var query = r.expr('foo bar buzz').split().count()
+    compare(query, done);
+  });
+
   it('upcase - 1', function(done) {
     var query = r.expr("Sentence about LaTeX.").upcase()
     compare(query, done);
