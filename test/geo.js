@@ -1045,12 +1045,12 @@ describe('geo.js', function(){
   });
 
   it('getNearest - 1', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).getNearest(r.point(10, 10), {index: 'location'}).orderBy('id');;
+    var query = r.db(TEST_DB).table(TEST_TABLE).getNearest(r.point(10, 10), {index: 'location'}).orderBy('id');
     compare(query, done);
   });
 
   it('getNearest - 2', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).getNearest(r.point(10, 10), {index: 'location', maxDist: 120000}).orderBy(r.row);;
+    var query = r.db(TEST_DB).table(TEST_TABLE).getNearest(r.point(10, 10), {index: 'location', maxDist: 120000}).orderBy(r.row);
     compare(query, done, function(result) {
       for(var i=0; i<result.length; i++) {
         result[i].dist = Math.floor(result[i].dist)
@@ -1060,17 +1060,17 @@ describe('geo.js', function(){
   });
 
   it('getNearest - 3', function(done) {
-    var query = r.expr('foo').getNearest(r.point(10, 10), {index: 'location'}).orderBy('id');;
+    var query = r.expr('foo').getNearest(r.point(10, 10), {index: 'location'}).orderBy('id');
     compare(query, done);
   });
 
   it('getNearest - 1', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).getNearest(r.args([10, 10]), {index: 'location'}).orderBy('id');;
+    var query = r.db(TEST_DB).table(TEST_TABLE).getNearest(r.args([10, 10]), {index: 'location'}).orderBy('id');
     compare(query, done);
   });
 
   it('getNearest - 1', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).getNearest('bar', {index: 'location'}).orderBy('id');;
+    var query = r.db(TEST_DB).table(TEST_TABLE).getNearest('bar', {index: 'location'}).orderBy('id');
     compare(query, done);
   });
 

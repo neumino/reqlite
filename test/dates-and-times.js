@@ -51,7 +51,7 @@ describe('dates-and-times.js', function(){
   it('now - 3', function(done) {
     var query = r.now().do(function(x) {
       return r.now().eq(x);
-    });;
+    });
     compare(query, done);
   });
 

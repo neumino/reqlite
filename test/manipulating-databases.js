@@ -81,7 +81,7 @@ describe('manipulating-databases.js', function(){
           break;
         }
       }
-      return [Array.isArray(dbs), contain] ;
+      return [Array.isArray(dbs), contain];
     });
   });
   it('dbList', function(done) {

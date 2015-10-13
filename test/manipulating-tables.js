@@ -117,7 +117,7 @@ describe('manipulating-tables.js', function(){
           break;
         }
       }
-      return [Array.isArray(tables), contain] ;
+      return [Array.isArray(tables), contain];
     });
   });
 
@@ -136,7 +136,7 @@ describe('manipulating-tables.js', function(){
           break;
         }
       }
-      return [Array.isArray(tables), contain] ;
+      return [Array.isArray(tables), contain];
     });
   });
 
