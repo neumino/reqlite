@@ -1,4 +1,4 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 var r = require('rethinkdb');
 var assert = require('assert');
@@ -11,7 +11,7 @@ var MISSING_ID = 'nonExistingId';
 var MISSING_FIELD = 'nonExistingField';
 var MISSING_INDEX = 'nonExistingIndex';
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 describe('joins.js', function(){
   before(function(done) {
@@ -419,7 +419,7 @@ describe('joins.js', function(){
   it('eqJoin - 7', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).eqJoin(
         'id',
-        [1,2,3,4,5] 
+        [1,2,3,4,5]
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done, function(error) {
       var message = error.split(':')[0];
