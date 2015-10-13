@@ -1,4 +1,4 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 var r = require('rethinkdb');
 var assert = require('assert');
@@ -8,7 +8,7 @@ var TEST_DB = 'reqlitetest';
 var TEST_TABLE = 'reqlitetestwritingdata';
 var MISSING_ID = 'nonExistingId';
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 // Use integers for primary keys if possible. That way we can easily delete
 // generated primary keys with just looking for strings.

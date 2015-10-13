@@ -1,4 +1,4 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 var r = require('rethinkdb');
 var assert = require('assert');
@@ -26,7 +26,7 @@ var COMPLEX_OBJECT = {
   },
 }
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 describe('transformations.js', function(){
   before(function(done) {
@@ -233,7 +233,7 @@ describe('transformations.js', function(){
     var query = r.expr([COMPLEX_OBJECT]).withFields({'buzz': {'missing': true}});
     compare(query, done);
   });
-  
+
   it('withFields - 10', function(done) {
     var query = r.expr([COMPLEX_OBJECT]).withFields({'buzz': ['missing']});
     compare(query, done);
@@ -248,7 +248,7 @@ describe('transformations.js', function(){
     var query = r.expr([1, 2, 3]).concatMap(function(x) { return [x, x.mul(2)] });
     compare(query, done);
   });
-  
+
   it('concatMap - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).concatMap(function(doc) {
       return doc('bar')
@@ -620,7 +620,7 @@ describe('transformations.js', function(){
     var query = r.expr([1,2,3,4,5]).limit(200);
     compare(query, done);
   });
-  
+
   it('limit - 3', function(done) {
     var query = r.expr([1,2,3,4,5]).limit(-1);
     compare(query, done);

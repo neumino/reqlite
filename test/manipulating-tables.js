@@ -1,8 +1,8 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 var r = require('rethinkdb');
 var assert = require('assert');
-var util = require(__dirname+'/util.js');
+var util = require('./util.js');
 
 var connections = {};
 var TEST_DB = 'reqlitetest';
@@ -13,7 +13,7 @@ var TEST_INDEX = 'reqlitetestindex';
 var TEST_INDEX2 = 'reqlitetestindex2';
 var MISSING_INDEX = 'reqlitetestindexthatdoesnotexit';
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 describe('manipulating-tables.js', function(){
   before(function(done) {
@@ -149,7 +149,7 @@ describe('manipulating-tables.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).sync()
     compare(query, done);
   });
-  
+
   it('sync - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).sync(1,2,3)
     compare(query, done);

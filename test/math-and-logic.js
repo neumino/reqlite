@@ -1,4 +1,4 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 var r = require('rethinkdb');
 var assert = require('assert');
@@ -12,7 +12,7 @@ var MISSING_INDEX = 'nonExistingIndex';
 var MIN_RANDOM = 1000;
 var MAX_RANDOM = 100000;
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 describe('math-and-logic.js', function(){
   before(function(done) {
@@ -222,7 +222,7 @@ describe('math-and-logic.js', function(){
     var query = r.expr(12).div(0);
     compare(query, done);
   });
-  
+
   it('div - 4', function(done) {
     var query = r.expr(12).div('foo');
     compare(query, done);
