@@ -18,14 +18,22 @@ module.exports.generateCompare = function(connections) {
           }
           else {
             resultrethinkdb.toArray().then(function(resultrethinkdb) {
-              assert.deepEqual(transform(resultreqlite), transform(resultrethinkdb));
-              done();
+              try {
+                assert.deepEqual(transform(resultreqlite), transform(resultrethinkdb));
+                done();
+              } catch(err) {
+                done(err);
+              }
             });
           }
         }
         else {
-          assert.deepEqual(transform(resultreqlite), transform(resultrethinkdb));
-          done();
+          try {
+            assert.deepEqual(transform(resultreqlite), transform(resultrethinkdb));
+            done();
+          } catch(err) {
+            done(err);
+          }
         }
       }).error(function(error) {
         done(new Error("Reqlite failed with"+JSON.stringify(error.message)+'\n'+JSON.stringify(error.stack)));
@@ -37,13 +45,13 @@ module.exports.generateCompare = function(connections) {
       }).error(function(errorreqlite) {
         try {
           assert.equal(transform(errorreqlite.message), transform(errorrethinkdb.message));
+          done();
         } catch(err) {
           console.log('=== reqlite / rethinkdb ===');
           console.log(transform(errorreqlite.message));
           console.log(transform(errorrethinkdb.message));
-          throw err;
+          done(err);
         }
-        done();
       });
     }).catch(done);
   }

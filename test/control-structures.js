@@ -1082,7 +1082,8 @@ describe('control-structures.js', function(){
   });
 
   it('asc - 1', function(done) {
-    var query = r.asc('foo')
+    // See https://github.com/rethinkdb/rethinkdb/issues/4951
+    var query = r.expr({foo: r.asc('foo')})
     compare(query, done);
   });
 
@@ -1095,7 +1096,7 @@ describe('control-structures.js', function(){
 //  });
 
   it('desc - 1', function(done) {
-    var query = r.desc('foo')
+    var query = r.expr({foo: r.desc('foo')})
     compare(query, done);
   });
 
@@ -1194,10 +1195,7 @@ describe('control-structures.js', function(){
 
   it('info - 16', function(done) {
     var query = r.expr(null).info()
-    compare(query, done, function(result) {
-      result.value = JSON.parse(result.value);
-      return result;
-    })
+    compare(query, done);
   })
 
   it('info - 17', function(done) {
