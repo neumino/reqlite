@@ -1100,7 +1100,6 @@ describe('control-structures.js', function(){
 
   it('desc - 1', function(done) {
     var query = r.expr({foo: r.desc('foo')})
-    compare(query, done);
     compare(query, done, function(err) {
       return err.split('\n')[0]
     });
