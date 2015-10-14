@@ -81,7 +81,13 @@ describe('control-structures.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait()
+        return this.query.run(connections.rethinkdb);
+      }).catch(function(e) { // ignore errors
+      }).finally(function() {
+        return this.query.run(connections.reqlite);
+      }).catch(function() { // ignore errors
+      }).finally(function() {
         done();
       });
     }, 500)
@@ -1076,8 +1082,12 @@ describe('control-structures.js', function(){
   });
 
   it('asc - 1', function(done) {
-    var query = r.asc('foo')
-    compare(query, done);
+    // See https://github.com/rethinkdb/rethinkdb/issues/4951
+    var query = r.expr({foo: r.asc('foo')})
+    compare(query, done, function(err) {
+      //TODO Properly create a backtrace using internalOptions
+      return err.split('\n')[0]
+    });
   });
 
   // Require some work to track frames
@@ -1089,8 +1099,11 @@ describe('control-structures.js', function(){
 //  });
 
   it('desc - 1', function(done) {
-    var query = r.desc('foo')
+    var query = r.expr({foo: r.desc('foo')})
     compare(query, done);
+    compare(query, done, function(err) {
+      return err.split('\n')[0]
+    });
   });
 
   it('info - 1', function(done) {
@@ -1188,10 +1201,7 @@ describe('control-structures.js', function(){
 
   it('info - 16', function(done) {
     var query = r.expr(null).info()
-    compare(query, done, function(result) {
-      result.value = JSON.parse(result.value);
-      return result;
-    })
+    compare(query, done);
   })
 
   it('info - 17', function(done) {
