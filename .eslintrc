@@ -1,10 +1,4 @@
 {
-  "parser": "babel-eslint",
-
-  "ecmaFeatures": {
-    "jsx": true,
-    "modules": true
-  },
 
   "env": {
     "es6": true,
@@ -18,9 +12,7 @@
     "describe": true,
     "before": true,
     "it": true,
-    "__DEV__": true,
     "__dirname": false,
-    "__fbBatchedBridgeConfig": false,
     "cancelAnimationFrame": false,
     "clearImmediate": true,
     "clearInterval": false,
@@ -31,7 +23,6 @@
     "exports": false,
     "fetch": false,
     "global": false,
-    "jest": false,
     "Map": true,
     "module": false,
     "navigator": false,
@@ -44,8 +35,7 @@
     "setInterval": false,
     "setTimeout": false,
     "window": false,
-    "XMLHttpRequest": false,
-    "pit": false
+    "XMLHttpRequest": false
   },
 
   "rules": {
@@ -187,7 +177,7 @@
     "space-after-keywords": 0,       // require a space after certain keywords (off by default)
     "space-in-brackets": 0,          // require or disallow spaces inside brackets (off by default)
     "space-in-parens": 0,            // require or disallow spaces inside parentheses (off by default)
-    "space-infix-ops": 1,            // require spaces around operators
+    "space-infix-ops": 0,            // require spaces around operators
     "space-return-throw-case": 1,    // require a space after return, throw, and case
     "space-unary-ops": [1, { "words": true, "nonwords": false }], // require or disallow spaces before/after unary operators (words on by default, nonwords off by default)
     "max-nested-callbacks": 0,       // specify the maximum depth callbacks can be nested (off by default)

@@ -16,8 +16,7 @@ var config = module.exports = {
     plugins: [],
     module: {
       loaders: [
-        { test: /\.json$/, loader: 'json-loader' },
-        { test: /\.js$/, loaders: ['babel'], exclude: /node_modules/ }
+        { test: /\.json$/, loader: 'json-loader' }
       ]
     },
     browser: {

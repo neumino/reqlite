@@ -8,10 +8,10 @@ for(var key in argv) {
     case "_":
       break;
     case "driver-port":
-      options['driver-port'] = parseInt(argv[key], 10) + 28015;
+      options['driver-port'] = parseInt(argv[key], 10)+28015;
       break;
     case "port-offset":
-      options['driver-port'] = parseInt(argv[key], 10) + 28015;
+      options['driver-port'] = parseInt(argv[key], 10)+28015;
       break;
     case "debug":
       options.debug = argv[key];
