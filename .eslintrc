@@ -1,10 +1,4 @@
 {
-  "parser": "babel-eslint",
-
-  "ecmaFeatures": {
-    "jsx": true,
-    "modules": true
-  },
 
   "env": {
     "es6": true,
@@ -18,9 +12,7 @@
     "describe": true,
     "before": true,
     "it": true,
-    "__DEV__": true,
     "__dirname": false,
-    "__fbBatchedBridgeConfig": false,
     "cancelAnimationFrame": false,
     "clearImmediate": true,
     "clearInterval": false,
@@ -31,7 +23,6 @@
     "exports": false,
     "fetch": false,
     "global": false,
-    "jest": false,
     "Map": true,
     "module": false,
     "navigator": false,
@@ -44,8 +35,7 @@
     "setInterval": false,
     "setTimeout": false,
     "window": false,
-    "XMLHttpRequest": false,
-    "pit": false
+    "XMLHttpRequest": false
   },
 
   "rules": {
