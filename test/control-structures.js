@@ -1084,7 +1084,10 @@ describe('control-structures.js', function(){
   it('asc - 1', function(done) {
     // See https://github.com/rethinkdb/rethinkdb/issues/4951
     var query = r.expr({foo: r.asc('foo')})
-    compare(query, done);
+    compare(query, done, function(err) {
+      //TODO Properly create a backtrace using internalOptions
+      return err.split('\n')[0]
+    });
   });
 
   // Require some work to track frames
@@ -1098,6 +1101,9 @@ describe('control-structures.js', function(){
   it('desc - 1', function(done) {
     var query = r.expr({foo: r.desc('foo')})
     compare(query, done);
+    compare(query, done, function(err) {
+      return err.split('\n')[0]
+    });
   });
 
   it('info - 1', function(done) {
