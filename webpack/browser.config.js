@@ -6,7 +6,7 @@ var TcpPolyfillPlugin = require('./TCPPolyfillPlugin');
 var TlsStubPlugin = require('./TLSStubPlugin');
 
 var config = module.exports = {
-    entry: ['./lib/index'],
+    entry: ['./lib/browser/index'],
     output: {
       library: 'Reqlite',
       libraryTarget: 'umd',
