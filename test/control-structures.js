@@ -168,7 +168,7 @@ describe('control-structures.js', function(){
     var query = r.binary(new Buffer('a')).count();
     compare(query, done);
   });
-  
+
   it('do - 1', function(done) {
     var query = r.expr('hello').do(function(value) {
       return value.add('bar');
@@ -1251,6 +1251,26 @@ describe('control-structures.js', function(){
       delete result[3].headers["User-Agent"]
       return result;
     });
+  })
+
+  it('http - binary', function(done) {
+    var query = r.http('http://httpbin.org/image/png', { resultFormat: 'binary' });
+    compare(query, done);
+  })
+
+  it('http - header - 1', function(done) {
+    var query = r.http('http://httpbin.org/get', { header: { 'User-Agent': 'NotDefault/1.0' } });
+    compare(query, done);
+  })
+
+  it('http - header - 2', function(done) {
+    var query = r.http('http://httpbin.org/get', { header: [ 'User-Agent: NotDefault/1.0' ] });
+    compare(query, done);
+  })
+
+  it('http - params', function(done) {
+    var query = r.http('http://httpbin.org/get', { params: { foo: 'bar' } });
+    compare(query, done);
   })
 
   /*
