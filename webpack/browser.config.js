@@ -16,11 +16,11 @@ var config = module.exports = {
     plugins: [],
     module: {
       loaders: [
+        { test: /\.js$/, loaders: ['babel'], exclude: /node_modules/ },
         { test: /\.json$/, loader: 'json-loader' }
       ]
     },
-    browser: {
-      console: true,
+    node: {
       fs: 'empty'
     }
   };
@@ -46,8 +46,9 @@ var config = module.exports = {
       new FunctionModulePlugin(config.output),
       new webpack.ExternalsPlugin('commonjs', externals),
       new webpack.LoaderTargetPlugin('node'),
-      new TcpPolyfillPlugin(/node_modules\/rethinkdb|node_modules\/request|lib/),
-      new TlsStubPlugin(/node_modules\/rethinkdb|node_modules\/request|lib/)
+      new webpack.DefinePlugin({ "global.GENTLY": false }),
+      new TcpPolyfillPlugin(/node_modules\/rethinkdb|node_modules\/superagent|lib/),
+      new TlsStubPlugin(/node_modules\/rethinkdb|node_modules\/superagent|lib/)
     );
   };
 
