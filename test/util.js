@@ -18,14 +18,26 @@ module.exports.generateCompare = function(connections) {
           }
           else {
             resultrethinkdb.toArray().then(function(resultrethinkdb) {
-              assert.deepEqual(transform(resultreqlite), transform(resultrethinkdb));
-              done();
+              try {
+                assert.deepEqual(transform(resultreqlite), transform(resultrethinkdb));
+                done();
+              } catch(err) {
+                console.log(JSON.stringify(transform(resultreqlite), null, 2));
+                console.log(JSON.stringify(transform(resultrethinkdb), null, 2));
+                done(err);
+              }
             });
           }
         }
         else {
-          assert.deepEqual(transform(resultreqlite), transform(resultrethinkdb));
-          done();
+          try {
+            assert.deepEqual(transform(resultreqlite), transform(resultrethinkdb));
+            done();
+          } catch(err) {
+            console.log(JSON.stringify(transform(resultreqlite), null, 2));
+            console.log(JSON.stringify(transform(resultrethinkdb), null, 2));
+            done(err);
+          }
         }
       }).error(function(error) {
         done(new Error("Reqlite failed with"+JSON.stringify(error.message)+'\n'+JSON.stringify(error.stack)));
@@ -35,8 +47,15 @@ module.exports.generateCompare = function(connections) {
         //console.log(resultreqlite);
         done(new Error("Rethinkdb failed with"+JSON.stringify(errorrethinkdb.message)+'\n'+JSON.stringify(errorrethinkdb.stack)+'\nReqlite result'+JSON.stringify(resultreqlite, null, 2)));
       }).error(function(errorreqlite) {
-        assert.equal(transform(errorreqlite.message), transform(errorrethinkdb.message));
-        done();
+        try {
+          assert.equal(transform(errorreqlite.message), transform(errorrethinkdb.message));
+          done();
+        } catch(err) {
+          console.log('=== reqlite / rethinkdb ===');
+          console.log(transform(errorreqlite.message));
+          console.log(transform(errorrethinkdb.message));
+          done(err);
+        }
       });
     }).catch(done);
   }
