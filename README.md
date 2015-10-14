@@ -46,6 +46,11 @@ And reqlite on port `28016`:
 node ./lib/node.js --port-offset 1
 ```
 
+If you are developing on reqlite, you may want to use
+```
+nodemon lib/node.js -- -L --port-offset 1 --debug
+```
+
 Then run:
 ```
 npm test
