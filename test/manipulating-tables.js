@@ -241,9 +241,14 @@ describe('manipulating-tables.js', function(){
     compare(query, done);
   });
 
-  it('indexRename - 1 - pre', function(done) {
+  it('indexRename - 1 - pre - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).indexCreate(TEST_INDEX);
     compare(query, done);
+  });
+
+  it('indexRename - 1 - pre - 2', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).indexWait();
+    compare(query, done, function() {/* Ignore result */});
   });
 
   it('indexRename - 1', function(done) {
@@ -291,6 +296,10 @@ describe('manipulating-tables.js', function(){
     compare(query, done, function(indexes) {
       for(var i=0; i<indexes.length; i++) {
         delete indexes[i].function; //TODO
+        // index could be still creating
+        delete indexes[i].ready;
+        delete indexes[i].blocks_processed;
+        delete indexes[i].blocks_total;
       }
       return indexes;
     });
@@ -301,6 +310,10 @@ describe('manipulating-tables.js', function(){
     compare(query, done, function(indexes) {
       for(var i=0; i<indexes.length; i++) {
         delete indexes[i].function; //TODO
+        // index could be still creating
+        delete indexes[i].ready;
+        delete indexes[i].blocks_processed;
+        delete indexes[i].blocks_total;
       }
       indexes.sort(function(a, b) {
         if (a.index > b.index) { return 1 }

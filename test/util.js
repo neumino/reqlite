@@ -22,6 +22,8 @@ module.exports.generateCompare = function(connections) {
                 assert.deepEqual(transform(resultreqlite), transform(resultrethinkdb));
                 done();
               } catch(err) {
+                console.log(JSON.stringify(transform(resultreqlite), null, 2));
+                console.log(JSON.stringify(transform(resultrethinkdb), null, 2));
                 done(err);
               }
             });
@@ -32,6 +34,8 @@ module.exports.generateCompare = function(connections) {
             assert.deepEqual(transform(resultreqlite), transform(resultrethinkdb));
             done();
           } catch(err) {
+            console.log(JSON.stringify(transform(resultreqlite), null, 2));
+            console.log(JSON.stringify(transform(resultrethinkdb), null, 2));
             done(err);
           }
         }
