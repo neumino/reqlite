@@ -31,7 +31,7 @@
     "geolib": "2.0.14",
     "minimist": "0.2.0",
     "moment": "2.10.3",
-    "request": "2.55.0"
+    "superagent": "^1.4.0"
   },
   "devDependencies": {
     "babel": "^5.8.23",
