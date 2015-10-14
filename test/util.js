@@ -35,7 +35,14 @@ module.exports.generateCompare = function(connections) {
         //console.log(resultreqlite);
         done(new Error("Rethinkdb failed with"+JSON.stringify(errorrethinkdb.message)+'\n'+JSON.stringify(errorrethinkdb.stack)+'\nReqlite result'+JSON.stringify(resultreqlite, null, 2)));
       }).error(function(errorreqlite) {
-        assert.equal(transform(errorreqlite.message), transform(errorrethinkdb.message));
+        try {
+          assert.equal(transform(errorreqlite.message), transform(errorrethinkdb.message));
+        } catch(err) {
+          console.log('=== reqlite / rethinkdb ===');
+          console.log(transform(errorreqlite.message));
+          console.log(transform(errorrethinkdb.message));
+          throw err;
+        }
         done();
       });
     }).catch(done);

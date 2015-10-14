@@ -108,7 +108,14 @@ describe('joins.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-      //TODO Add and test a geo index
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait()
+        return this.query.run(connections.rethinkdb);
+      }).catch(function(e) { // ignore errors
+      }).finally(function() {
+        return this.query.run(connections.reqlite);
+      }).catch(function() { // ignore errors
+      }).finally(function() {
+        //TODO Add and test a geo index
         done();
       });
     }, 400)
