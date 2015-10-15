@@ -1,4 +1,4 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 var r = require('rethinkdb');
 //var r = require('rethinkdbdash')({pool: false});
@@ -27,7 +27,7 @@ var COMPLEX_OBJECT = {
   },
 }
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 describe('meta.js', function(){
   before(function(done) {

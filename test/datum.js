@@ -1,4 +1,4 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 var r = require('rethinkdb');
 var assert = require('assert');
@@ -7,7 +7,7 @@ var connections = {};
 var TEST_DB = 'reqlitetest';
 var TEST_TABLE = 'reqlitetestdatum';
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 describe('datum.js', function(){
   before(function(done) {

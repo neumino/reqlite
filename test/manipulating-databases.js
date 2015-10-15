@@ -1,13 +1,13 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 var r = require('rethinkdb');
 var assert = require('assert');
-var util = require(__dirname+'/util.js');
+var util = require('./util.js');
 
 var connections = {};
 var TEST_DB = 'reqlitetestmanipdb';
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 describe('manipulating-databases.js', function(){
   before(function(done) {
@@ -81,7 +81,7 @@ describe('manipulating-databases.js', function(){
           break;
         }
       }
-      return [Array.isArray(dbs), contain] ;
+      return [Array.isArray(dbs), contain];
     });
   });
   it('dbList', function(done) {

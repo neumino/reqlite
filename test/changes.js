@@ -1,4 +1,4 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 //var r = require('rethinkdb');
 //TODO Revert to the official driver once they bix #4240 and #4240
@@ -13,7 +13,7 @@ var mainConnection;
 var TEST_DB = 'reqlitetest';
 var TEST_TABLE = 'reqlitetestchanges';
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 describe('changes.js', function(){
   //NOTE: The order of the tests matters! Append only!

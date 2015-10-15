@@ -1,4 +1,4 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 var r = require('rethinkdb');
 var assert = require('assert');
@@ -26,7 +26,7 @@ var COMPLEX_OBJECT = {
   },
 }
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 describe('document-manipulation.js', function(){
   before(function(done) {
@@ -546,7 +546,7 @@ describe('document-manipulation.js', function(){
   });
 
   it('merge - 18', function(done) {
-    var query = r.expr({foo: 2}).merge({foo: r.row('foo').mul(r.row('foo'))}, {foo: r.row('foo').mul(r.row('foo'))}) 
+    var query = r.expr({foo: 2}).merge({foo: r.row('foo').mul(r.row('foo'))}, {foo: r.row('foo').mul(r.row('foo'))})
     compare(query, done);
   });
 

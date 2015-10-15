@@ -1,4 +1,4 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 var r = require('rethinkdb');
 var assert = require('assert');
@@ -26,7 +26,7 @@ var COMPLEX_OBJECT = {
   },
 }
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 describe('string-manipulation.js', function(){
   before(function(done) {

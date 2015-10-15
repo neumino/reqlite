@@ -1,4 +1,4 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 var r = require('rethinkdb');
 var assert = require('assert');
@@ -10,7 +10,7 @@ var MISSING_ID = 'nonExistingId';
 var MISSING_FIELD = 'nonExistingField';
 var MISSING_INDEX = 'nonExistingIndex';
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 describe('dates-and-times.js', function(){
   before(function(done) {
@@ -51,7 +51,7 @@ describe('dates-and-times.js', function(){
   it('now - 3', function(done) {
     var query = r.now().do(function(x) {
       return r.now().eq(x);
-    });;
+    });
     compare(query, done);
   });
 

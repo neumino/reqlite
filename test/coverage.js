@@ -1,4 +1,4 @@
-var protodef = require(__dirname+'/../lib/protodef.js');
+var protodef = require('./../lib/protodef.js');
 var keys = Object.keys(protodef.Term.TermType);
 
 var fs = require('fs');

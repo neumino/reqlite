@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 
-var Server = require(__dirname+"/../lib/index.js");
+var Server = require("./../lib/index.js");
 var argv = require('minimist')(process.argv.slice(2));
-var options = {}
+var options = {};
 for(var key in argv) {
   switch(key) {
     case "_":
       break;
     case "driver-port":
-      options['driver-port'] = parseInt(argv[key], 10)+28015
+      options['driver-port'] = parseInt(argv[key], 10)+28015;
       break;
     case "port-offset":
-      options['driver-port'] = parseInt(argv[key], 10)+28015
+      options['driver-port'] = parseInt(argv[key], 10)+28015;
       break;
     case "debug":
-      options['debug'] = argv[key];
+      options.debug = argv[key];
       break;
     default:
       console.log([

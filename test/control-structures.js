@@ -1,4 +1,4 @@
-var config = require(__dirname+'/../config.js');
+var config = require('./../config.js');
 
 var r = require('rethinkdb');
 var assert = require('assert');
@@ -10,7 +10,7 @@ var MISSING_ID = 'nonExistingId';
 var MISSING_FIELD = 'nonExistingField';
 var MISSING_INDEX = 'nonExistingIndex';
 
-var compare = require(__dirname+'/util.js').generateCompare(connections);
+var compare = require('./util.js').generateCompare(connections);
 
 describe('control-structures.js', function(){
   before(function(done) {
@@ -172,7 +172,7 @@ describe('control-structures.js', function(){
     var query = r.binary(new Buffer('a')).count();
     compare(query, done);
   });
-  
+
   it('do - 1', function(done) {
     var query = r.expr('hello').do(function(value) {
       return value.add('bar');
