@@ -21,6 +21,9 @@ var config = module.exports = {
     },
     node: {
       fs: 'empty'
+    },
+    resolve:{
+      packageAlias: 'browser'
     }
   };
 
