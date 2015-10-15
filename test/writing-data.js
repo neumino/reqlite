@@ -497,6 +497,7 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).replace({id: 1, foo: 200});
     compare(query, done);
   });
+
   it('replace - 1 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1);
     compare(query, done);
@@ -619,6 +620,47 @@ describe('writing-data.js', function(){
     });
   });
 
+  it('replace - 13 - pre', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({
+      id: "merge/replace",
+      foo: [ {bar: "lol"}, {bar: "buzz"} ]
+    })
+    compare(query, done);
+  });
+
+  it('replace - 13', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace").replace({
+      id: "merge/replace",
+      foo: [ {buzz: "om"}, 2 ]
+    })
+    compare(query, done);
+  });
+
+  it('replace - 13 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace")
+    compare(query, done);
+  });
+
+  it('replace - 14 - pre', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({
+      id: "merge/replace/array",
+      foo: [ {bar: "lol"}, 2 ]
+    })
+    compare(query, done);
+  });
+
+  it('replace - 14', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace/array").replace({
+      id: "merge/replace/array",
+      foo: [ {buzz: "om"}, {foo: "bar"} ]
+    })
+    compare(query, done);
+  });
+
+  it('replace - 14 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace/array")
+    compare(query, done);
+  });
 
   it('delete - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).delete();
