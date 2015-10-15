@@ -384,7 +384,6 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
-  /*
   it('update - 16', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).update(function(doc) {
       return r.db(TEST_DB).table(TEST_TABLE).get(doc('id'));
@@ -463,6 +462,33 @@ describe('writing-data.js', function(){
   it('update - 26', function(done) {
     var query = r.expr([1,2,3]).forEach(function(x) {
       return r.db(TEST_DB).table(TEST_TABLE).update(r.js('(function(doc) { return {copyId: doc.id} })'));
+    });
+    compare(query, done);
+  });
+
+  it('update - 27', function(done) {
+    var query = r.expr([1,2,3]).forEach(function(x) {
+      return r.db(TEST_DB).table(TEST_TABLE).update(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).get(1);
+      })
+    });
+    compare(query, done);
+  });
+
+  it('update - 28', function(done) {
+    var query = r.expr([1,2,3]).forEach(function(x) {
+      return r.db(TEST_DB).table(TEST_TABLE).update(function() {
+        return r.random()
+      })
+    });
+    compare(query, done);
+  });
+
+  it('update - 29', function(done) {
+    var query = r.expr([1,2,3]).forEach(function(x) {
+      return r.db(TEST_DB).table(TEST_TABLE).update(function() {
+        return r.table(TEST_TABLE);
+      })
     });
     compare(query, done);
   });
