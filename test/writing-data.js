@@ -662,11 +662,11 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
-  it('replace - 14 - pre', function(done) {
+  it('replace - 15 - pre', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({
       id: "deep/nested",
       foo: {
-        bar: [ 1, 2, 3, {bar: { buzz: "lol"}}],
+        bar: [1, 2, 3, {bar: { buzz: "lol"}}],
         yo: {
           lo: {
             carpe: 1
@@ -678,11 +678,11 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
-  it('replace - 14', function(done) {
+  it('replace - 15', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get("deep/nested").replace({
       id: "deep/nested",
       foo: {
-        bar: [ 10, 20, {hello: "bonjour"}, {bar: { buzz: "yolo"}}],
+        bar: [10, 20, {hello: "bonjour"}, {bar: { buzz: "yolo"}}],
         yo: {
           lo: {
             nocarpe: 3
@@ -695,10 +695,45 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
-  it('replace - 14 - follow up', function(done) {
+  it('replace - 15 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get("deep/nested")
     compare(query, done);
   });
+
+  it('replace - 16 - pre', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({
+      id: "array/length",
+      foo: [1,2,3,4]
+    })
+    compare(query, done);
+  });
+
+  it('replace - 16', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").replace({
+      id: "array/length",
+      foo: [1,2,3,4,5,6]
+    })
+    compare(query, done);
+  });
+
+  it('replace - 16 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length")
+    compare(query, done);
+  });
+
+  it('replace - 17', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").replace({
+      id: "array/length",
+      foo: [1,2]
+    })
+    compare(query, done);
+  });
+
+  it('replace - 17 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length")
+    compare(query, done);
+  });
+
   it('delete - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).delete();
     compare(query, done);
