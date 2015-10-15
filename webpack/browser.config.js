@@ -13,7 +13,6 @@ var config = module.exports = {
       path: path.join(__dirname, '../dist'),
       filename: 'browser.js'
     },
-    plugins: [],
     module: {
       loaders: [
         { test: /\.js$/, loaders: ['babel'], exclude: /node_modules/ },
@@ -24,10 +23,6 @@ var config = module.exports = {
       fs: 'empty'
     }
   };
-
-  // if (!isBrowser) {
-  //   config.plugins.push(new webpack.ProvidePlugin({WebSocket: 'ws'}));
-  // }
 
   // Very similar behavior to setting config.target to 'node', except it doesn't
   // set the 'net' or 'tls' modules as external. That way, we can use
