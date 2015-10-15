@@ -470,7 +470,7 @@ describe('writing-data.js', function(){
     var query = r.expr([1,2,3]).forEach(function(x) {
       return r.db(TEST_DB).table(TEST_TABLE).update(function() {
         return r.db(TEST_DB).table(TEST_TABLE).get(1);
-      })
+      });
     });
     compare(query, done);
   });
@@ -478,8 +478,8 @@ describe('writing-data.js', function(){
   it('update - 28', function(done) {
     var query = r.expr([1,2,3]).forEach(function(x) {
       return r.db(TEST_DB).table(TEST_TABLE).update(function() {
-        return r.random()
-      })
+        return r.random();
+      });
     });
     compare(query, done);
   });
@@ -488,7 +488,7 @@ describe('writing-data.js', function(){
     var query = r.expr([1,2,3]).forEach(function(x) {
       return r.db(TEST_DB).table(TEST_TABLE).update(function() {
         return r.table(TEST_TABLE);
-      })
+      });
     });
     compare(query, done);
   });
