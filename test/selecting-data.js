@@ -27,14 +27,14 @@ describe('selecting-data.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
@@ -53,28 +53,28 @@ describe('selecting-data.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foo')
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foo');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('bar')
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('bar');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {multi: true})
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {multi: true});
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait()
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait();
         return this.query.run(connections.rethinkdb);
       }).catch(function(e) { // ignore errors
       }).finally(function() {
@@ -84,7 +84,7 @@ describe('selecting-data.js', function(){
         //TODO Add and test a geo index
         done();
       });
-    }, 400)
+    }, 400);
   });
 
   it('db - 1', function(done) {
@@ -153,12 +153,12 @@ describe('selecting-data.js', function(){
   });
 
   it('get - 1', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(1)
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1);
     compare(query, done);
   });
 
   it('get - 2', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(MISSING_ID)
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(MISSING_ID);
     compare(query, done);
   });
 
@@ -177,17 +177,17 @@ describe('selecting-data.js', function(){
   });
 
   it('get - 5', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get()
+    var query = r.db(TEST_DB).table(TEST_TABLE).get();
     compare(query, done);
   });
 
   it('get - 6', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(1,2,3)
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1,2,3);
     compare(query, done);
   });
 
   it('get - 7', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
@@ -197,17 +197,17 @@ describe('selecting-data.js', function(){
   });
 
   it('getAll - 1', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).getAll(1)
+    var query = r.db(TEST_DB).table(TEST_TABLE).getAll(1);
     compare(query, done);
   });
 
   it('getAll - 2', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).getAll(1,2,3).orderBy('id')
+    var query = r.db(TEST_DB).table(TEST_TABLE).getAll(1,2,3).orderBy('id');
     compare(query, done);
   });
 
   it('getAll - 3', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).getAll(MISSING_ID)
+    var query = r.db(TEST_DB).table(TEST_TABLE).getAll(MISSING_ID);
     compare(query, done);
   });
 
@@ -227,12 +227,12 @@ describe('selecting-data.js', function(){
   });
 
   it('getAll - 7', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).getAll()
+    var query = r.db(TEST_DB).table(TEST_TABLE).getAll();
     compare(query, done);
   });
 
   it('getAll - 8', function(done) {
-    var query = r.expr('bar').getAll(1)
+    var query = r.expr('bar').getAll(1);
     compare(query, done);
   });
 
@@ -248,12 +248,12 @@ describe('selecting-data.js', function(){
 
   it('between - 3', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).between(2, r.maxval).orderBy('id');
-    compare(query, done)
+    compare(query, done);
   });
 
   it('between - 4', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).between(2, 3).orderBy('id');
-    compare(query, done)
+    compare(query, done);
   });
 
   it('between - 5', function(done) {
@@ -321,27 +321,27 @@ describe('selecting-data.js', function(){
   });
 
   it('between - 17', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).between(r.minval, r.maxval).orderBy({index: 'id'})
+    var query = r.db(TEST_DB).table(TEST_TABLE).between(r.minval, r.maxval).orderBy({index: 'id'});
     compare(query, done);
   });
 
   it('between - 18', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).between(r.minval, r.maxval).orderBy({index: 'foo'})
+    var query = r.db(TEST_DB).table(TEST_TABLE).between(r.minval, r.maxval).orderBy({index: 'foo'});
     compare(query, done);
   });
 
   it('between - 19', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'id'}).between(r.minval, r.maxval)
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'id'}).between(r.minval, r.maxval);
     compare(query, done);
   });
 
   it('between - 20', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'id'}).between(r.minval, r.maxval)
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'id'}).between(r.minval, r.maxval);
     compare(query, done);
   });
 
   it('between - 21', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'foo'}).between(r.minval, r.maxval)
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'foo'}).between(r.minval, r.maxval);
     compare(query, done);
   });
 
@@ -387,7 +387,7 @@ describe('selecting-data.js', function(){
 
   it('filter - 6', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).filter(function(doc) {
-      return doc('id').eq(1)
+      return doc('id').eq(1);
     }).orderBy('id');
     compare(query, done);
   });
@@ -400,7 +400,7 @@ describe('selecting-data.js', function(){
   });
 
   it('filter - 8', function(done) {
-    var query = r.expr([1,2,3,4,5]).filter(r.args([1,2,3]))
+    var query = r.expr([1,2,3,4,5]).filter(r.args([1,2,3]));
     compare(query, done);
   });
 
@@ -410,34 +410,34 @@ describe('selecting-data.js', function(){
   });
 
   it('filter - 10', function(done) {
-    var query = r.expr([1,2,3,4,5]).filter(r.js('(function(row) { return row > 2; })'))
+    var query = r.expr([1,2,3,4,5]).filter(r.js('(function(row) { return row > 2; })'));
     compare(query, done);
   });
 
   it('filter - 11', function(done) {
-    var query = r.expr([1,2,3,4,5]).filter(r.js('(function(row) { return Infinity; })'))
+    var query = r.expr([1,2,3,4,5]).filter(r.js('(function(row) { return Infinity; })'));
     compare(query, done);
   });
 
   it('filter - 12', function(done) {
-    var query = r.expr([1,2,3,4,5]).filter(r.js('(function(row) { return row.a.b; })'))
+    var query = r.expr([1,2,3,4,5]).filter(r.js('(function(row) { return row.a.b; })'));
     compare(query, done);
   });
 
   it('filter - 13', function(done) {
-    var query = r.expr([1,2,3,4,5]).filter(r.js('(function(row) { return undefined; })'))
+    var query = r.expr([1,2,3,4,5]).filter(r.js('(function(row) { return undefined; })'));
     compare(query, done);
   });
 
   it('filter - 14', function(done) {
-    var query = r.expr([1,2,3,4,5]).filter(r.js('(function(row) { return new RegExp("bar"); })'))
+    var query = r.expr([1,2,3,4,5]).filter(r.js('(function(row) { return new RegExp("bar"); })'));
     compare(query, done);
   });
 
   it('filter - 15', function(done) {
     var query = r.expr([1,2,3,4,5]).filter(function(doc) {
       return 0;
-    })
+    });
     compare(query, done);
   });
 

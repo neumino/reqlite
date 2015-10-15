@@ -39,15 +39,15 @@ describe('manipulating-tables.js', function(){
       }).finally(function() {
         done();
       });
-    }, 400)
+    }, 400);
   });
 
 
   it('tableCreate - 1', function(done) {
     var query = r.db(TEST_DB).tableCreate(TEST_TABLE);
     compare(query, done, function(doc) {
-      delete doc.config_changes[0].new_val.id
-      delete doc.config_changes[0].new_val.shards
+      delete doc.config_changes[0].new_val.id;
+      delete doc.config_changes[0].new_val.shards;
       return doc;
     });
   });
@@ -81,17 +81,17 @@ describe('manipulating-tables.js', function(){
     });
   });
   it('tableCreate - 6', function(done) {
-    var query = r.tableCreate(TEST_TABLE)
+    var query = r.tableCreate(TEST_TABLE);
     compare(query, done);
   });
 
   it('tableCreate - 7', function(done) {
-    var query = r.tableCreate(TEST_TABLE, {foo: 'bar'})
+    var query = r.tableCreate(TEST_TABLE, {foo: 'bar'});
     compare(query, done);
   });
 
   it('tableCreate - 8', function(done) {
-    var query = r.tableCreate(1, {foo: 'bar'})
+    var query = r.tableCreate(1, {foo: 'bar'});
     compare(query, done);
   });
 
@@ -148,17 +148,17 @@ describe('manipulating-tables.js', function(){
   });
 
   it('sync - 1', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).sync()
+    var query = r.db(TEST_DB).table(TEST_TABLE).sync();
     compare(query, done);
   });
 
   it('sync - 2', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).sync(1,2,3)
+    var query = r.db(TEST_DB).table(TEST_TABLE).sync(1,2,3);
     compare(query, done);
   });
 
   it('sync - 3', function(done) {
-    var query = r.expr('foo').sync()
+    var query = r.expr('foo').sync();
     compare(query, done);
   });
 
@@ -188,24 +188,24 @@ describe('manipulating-tables.js', function(){
   });
 
   it('indexCreate - 6', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foo', {'bar': 1})
+    var query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foo', {'bar': 1});
     compare(query, done);
   });
 
   it('indexCreate - 8', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {'multi': true})
+    var query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {'multi': true});
     compare(query, done);
   });
 
   it('indexCreate - 9', function(done) {
     // Index already exists
-    var query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {'multi': true})
+    var query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {'multi': true});
     compare(query, done);
   });
 
   it('indexList', function(done) { // run after the indexCreate test and before the indexDrop test
     var query = r.db(TEST_DB).table(TEST_TABLE).indexList().orderBy(r.row);
-    compare(query, done)
+    compare(query, done);
   });
 
   it('indexDrop - 1', function(done) {
@@ -219,12 +219,12 @@ describe('manipulating-tables.js', function(){
   });
 
   it('indexDrop - 3', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).indexDrop(MISSING_INDEX)
+    var query = r.db(TEST_DB).table(TEST_TABLE).indexDrop(MISSING_INDEX);
     compare(query, done);
   });
 
   it('indexDrop - 4', function(done) {
-    var query = r.expr('foo').indexDrop(MISSING_INDEX)
+    var query = r.expr('foo').indexDrop(MISSING_INDEX);
     compare(query, done);
   });
 
@@ -318,9 +318,9 @@ describe('manipulating-tables.js', function(){
         delete indexes[i].blocks_total;
       }
       indexes.sort(function(a, b) {
-        if (a.index > b.index) { return 1 }
-        else if (a.index < b.index) { return -1 }
-        else { return 0 }
+        if (a.index > b.index) { return 1; }
+        else if (a.index < b.index) { return -1; }
+        else { return 0; }
       });
       return indexes;
     });
@@ -358,9 +358,9 @@ describe('manipulating-tables.js', function(){
         delete indexes[i].function; //TODO
       }
       indexes.sort(function(a, b) {
-        if (a.index > b.index) { return 1 }
-        else if (a.index < b.index) { return -1 }
-        else { return 0 }
+        if (a.index > b.index) { return 1; }
+        else if (a.index < b.index) { return -1; }
+        else { return 0; }
       });
       return indexes;
     });
@@ -384,8 +384,8 @@ describe('manipulating-tables.js', function(){
   it('tableDrop - 1', function(done) {
     var query = r.db(TEST_DB).tableDrop(TEST_TABLE);
     compare(query, done, function(doc) {
-      delete doc.config_changes[0].old_val.id
-      delete doc.config_changes[0].old_val.shards
+      delete doc.config_changes[0].old_val.id;
+      delete doc.config_changes[0].old_val.shards;
       return doc;
     });
   });
@@ -419,17 +419,17 @@ describe('manipulating-tables.js', function(){
     });
   });
   it('tableDrop - 6', function(done) {
-    var query = r.tableDrop(TEST_TABLE)
+    var query = r.tableDrop(TEST_TABLE);
     compare(query, done);
   });
 
   it('tableDrop - 7', function(done) {
-    var query = r.tableDrop(TEST_TABLE, {foo: 'bar'})
+    var query = r.tableDrop(TEST_TABLE, {foo: 'bar'});
     compare(query, done);
   });
 
   it('tableDrop - 8', function(done) {
-    var query = r.tableDrop(1, {foo: 'bar'})
+    var query = r.tableDrop(1, {foo: 'bar'});
     compare(query, done);
   });
 

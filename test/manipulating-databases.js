@@ -26,13 +26,13 @@ describe('manipulating-databases.js', function(){
       }).finally(function() {
         done();
       });
-    }, 400)
+    }, 400);
   });
 
   it('dbCreate - 1', function(done) {
     var query = r.dbCreate(TEST_DB);
     compare(query, done, function(doc) {
-      delete doc.config_changes[0].new_val.id
+      delete doc.config_changes[0].new_val.id;
       return doc;
     });
   });
@@ -55,7 +55,7 @@ describe('manipulating-databases.js', function(){
   it('dbCreate - 5', function(done) {
     var query = r.dbCreate('foo_bar');
     compare(query, done, function(doc) {
-      delete doc.config_changes[0].new_val.id
+      delete doc.config_changes[0].new_val.id;
       return doc;
     });
   });
@@ -85,7 +85,7 @@ describe('manipulating-databases.js', function(){
     });
   });
   it('dbList', function(done) {
-    var query = r.dbList('foo', 'bar')
+    var query = r.dbList('foo', 'bar');
     compare(query, done);
   });
 
@@ -93,7 +93,7 @@ describe('manipulating-databases.js', function(){
   it('dbDrop - 1', function(done) {
     var query = r.dbDrop(TEST_DB);
     compare(query, done, function(doc) {
-      delete doc.config_changes[0].old_val.id
+      delete doc.config_changes[0].old_val.id;
       return doc;
     });
   });

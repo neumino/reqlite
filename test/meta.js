@@ -25,7 +25,7 @@ var COMPLEX_OBJECT = {
       {monde: 3000, ciao: 6000},
     ]
   },
-}
+};
 
 var compare = require('./util.js').generateCompare(connections);
 
@@ -44,7 +44,7 @@ describe('meta.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
@@ -53,7 +53,7 @@ describe('meta.js', function(){
       }).finally(function() {
         done();
       });
-    }, 300)
+    }, 300);
   });
 
 
@@ -66,7 +66,7 @@ describe('meta.js', function(){
   });
 
   it('cluster_config - 2', function(done) {
-    var query = r.db('rethinkdb').table('cluster_config').insert({})
+    var query = r.db('rethinkdb').table('cluster_config').insert({});
     compare(query, done, function(result) {
       delete result.generated_keys;
       return result;
@@ -74,22 +74,22 @@ describe('meta.js', function(){
   });
 
   it('cluster_config - 3', function(done) {
-    var query = r.db('rethinkdb').table('cluster_config').get('auth').update({auth_key: 'foo'})
+    var query = r.db('rethinkdb').table('cluster_config').get('auth').update({auth_key: 'foo'});
     compare(query, done);
   });
 
   it('cluster_config - 4', function(done) {
-    var query = r.db('rethinkdb').table('cluster_config').get('auth')
+    var query = r.db('rethinkdb').table('cluster_config').get('auth');
     compare(query, done);
   });
 
   it('cluster_config - 5', function(done) {
-    var query = r.db('rethinkdb').table('cluster_config').get('auth').update({auth_key: ''})
+    var query = r.db('rethinkdb').table('cluster_config').get('auth').update({auth_key: ''});
     compare(query, done);
   });
 
   it('cluster_config - 6', function(done) {
-    var query = r.db('rethinkdb').table('cluster_config').get('auth')
+    var query = r.db('rethinkdb').table('cluster_config').get('auth');
     compare(query, done);
   });
 });

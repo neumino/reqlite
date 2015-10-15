@@ -24,14 +24,14 @@ describe('datum.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
@@ -40,16 +40,16 @@ describe('datum.js', function(){
       }).finally(function() {
         done();
       });
-    }, 400)
+    }, 400);
   });
 
   it('Datum number', function(done) {
-    var query = r.expr(1)
+    var query = r.expr(1);
     compare(query, done);
   });
 
   it('Datum string', function(done) {
-    var query = r.expr("Hello world!")
+    var query = r.expr("Hello world!");
     compare(query, done);
   });
 
@@ -119,12 +119,12 @@ describe('datum.js', function(){
   });
 
   it('Datum table', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).typeOf()
+    var query = r.db(TEST_DB).table(TEST_TABLE).typeOf();
     compare(query, done);
   });
 
   it('Datum table slice - 1', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).between(r.minval, r.maxval).typeOf()
+    var query = r.db(TEST_DB).table(TEST_TABLE).between(r.minval, r.maxval).typeOf();
     compare(query, done);
   });
 
