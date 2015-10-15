@@ -24,7 +24,7 @@ var COMPLEX_OBJECT = {
       {monde: 3000, ciao: 6000},
     ]
   },
-}
+};
 
 var compare = require('./util.js').generateCompare(connections);
 
@@ -38,7 +38,7 @@ describe('string-manipulation.js', function(){
         connections.reqlite = conn;
         done();
       });
-    }, 500)
+    }, 500);
   });
 
   it('match - 1', function(done) {
@@ -117,97 +117,97 @@ describe('string-manipulation.js', function(){
   });
 
   it('split - 1', function(done) {
-    var query = r.expr("foo  bar bax").split()
+    var query = r.expr("foo  bar bax").split();
     compare(query, done);
   });
 
   it('split - 2', function(done) {
-    var query = r.expr("12,37,,22,").split(',')
+    var query = r.expr("12,37,,22,").split(',');
     compare(query, done);
   });
 
   it('split - 3', function(done) {
-    var query = r.expr("mlucy").split('')
+    var query = r.expr("mlucy").split('');
     compare(query, done);
   });
 
   it('split - 4', function(done) {
-    var query = r.expr("12,37,,22,").split(",", 3)
+    var query = r.expr("12,37,,22,").split(",", 3);
     compare(query, done);
   });
 
   it('split - 5', function(done) {
-    var query = r.expr("foo  bar bax").split(null, 1)
+    var query = r.expr("foo  bar bax").split(null, 1);
     compare(query, done);
   });
 
   it('split - 6', function(done) {
-    var query = r.expr("foo  bar  bax").split(null, 1)
+    var query = r.expr("foo  bar  bax").split(null, 1);
     compare(query, done);
   });
 
   it('split - 7', function(done) {
-    var query = r.expr("foo  bar  bax").split('foo', 'bar', 'buzz')
+    var query = r.expr("foo  bar  bax").split('foo', 'bar', 'buzz');
     compare(query, done);
   });
 
   it('split - 8', function(done) {
-    var query = r.expr(2).split(null, 1)
+    var query = r.expr(2).split(null, 1);
     compare(query, done);
   });
 
   it('split - 9', function(done) {
-    var query = r.expr('foo bar').split(2, 1)
+    var query = r.expr('foo bar').split(2, 1);
     compare(query, done);
   });
 
   it('split - 10', function(done) {
-    var query = r.expr('foo bar').split('foo', 'bar')
+    var query = r.expr('foo bar').split('foo', 'bar');
     compare(query, done);
   });
 
   it('split - 11', function(done) {
-    var query = r.expr('foo bar buzz').split().count()
+    var query = r.expr('foo bar buzz').split().count();
     compare(query, done);
   });
 
   it('upcase - 1', function(done) {
-    var query = r.expr("Sentence about LaTeX.").upcase()
+    var query = r.expr("Sentence about LaTeX.").upcase();
     compare(query, done);
   });
 
   it('upcase - 2', function(done) {
-    var query = r.expr("Sentence about LaTeX.").upcase('bar')
+    var query = r.expr("Sentence about LaTeX.").upcase('bar');
     compare(query, done);
   });
 
   it('upcase - 3', function(done) {
-    var query = r.expr(2).upcase('bar')
+    var query = r.expr(2).upcase('bar');
     compare(query, done);
   });
 
   it('upcase - 3', function(done) {
-    var query = r.expr("C'est l'été.").upcase()
+    var query = r.expr("C'est l'été.").upcase();
     compare(query, done);
   });
 
   it('downcase - 1', function(done) {
-    var query = r.expr("Sentence about LaTeX.").downcase()
+    var query = r.expr("Sentence about LaTeX.").downcase();
     compare(query, done);
   });
 
   it('downcase - 2', function(done) {
-    var query = r.expr("Sentence about LaTeX.").downcase('bar')
+    var query = r.expr("Sentence about LaTeX.").downcase('bar');
     compare(query, done);
   });
 
   it('downcase - 3', function(done) {
-    var query = r.expr(3).downcase('bar')
+    var query = r.expr(3).downcase('bar');
     compare(query, done);
   });
 
   it('downcase - 4', function(done) {
-    var query = r.expr("C'ÉTÉ ouhYou").downcase()
+    var query = r.expr("C'ÉTÉ ouhYou").downcase();
     compare(query, done);
   });
 

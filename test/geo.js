@@ -24,14 +24,14 @@ describe('geo.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
@@ -50,14 +50,14 @@ describe('geo.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('location', {geo: true})
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('location', {geo: true});
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait()
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait();
         return this.query.run(connections.rethinkdb);
       }).catch(function(e) { // ignore errors
       }).finally(function() {
@@ -66,7 +66,7 @@ describe('geo.js', function(){
       }).finally(function() {
         done();
       });
-    }, 500)
+    }, 500);
   });
 
   it('point - 1', function(done) {
@@ -117,7 +117,7 @@ describe('geo.js', function(){
   it('distance - 1', function(done) {
     var point1 = r.point(-122,37);
     var point2 = r.point(-117,32);
-    var query = r.distance(point1, point2, {unit: 'km'})
+    var query = r.distance(point1, point2, {unit: 'km'});
     compare(query, done, function(result) {
       return Math.floor(result*1000);
     });
@@ -126,7 +126,7 @@ describe('geo.js', function(){
   it('distance - 2', function(done) {
     var point1 = r.point(-2,57);
     var point2 = r.point(30,-80);
-    var query = r.distance(point1, point2, {unit: 'km'})
+    var query = r.distance(point1, point2, {unit: 'km'});
     compare(query, done, function(result) {
       return Math.floor(result*1000);
     });
@@ -135,7 +135,7 @@ describe('geo.js', function(){
   it('distance - 3', function(done) {
     var point1 = r.point(-122,37);
     var point2 = r.point(-117,32);
-    var query = r.distance(point1, point2, {unit: 'm'})
+    var query = r.distance(point1, point2, {unit: 'm'});
     compare(query, done, function(result) {
       return Math.floor(result);
     });
@@ -144,38 +144,38 @@ describe('geo.js', function(){
   it('distance - 4', function(done) {
     var point1 = r.point(-122,37);
     var point2 = r.point(-117,32);
-    var query = r.distance(r.args([point1, point1, point2]), {unit: 'km'})
-    compare(query, done)
+    var query = r.distance(r.args([point1, point1, point2]), {unit: 'km'});
+    compare(query, done);
   });
 
   it('distance - 5', function(done) {
     var point1 = r.point(-122,37);
     var point2 = r.point(-117,32);
-    var query = r.distance('point1', point2, {unit: 'km'})
-    compare(query, done)
+    var query = r.distance('point1', point2, {unit: 'km'});
+    compare(query, done);
   });
 
   it('distance - 6', function(done) {
     var point1 = r.point(-122,37);
     var point2 = r.point(-117,32);
-    var query = r.distance(point1, 'point2', {unit: 'km'})
-    compare(query, done)
+    var query = r.distance(point1, 'point2', {unit: 'km'});
+    compare(query, done);
   });
 
   it('circle - 1', function(done) {
-    var query = r.circle([-122, 37], 1000000)
+    var query = r.circle([-122, 37], 1000000);
     compare(query, done, function(result) {
       var roundedResults = [result.type, result.coordinates.length];
       for(var i=0; i<result.coordinates[0].length; i++) {
-        roundedResults.push(Math.floor(result.coordinates[0][i][0]*1000))
-        roundedResults.push(Math.floor(result.coordinates[0][i][1]*1000))
+        roundedResults.push(Math.floor(result.coordinates[0][i][0]*1000));
+        roundedResults.push(Math.floor(result.coordinates[0][i][1]*1000));
       }
       return roundedResults;
     });
   });
 
   it('circle - 2', function(done) {
-    var query = r.circle(r.args([-122, 37], 1000000), 'bar')
+    var query = r.circle(r.args([-122, 37], 1000000), 'bar');
     compare(query, done, function(error) {
       return /^Expected 1 argument but found 2/.test(error);
     });
@@ -207,14 +207,14 @@ describe('geo.js', function(){
       [-122.423246,37.329898],
       [-121.886420,37.329898],
       [-121.886420,37.779388]
-    )
+    );
     compare(query, done);
   });
 
   it('line - 2', function(done) {
     var query = r.line(
       [-122.423246,37.779388]
-    )
+    );
     compare(query, done);
   });
 
@@ -223,7 +223,7 @@ describe('geo.js', function(){
       [-122.423246,37.779388],
       ['-122.423246',37.329898],
       [-121.886420,37.779388]
-    )
+    );
     compare(query, done);
   });
 
@@ -232,7 +232,7 @@ describe('geo.js', function(){
       [-122.423246,37.779388],
       [-122.423246,37.329898, 2],
       [-121.886420,37.779388]
-    )
+    );
     compare(query, done);
   });
 
@@ -292,7 +292,7 @@ describe('geo.js', function(){
       [-122.423246,37.329898],
       [-121.886420,37.329898],
       [-121.886420,37.779388]
-    )
+    );
     compare(query, done);
   });
 
@@ -303,7 +303,7 @@ describe('geo.js', function(){
       [-121.886420,37.329898],
       [-121.886420,37.779388],
       [-122.423246,37.779388]
-    )
+    );
     compare(query, done);
   });
 
@@ -733,7 +733,7 @@ describe('geo.js', function(){
       [-122,38],
       [-121,38],
       [-121,37]
-    ))
+    ));
     compare(query, done);
   });
   it('intersects - 4', function(done) {
@@ -742,7 +742,7 @@ describe('geo.js', function(){
       [-122,38],
       [-121,38],
       [-121,37]
-    ))
+    ));
     compare(query, done);
   });
 
@@ -750,7 +750,7 @@ describe('geo.js', function(){
     var query = r.point(20, 30).intersects(r.line(
       r.point(10, 30),
       r.point(30, 30)
-    ))
+    ));
     compare(query, done);
   });
 
@@ -758,7 +758,7 @@ describe('geo.js', function(){
     var query = r.point(10, 30).intersects(r.line(
       r.point(10, 30),
       r.point(30, 30)
-    ))
+    ));
     compare(query, done);
   });
 
@@ -766,7 +766,7 @@ describe('geo.js', function(){
     var query = r.point(30, 30).intersects(r.line(
       r.point(10, 30),
       r.point(30, 30)
-    ))
+    ));
     compare(query, done);
   });
 
@@ -774,7 +774,7 @@ describe('geo.js', function(){
     var query = r.point(10, 30).intersects(r.circle(
       r.point(30, 30),
       100
-    ))
+    ));
     compare(query, done);
   });
 
@@ -782,7 +782,7 @@ describe('geo.js', function(){
     var query = r.point(10, 30).intersects(r.circle(
       r.point(10.3, 30),
       100000
-    ))
+    ));
     compare(query, done);
   });
 
@@ -1063,7 +1063,7 @@ describe('geo.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).getNearest(r.point(10, 10), {index: 'location', maxDist: 120000}).orderBy(r.row);
     compare(query, done, function(result) {
       for(var i=0; i<result.length; i++) {
-        result[i].dist = Math.floor(result[i].dist)
+        result[i].dist = Math.floor(result[i].dist);
       }
       return result;
     });

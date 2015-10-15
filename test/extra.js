@@ -24,7 +24,7 @@ var COMPLEX_OBJECT = {
       {monde: 3000, ciao: 6000},
     ]
   },
-}
+};
 
 var compare = require('./util.js').generateCompare(connections);
 
@@ -43,14 +43,14 @@ describe('new.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
@@ -69,28 +69,28 @@ describe('new.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foo')
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foo');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('bar')
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('bar');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {multi: true})
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {multi: true});
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait()
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait();
         return this.query.run(connections.rethinkdb);
       }).catch(function(e) { // ignore errors
       }).finally(function() {
@@ -100,14 +100,14 @@ describe('new.js', function(){
         //TODO add and test a geo index
         done();
       });
-    }, 300)
+    }, 300);
   });
 
 
   it('noreplyWait - 1', function(done) {
     connections.rethinkdb.noreplyWait().bind({}).then(function(result) {
       this.rethinkdbResult = result;
-      return connections.reqlite.noreplyWait()
+      return connections.reqlite.noreplyWait();
     }).then(function(result) {
       assert.deepEqual(this.rethinkdbResult, result);
       done();

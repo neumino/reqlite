@@ -29,13 +29,13 @@ describe('dates-and-times.js', function(){
       }).finally(function() {
         done();
       });
-    }, 500)
+    }, 500);
   });
 
   it('now - 1', function(done) {
     var query = r.now();
     compare(query, done, function(result) {
-      return result instanceof Date
+      return result instanceof Date;
     });
   });
 
@@ -44,7 +44,7 @@ describe('dates-and-times.js', function(){
     compare(query, done, function(result) {
       // There should be less than one second between the two queries...
       // So this should be safe
-      return Math.floor(result.getTime()/1000)
+      return Math.floor(result.getTime()/1000);
     });
   });
 
@@ -171,9 +171,9 @@ describe('dates-and-times.js', function(){
   });
 
   it('time - 21', function(done) {
-    var query = r.time(1986, 11, 3)
-    compare(query, done)
-  })
+    var query = r.time(1986, 11, 3);
+    compare(query, done);
+  });
 
   it('epochTime - 1', function(done) {
     var query = r.epochTime(Date.now());
@@ -201,42 +201,42 @@ describe('dates-and-times.js', function(){
   });
 
   it('iso8601 - 1', function(done) {
-    var query = r.ISO8601('1986-11-03T08:30:00-07:00')
+    var query = r.ISO8601('1986-11-03T08:30:00-07:00');
     compare(query, done);
   });
 
   it('iso8601 - 2', function(done) {
-    var query = r.ISO8601('1986-11-03T08:30:00+00:00')
+    var query = r.ISO8601('1986-11-03T08:30:00+00:00');
     compare(query, done);
   });
 
   it('iso8601 - 3', function(done) {
-    var query = r.ISO8601('1986-11-03T08:30:00+04:30')
+    var query = r.ISO8601('1986-11-03T08:30:00+04:30');
     compare(query, done);
   });
 
   it('iso8601 - 4', function(done) {
-    var query = r.ISO8601('19x6-11-03T08:30:00+04:30')
+    var query = r.ISO8601('19x6-11-03T08:30:00+04:30');
     compare(query, done);
   });
 
   it('iso8601 - 5', function(done) {
-    var query = r.ISO8601('1986-x1-03T08:30:00+04:30')
+    var query = r.ISO8601('1986-x1-03T08:30:00+04:30');
     compare(query, done);
   });
 
   it('iso8601 - 6', function(done) {
-    var query = r.ISO8601('1986-11-x3T08:30:00+04:30')
+    var query = r.ISO8601('1986-11-x3T08:30:00+04:30');
     compare(query, done);
   });
 
   it('iso8601 - 7', function(done) {
-    var query = r.ISO8601('1986-11-03T08:30:00+04:30')
+    var query = r.ISO8601('1986-11-03T08:30:00+04:30');
     compare(query, done);
   });
 
   it('iso8601 - 8', function(done) {
-    var query = r.ISO8601(r.args(['1986-11-03T08:30:00+04:30', '1986-11-03T08:30:00+04:30']))
+    var query = r.ISO8601(r.args(['1986-11-03T08:30:00+04:30', '1986-11-03T08:30:00+04:30']));
     compare(query, done);
   });
 
@@ -246,32 +246,32 @@ describe('dates-and-times.js', function(){
   });
 
   it('inTimezone - 1', function(done) {
-    var query = r.ISO8601('1986-11-03T08:30:00+04:30').inTimezone('+04:00').hours()
+    var query = r.ISO8601('1986-11-03T08:30:00+04:30').inTimezone('+04:00').hours();
     compare(query, done);
   });
 
   it('inTimezone - 2', function(done) {
-    var query = r.ISO8601('1986-11-03T08:30:00+04:30').inTimezone('-03:00').hours()
+    var query = r.ISO8601('1986-11-03T08:30:00+04:30').inTimezone('-03:00').hours();
     compare(query, done);
   });
 
   it('inTimezone - 3', function(done) {
-    var query = r.ISO8601('1986-11-03T08:30:00+04:30').inTimezone(3).hours()
+    var query = r.ISO8601('1986-11-03T08:30:00+04:30').inTimezone(3).hours();
     compare(query, done);
   });
 
   it('timezone - 1', function(done) {
-    var query = r.ISO8601('1986-11-03T08:30:00+04:30').inTimezone('+04:00')
+    var query = r.ISO8601('1986-11-03T08:30:00+04:30').inTimezone('+04:00');
     compare(query, done);
   });
 
   it('timezone - 2', function(done) {
-    var query = r.ISO8601('1986-11-03T08:30:00+04:30').inTimezone('-03:00')
+    var query = r.ISO8601('1986-11-03T08:30:00+04:30').inTimezone('-03:00');
     compare(query, done);
   });
 
   it('timezone - 3', function(done) {
-    var query = r.expr({timezone: 1}).inTimezone('-03:00')
+    var query = r.expr({timezone: 1}).inTimezone('-03:00');
     compare(query, done, function(error) {
       var message = error.split(':')[0];
       assert(message.length > 0);
@@ -280,79 +280,79 @@ describe('dates-and-times.js', function(){
   });
 
   it('during - 1', function(done) {
-    var query = r.time(2013, 12, 4, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"))
+    var query = r.time(2013, 12, 4, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"));
     compare(query, done);
   });
 
   it('during - 2', function(done) {
-    var query = r.time(2013, 11, 1, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"))
+    var query = r.time(2013, 11, 1, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"));
     compare(query, done);
   });
 
   it('during - 3', function(done) {
-    var query = r.time(2013, 12, 14, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"))
+    var query = r.time(2013, 12, 14, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"));
     compare(query, done);
   });
 
   it('during - 4', function(done) {
-    var query = r.time(2013, 12, 1, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"))
+    var query = r.time(2013, 12, 1, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"));
     compare(query, done);
   });
 
   it('during - 5', function(done) {
-    var query = r.time(2013, 12, 1, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {leftBound: 'open'})
+    var query = r.time(2013, 12, 1, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {leftBound: 'open'});
     compare(query, done);
   });
 
   it('during - 5', function(done) { // Testing that options are actually being evaluated
     var query = r.time(2013, 12, 1, 'Z').during(
         r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"),
-        {leftBound: r.expr('close').add('d')})
+        {leftBound: r.expr('close').add('d')});
     compare(query, done);
   });
 
   it('during - 6', function(done) {
-    var query = r.time(2013, 12, 1, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {leftBound: 'closed'})
+    var query = r.time(2013, 12, 1, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {leftBound: 'closed'});
     compare(query, done);
   });
 
   it('during - 7', function(done) {
-    var query = r.time(2013, 12, 10, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"))
+    var query = r.time(2013, 12, 10, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"));
     compare(query, done);
   });
 
   it('during - 8', function(done) {
-    var query = r.time(2013, 12, 10, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {rightBound: 'closed'})
+    var query = r.time(2013, 12, 10, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {rightBound: 'closed'});
     compare(query, done);
   });
 
   it('during - 9', function(done) {
-    var query = r.time(2013, 12, 10, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {rightBound: 'open'})
+    var query = r.time(2013, 12, 10, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {rightBound: 'open'});
     compare(query, done);
   });
 
   it('during - 10', function(done) {
-    var query = r.time(2013, 12, 10, 'Z').during(r.args([r.time(2011, 12, 1, "Z"), r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z")]), {rightBound: 'open'})
+    var query = r.time(2013, 12, 10, 'Z').during(r.args([r.time(2011, 12, 1, "Z"), r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z")]), {rightBound: 'open'});
     compare(query, done);
   });
 
   it('during - 11', function(done) {
-    var query = r.expr('foo').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {rightBound: 'open'})
+    var query = r.expr('foo').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {rightBound: 'open'});
     compare(query, done);
   });
 
   it('during - 12', function(done) {
-    var query = r.time(2013, 12, 10, 'Z').during('foo', r.time(2013, 12, 10, "Z"), {rightBound: 'open'})
+    var query = r.time(2013, 12, 10, 'Z').during('foo', r.time(2013, 12, 10, "Z"), {rightBound: 'open'});
     compare(query, done);
   });
 
   it('during - 13', function(done) {
-    var query = r.time(2013, 12, 10, 'Z').during(r.time(2013, 12, 1, "Z"), 'bar', {rightBound: 'open'})
+    var query = r.time(2013, 12, 10, 'Z').during(r.time(2013, 12, 1, "Z"), 'bar', {rightBound: 'open'});
     compare(query, done);
   });
 
   it('during - 14', function(done) {
-    var query = r.time(2013, 12, 10, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {foo: 'buzz'})
+    var query = r.time(2013, 12, 10, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"), {foo: 'buzz'});
     compare(query, done);
   });
 
@@ -692,75 +692,75 @@ describe('dates-and-times.js', function(){
   });
 
   it('constant time - 1', function(done) {
-    var query = r.monday
+    var query = r.monday;
     compare(query, done);
   });
   it('constant time - 2', function(done) {
-    var query = r.tuesday
+    var query = r.tuesday;
     compare(query, done);
   });
   it('constant time - 3', function(done) {
-    var query = r.wednesday
+    var query = r.wednesday;
     compare(query, done);
   });
   it('constant time - 4', function(done) {
-    var query = r.thursday
+    var query = r.thursday;
     compare(query, done);
   });
   it('constant time - 5', function(done) {
-    var query = r.friday
+    var query = r.friday;
     compare(query, done);
   });
   it('constant time - 6', function(done) {
-    var query = r.saturday
+    var query = r.saturday;
     compare(query, done);
   });
   it('constant time - 7', function(done) {
-    var query = r.sunday
+    var query = r.sunday;
     compare(query, done);
   });
   it('constant time - 8', function(done) {
-    var query = r.january
+    var query = r.january;
     compare(query, done);
   });
   it('constant time - 9', function(done) {
-    var query = r.february
+    var query = r.february;
     compare(query, done);
   });
   it('constant time - 10', function(done) {
-    var query = r.march
+    var query = r.march;
     compare(query, done);
   });
   it('constant time - 11', function(done) {
-    var query = r.april
+    var query = r.april;
     compare(query, done);
   });
   it('constant time - 12', function(done) {
-    var query = r.may
+    var query = r.may;
     compare(query, done);
   });
   it('constant time - 13', function(done) {
-    var query = r.june
+    var query = r.june;
     compare(query, done);
   });
   it('constant time - 14', function(done) {
-    var query = r.july
+    var query = r.july;
     compare(query, done);
   });
   it('constant time - 15', function(done) {
-    var query = r.september
+    var query = r.september;
     compare(query, done);
   });
   it('constant time - 16', function(done) {
-    var query = r.october
+    var query = r.october;
     compare(query, done);
   });
   it('constant time - 17', function(done) {
-    var query = r.november
+    var query = r.november;
     compare(query, done);
   });
   it('constant time - 18', function(done) {
-    var query = r.december
+    var query = r.december;
     compare(query, done);
   });
   /*

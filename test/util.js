@@ -3,12 +3,12 @@ var assert = require('assert');
 module.exports.removeId = function(doc) {
   delete doc.id;
   return doc;
-}
+};
 
 module.exports.generateCompare = function(connections) {
   return function(query, done, transform, raw) {
     if (typeof transform !== 'function') {
-      transform = function(x) { return x }
+      transform = function(x) { return x; };
     }
     query.run(connections.rethinkdb).then(function(resultrethinkdb) {
       query.run(connections.reqlite).then(function(resultreqlite) {
@@ -58,5 +58,5 @@ module.exports.generateCompare = function(connections) {
         }
       });
     }).catch(done);
-  }
-}
+  };
+};

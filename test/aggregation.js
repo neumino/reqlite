@@ -27,14 +27,14 @@ describe('aggregation.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
@@ -53,35 +53,35 @@ describe('aggregation.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foo')
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foo');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('bar')
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('bar');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {multi: true})
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {multi: true});
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('optional')
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('optional');
         return this.query.run(connections.rethinkdb);
       }).catch(function(e) { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait()
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait();
         return this.query.run(connections.rethinkdb);
       }).catch(function(e) { // ignore errors
       }).finally(function() {
@@ -90,54 +90,54 @@ describe('aggregation.js', function(){
       }).finally(function() {
         done();
       });
-    }, 400)
+    }, 400);
   });
 
   it('group - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).group('id').count();
     compare(query, done, function(result) {
       result.sort(function(a, b) {
-        return a.group - b.group
+        return a.group - b.group;
       });
       return result;
     });
   });
 
   it('group - 2', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).group('foo').count()
+    var query = r.db(TEST_DB).table(TEST_TABLE).group('foo').count();
     compare(query, done, function(result) {
       result.sort(function(a, b) {
-        return a.group - b.group
+        return a.group - b.group;
       });
       return result;
     });
   });
 
   it('group - 3', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).group({index: 'id'}).count()
+    var query = r.db(TEST_DB).table(TEST_TABLE).group({index: 'id'}).count();
     compare(query, done, function(result) {
       result.sort(function(a, b) {
-        return a.group - b.group
+        return a.group - b.group;
       });
       return result;
     });
   });
 
   it('group - 4', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).group(MISSING_FIELD).count()
+    var query = r.db(TEST_DB).table(TEST_TABLE).group(MISSING_FIELD).count();
     compare(query, done, function(result) {
       result.sort(function(a, b) {
-        return a.group - b.group
+        return a.group - b.group;
       });
       return result;
     });
   });
 
   it('group - 5', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).group({index: 'optional'}).count()
+    var query = r.db(TEST_DB).table(TEST_TABLE).group({index: 'optional'}).count();
     compare(query, done, function(result) {
       result.sort(function(a, b) {
-        return a.group - b.group
+        return a.group - b.group;
       });
       return result;
     });
@@ -149,10 +149,10 @@ describe('aggregation.js', function(){
       {id: 1},
       {id: 2},
       {id: 3}
-    ]).group('id')
+    ]).group('id');
     compare(query, done, function(result) {
       result.sort(function(a, b) {
-        return a.group - b.group
+        return a.group - b.group;
       });
       return result;
     });
@@ -164,10 +164,10 @@ describe('aggregation.js', function(){
       {},
       {},
       {id: 3}
-    ]).group('id')
+    ]).group('id');
     compare(query, done, function(result) {
       result.sort(function(a, b) {
-        return a.group - b.group
+        return a.group - b.group;
       });
       return result;
     });
@@ -189,14 +189,14 @@ describe('aggregation.js', function(){
       {id: 1, foo: 2},
       {id: 1, foo: 3},
       {id: 3, foo: 3}
-    ]).group('id', 'foo')
+    ]).group('id', 'foo');
     compare(query, done, function(result) {
       result.sort(function(a, b) {
         if (a.group > b.group) {
-          return 1
+          return 1;
         }
         else if (a.group < b.group) {
-          return -1
+          return -1;
         }
         return 0;
       });
@@ -210,7 +210,7 @@ describe('aggregation.js', function(){
       {id: 1},
       {},
       {id: 3}
-    ]).group('id').ungroup().count()
+    ]).group('id').ungroup().count();
     compare(query, done);
   });
 
@@ -260,9 +260,9 @@ describe('aggregation.js', function(){
     }).ungroup().orderBy('group').map(function(doc) {
       return r.branch(
         doc('group').eq(1),
-        doc.merge(function(x) { return { reduction: doc('reduction').orderBy(function(y) { return y }) }}),
+        doc.merge(function(x) { return { reduction: doc('reduction').orderBy(function(y) { return y; }) };}),
         doc
-      )
+      );
     });
     compare(query, done);
   });
@@ -278,9 +278,9 @@ describe('aggregation.js', function(){
     }).ungroup().orderBy('group').map(function(doc) {
       return r.branch(
         doc('group').eq(1),
-        doc.merge(function(x) { return { reduction: x('reduction').orderBy(function(y) { return y }) }}),
+        doc.merge(function(x) { return { reduction: x('reduction').orderBy(function(y) { return y; }) };}),
         doc
-      )
+      );
     });
     compare(query, done);
   });
@@ -303,22 +303,22 @@ describe('aggregation.js', function(){
       {id: 1},
       {},
       {id: 3}
-    ]).group('id').typeOf()
+    ]).group('id').typeOf();
     compare(query, done);
   });
 
   it('group - 19',  function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).group('id').typeOf()
+    var query = r.db(TEST_DB).table(TEST_TABLE).group('id').typeOf();
     compare(query, done);
   });
 
   it('group - 20',  function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).group('id').count().typeOf()
+    var query = r.db(TEST_DB).table(TEST_TABLE).group('id').count().typeOf();
     compare(query, done);
   });
 
   it('group - 21',  function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).group().count()
+    var query = r.db(TEST_DB).table(TEST_TABLE).group().count();
     compare(query, done);
   });
 
@@ -329,7 +329,7 @@ describe('aggregation.js', function(){
         {name: "Sophie", grownUp: true},
         {name: "Luke", grownUp: false},
         {name: "Mino", grownUp: false}
-    ]).group('grownUp').orderBy(r.row).ungroup().orderBy(r.row)
+    ]).group('grownUp').orderBy(r.row).ungroup().orderBy(r.row);
     compare(query, done);
   });
 
@@ -339,7 +339,7 @@ describe('aggregation.js', function(){
       {id: 1, x: 4},
       {id: 2, x: 5},
       {id: 3, x: 6}
-    ]).group("id").map(function(item){return 2}).ungroup().orderBy(r.row)
+    ]).group("id").map(function(item){return 2;}).ungroup().orderBy(r.row);
     compare(query, done);
   });
 
@@ -350,7 +350,7 @@ describe('aggregation.js', function(){
       {id: 1, foo: 3},
       {id: 3, foo: 3}
     ]).group('id', 'foo').ungroup().map(function(doc) {
-      return doc('group')
+      return doc('group');
     }).orderBy(r.row);
     compare(query, done);
   });
@@ -511,7 +511,7 @@ describe('aggregation.js', function(){
 
   it('count - 4', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).map(function(doc) {
-      return doc('id')
+      return doc('id');
     }).count(2);
     compare(query, done);
   });
@@ -545,7 +545,7 @@ describe('aggregation.js', function(){
 
   it('count - 10', function(done) {
     var query = r.expr(new Buffer('foobarbuzzlol')).count(function(value) {
-      return value.eq(2)
+      return value.eq(2);
     });
     compare(query, done);
   });
@@ -556,7 +556,7 @@ describe('aggregation.js', function(){
   });
 
   it('count - 12', function(done) {
-    var query = r.expr([1,2,3,4,2,3,4,2,2,15]).count(r.row.eq(2))
+    var query = r.expr([1,2,3,4,2,3,4,2,2,15]).count(r.row.eq(2));
     compare(query, done);
   });
 
@@ -585,21 +585,21 @@ describe('aggregation.js', function(){
   it('sum - 3', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).sum(function(doc) {
       return doc('id');
-    })
+    });
     compare(query, done);
   });
 
   it('sum - 4', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).sum(function(doc) {
       return doc('optional');
-    })
+    });
     compare(query, done);
   });
 
   it('sum - 5', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).sum(function(doc) {
       return doc('bar').nth(2);
-    })
+    });
     compare(query, done);
   });
 
@@ -619,7 +619,7 @@ describe('aggregation.js', function(){
           doc('id').eq(2),
           r.error('foobar'),
           doc('id')
-      )
+      );
     });
     compare(query, done);
   });
@@ -639,21 +639,21 @@ describe('aggregation.js', function(){
   it('avg - 3', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).avg(function(doc) {
       return doc('id');
-    })
+    });
     compare(query, done);
   });
 
   it('avg - 4', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).avg(function(doc) {
       return doc('optional');
-    })
+    });
     compare(query, done);
   });
 
   it('avg - 5', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).avg(function(doc) {
       return doc('bar').nth(2);
-    })
+    });
     compare(query, done);
   });
 
@@ -673,7 +673,7 @@ describe('aggregation.js', function(){
           doc('id').eq(2),
           r.error('foobar'),
           doc('id')
-      )
+      );
     });
     compare(query, done);
   });
@@ -693,14 +693,14 @@ describe('aggregation.js', function(){
   it('min - 3', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).min(function(doc) {
       return doc('id');
-    })
+    });
     compare(query, done);
   });
 
   it('min - 4', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).min(function(doc) {
       return doc('optional');
-    })
+    });
     compare(query, done, function(doc) {
       return (doc.id === 1) || (doc.id === 2);
     });
@@ -709,7 +709,7 @@ describe('aggregation.js', function(){
   it('min - 5', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).min(function(doc) {
       return doc('bar').nth(2);
-    })
+    });
     compare(query, done);
   });
 
@@ -753,21 +753,21 @@ describe('aggregation.js', function(){
   it('max - 3', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).max(function(doc) {
       return doc('id');
-    })
+    });
     compare(query, done);
   });
 
   it('max - 4', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).max(function(doc) {
       return doc('optional');
-    })
+    });
     compare(query, done);
   });
 
   it('max - 5', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).max(function(doc) {
       return doc('bar').nth(2);
-    })
+    });
     compare(query, done);
   });
 
@@ -797,7 +797,7 @@ describe('aggregation.js', function(){
           doc('id').eq(2),
           r.error('bar'),
           doc('id')
-      )
+      );
     });
     compare(query, done);
   });
@@ -809,7 +809,7 @@ describe('aggregation.js', function(){
 
   it('distinct - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).map(function(doc) {
-      return doc('id')
+      return doc('id');
     }).distinct().orderBy(r.row);
     compare(query, done);
   });
@@ -825,7 +825,7 @@ describe('aggregation.js', function(){
   });
 
   it('distinct - 5', function(done) {
-    var query = r.expr('foo').distinct()
+    var query = r.expr('foo').distinct();
     compare(query, done);
   });
 
@@ -836,17 +836,17 @@ describe('aggregation.js', function(){
 
   it('distinct - 7', function(done) {
     // If you add orderBy, the backtrace is broken in RethinkDB's side...
-    var query = r.db(TEST_DB).table(TEST_TABLE).distinct({index: MISSING_INDEX})//.orderBy(r.row);
+    var query = r.db(TEST_DB).table(TEST_TABLE).distinct({index: MISSING_INDEX});//.orderBy(r.row);
     compare(query, done);
   });
 
   it('distinct - 8', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).distinct({index: 42})
+    var query = r.db(TEST_DB).table(TEST_TABLE).distinct({index: 42});
     compare(query, done);
   });
 
   it('distinct - 9', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).filter(true).distinct()
+    var query = r.db(TEST_DB).table(TEST_TABLE).filter(true).distinct();
     compare(query, done);
   });
 
@@ -878,14 +878,14 @@ describe('aggregation.js', function(){
   it('contains - 5', function(done) {
     var query = r.expr([1,2,3,4]).contains(function(value) {
       return value.eq(2);
-    })
+    });
     compare(query, done);
   });
 
   it('contains - 6', function(done) {
     var query = r.expr([1,2,3,4]).contains(function(value) {
       return value.eq(999);
-    })
+    });
     compare(query, done);
   });
 
@@ -894,7 +894,7 @@ describe('aggregation.js', function(){
       return value.eq(2);
     }, function(value) {
       return value.eq(3);
-    })
+    });
     compare(query, done);
   });
 
@@ -903,28 +903,28 @@ describe('aggregation.js', function(){
       return value.eq(2);
     }, function(value) {
       return value.eq(999);
-    })
+    });
     compare(query, done);
   });
 
   it('contains - 9', function(done) {
     var query = r.expr([1,2,3,4]).contains(function(value) {
-      return {}
+      return {};
     });
     compare(query, done);
   });
 
   it('contains - 10', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).contains(function(doc) {
-      return doc('id').eq(2)
-    })
+      return doc('id').eq(2);
+    });
     compare(query, done);
   });
 
   it('contains - 11', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).contains(function(doc) {
-      return doc(MISSING_FIELD).eq(2)
-    })
+      return doc(MISSING_FIELD).eq(2);
+    });
     compare(query, done, function(error) {
       var result = error.split(':')[0];
       assert(result.length > 0);
@@ -959,7 +959,7 @@ describe('aggregation.js', function(){
 
   it('contains - 17', function(done) {
     var query = r.expr([1,2,3]).contains(function(value) {
-      return r.db(TEST_DB).table(TEST_TABLE)
+      return r.db(TEST_DB).table(TEST_TABLE);
     });
     compare(query, done);
   });

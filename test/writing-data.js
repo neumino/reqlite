@@ -28,14 +28,14 @@ describe('writing-data.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
@@ -44,7 +44,7 @@ describe('writing-data.js', function(){
       }).finally(function() {
         done();
       });
-    }, 400)
+    }, 400);
   });
 
   it('insert - 1', function(done) {
@@ -80,32 +80,32 @@ describe('writing-data.js', function(){
   });
 
   it('insert - 3 - clean', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(new Buffer('foo')).delete()
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(new Buffer('foo')).delete();
     compare(query, done);
   });
 
   it('insert - 4', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).insert('foo')
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert('foo');
     compare(query, done);
   });
 
   it('insert - 5', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).insert(2)
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert(2);
     compare(query, done);
   });
 
   it('insert - 6', function(done) {
-    var query = r.expr('foo').insert({})
+    var query = r.expr('foo').insert({});
     compare(query, done);
   });
 
   it('insert - 7', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).insert({foo: 'bar'}, {buzz: 'lol'})
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({foo: 'bar'}, {buzz: 'lol'});
     compare(query, done);
   });
 
   it('insert - 8', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: 100, foo: 'bar'}, {returnChanges: true})
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: 100, foo: 'bar'}, {returnChanges: true});
     compare(query, done);
   });
 
@@ -120,7 +120,7 @@ describe('writing-data.js', function(){
         changes: result('changes').orderBy(function(change) {
           return change;
         })
-      })
+      });
     });
     compare(query, done);
     //compare(query, done, function(e) { console.log(''); console.log(JSON.stringify(e, null, 4)); return e; });
@@ -130,18 +130,18 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({
       id: 103, // primary key already used
       foo: 'bar<new>'
-    }, {returnChanges: true})
+    }, {returnChanges: true});
     compare(query, done, function(e) {
       delete e.first_error;
       return e;
-    })
+    });
   });
 
   it('insert - 11', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({
       id: 103, // primary key already used
       foo: 'bar<new>'
-    }, {conflict: 'replace', returnChanges: true})
+    }, {conflict: 'replace', returnChanges: true});
     compare(query, done);
   });
 
@@ -149,12 +149,12 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({
       id: 103, // primary key already used
       buzz: 'extra<buzz>'
-    }, {conflict: 'update', returnChanges: true})
+    }, {conflict: 'update', returnChanges: true});
     compare(query, done);
   });
 
   it('insert - 12', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).insert([{}, {}, {}])
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert([{}, {}, {}]);
     compare(query, done, function(result) {
       assert.equal(result.generated_keys.length, 3);
       delete result.generated_keys;
@@ -164,8 +164,8 @@ describe('writing-data.js', function(){
   it('insert - 12 - follow up', function(done) {
     // We need to clean here as we have different primary keys in reqlite and rethinkdb
     var query = r.db(TEST_DB).table(TEST_TABLE).filter(function(doc) {
-      return doc('id').typeOf().eq("STRING")
-    }).delete()
+      return doc('id').typeOf().eq("STRING");
+    }).delete();
     compare(query, done);
   });
 
@@ -174,11 +174,11 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
   it('insert - 13 - follow up', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(true)
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(true);
     compare(query, done);
   });
   it('insert - 13 - follow up - 2', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(true).delete()
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(true).delete();
     compare(query, done);
   });
 
@@ -187,11 +187,11 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
   it('insert - 14 - follow up', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(null)
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(null);
     compare(query, done);
   });
   it('insert - 14 - follow up - 2', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(null).delete()
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(null).delete();
     compare(query, done);
   });
 
@@ -200,11 +200,11 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
   it('insert - 15 - follow up', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.point(0, 0))
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.point(0, 0));
     compare(query, done);
   });
   it('insert - 15 - follow up - 2', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.point(0, 0)).delete()
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.point(0, 0)).delete();
     compare(query, done);
   });
 
@@ -214,7 +214,7 @@ describe('writing-data.js', function(){
   });
 
   it('insert - 16 - follow up', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.time(1986, 11, 3, 'Z'))
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.time(1986, 11, 3, 'Z'));
     compare(query, done);
   });
   it('insert - 16 - follow up - 2', function(done) {
@@ -225,7 +225,7 @@ describe('writing-data.js', function(){
     });
   });
   it('insert - 16 - follow up - 3', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.time(1986, 11, 3, 'Z')).delete()
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(r.time(1986, 11, 3, 'Z')).delete();
     compare(query, done);
   });
 
@@ -234,7 +234,7 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
   it('insert - 17 - follow up', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(new Buffer('Hello world'))
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(new Buffer('Hello world'));
     compare(query, done);
   });
   it('insert - 17 - follow up - 2', function(done) {
@@ -243,20 +243,20 @@ describe('writing-data.js', function(){
   });
 
   it('insert - 18', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).insert({}, {returnChanges: true})
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({}, {returnChanges: true});
     compare(query, done, function(result) {
       assert(typeof result.generated_keys[0] === 'string');
       assert(result.changes.length === 1);
       delete result.generated_keys;
-      delete result.changes
-      return result
+      delete result.changes;
+      return result;
     });
   });
   it('insert - 18 - follow up', function(done) {
     // We need to clean here as we have different primary keys in reqlite and rethinkdb
     var query = r.db(TEST_DB).table(TEST_TABLE).filter(function(doc) {
-      return doc('id').typeOf().eq("STRING")
-    }).delete()
+      return doc('id').typeOf().eq("STRING");
+    }).delete();
     compare(query, done);
   });
 
@@ -285,7 +285,7 @@ describe('writing-data.js', function(){
   });
 
   it('update - 4', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({foo: r.row('foo').add(1) })
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({foo: r.row('foo').add(1) });
     compare(query, done);
   });
   it('update - 4 - follow up', function(done) {
@@ -295,7 +295,7 @@ describe('writing-data.js', function(){
 
   it('update - 5', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update(function(doc) {
-      return {foo: doc('foo').add(1) }
+      return {foo: doc('foo').add(1) };
     });
     compare(query, done);
   });
@@ -306,7 +306,7 @@ describe('writing-data.js', function(){
 
   it('update - 6', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).filter({id: 1}).update(function(doc) {
-      return {foo: doc('foo').add(1) }
+      return {foo: doc('foo').add(1) };
     });
     compare(query, done);
   });
@@ -317,7 +317,7 @@ describe('writing-data.js', function(){
 
   it('update - 7', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).update(function(doc) {
-      return {foo: doc('foo').add(1) }
+      return {foo: doc('foo').add(1) };
     });
     compare(query, done);
   });
@@ -364,12 +364,12 @@ describe('writing-data.js', function(){
   });
 
   it('update - 13', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).update(r.js('(function(doc) { return {copyId: doc.id} })'))
+    var query = r.db(TEST_DB).table(TEST_TABLE).update(r.js('(function(doc) { return {copyId: doc.id} })'));
     compare(query, done);
   });
 
   it('update - 14', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).update(r.js('(function(doc) { return {copyId: doc.id} })'), {nonAtomic: true})
+    var query = r.db(TEST_DB).table(TEST_TABLE).update(r.js('(function(doc) { return {copyId: doc.id} })'), {nonAtomic: true});
     compare(query, done);
   });
   it('update - 14 - follow up', function(done) {
@@ -397,21 +397,21 @@ describe('writing-data.js', function(){
 
   it('update - 17', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).update(function(doc) {
-      return r.db(TEST_DB).table(TEST_TABLE)
+      return r.db(TEST_DB).table(TEST_TABLE);
     }, {nonAtomic: true});
     compare(query, done);
   });
 
   it('update - 18', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'id'}).limit(1).update(function(doc) {
-      return {foo: doc('id')('bar')}
+      return {foo: doc('id')('bar')};
     }, {nonAtomic: true});
     compare(query, done);
   });
 
   it('update - 19', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).update(function(doc) {
-      return { foo: r.expr(1).add('foo') }
+      return { foo: r.expr(1).add('foo') };
     }, {nonAtomic: true});
     compare(query, done);
   });
@@ -422,7 +422,7 @@ describe('writing-data.js', function(){
   });
 
   it('update - 21', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).update(r.js('(function(doc) { return {copyId: doc.id+NaN} })'), {nonAtomic: true})
+    var query = r.db(TEST_DB).table(TEST_TABLE).update(r.js('(function(doc) { return {copyId: doc.id+NaN} })'), {nonAtomic: true});
     compare(query, done);
   });
 
@@ -451,7 +451,7 @@ describe('writing-data.js', function(){
   });
 
   it('update - 25', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({foo: r.row('foo').add(1) }, {returnChanges: true})
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({foo: r.row('foo').add(1) }, {returnChanges: true});
     compare(query, done);
   });
   it('update - 25 - follow up', function(done) {
@@ -479,7 +479,7 @@ describe('writing-data.js', function(){
 
   it('replace - 3', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).replace(function(doc) {
-      return {id: 1, foo: doc('foo').add(1)}
+      return {id: 1, foo: doc('foo').add(1)};
     });
     compare(query, done);
   });
@@ -490,7 +490,7 @@ describe('writing-data.js', function(){
 
   it('replace - 4', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).filter({id: 1}).replace(function(doc) {
-      return {id: 1, foo: doc('foo').add(1)}
+      return {id: 1, foo: doc('foo').add(1)};
     });
     compare(query, done);
   });
@@ -502,14 +502,14 @@ describe('writing-data.js', function(){
 
   it('replace - 5', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).replace(function(doc) {
-      return doc.merge({foo: doc('foo').add(1)})
+      return doc.merge({foo: doc('foo').add(1)});
     }, {returnChanges: true}).do(function(result) {
       return result.merge({
         changes: result('changes').orderBy(function(change) {
           return change;
         })
-      })
-    })
+      });
+    });
     compare(query, done);
   });
 
@@ -520,7 +520,7 @@ describe('writing-data.js', function(){
 
   it('replace - 6', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).replace(function(doc) {
-      return {id: 1, foo: doc('foo').add(1)}
+      return {id: 1, foo: doc('foo').add(1)};
     });
     compare(query, done, function(result) {
       delete result.first_error;
@@ -544,28 +544,28 @@ describe('writing-data.js', function(){
 
   it('replace - 9', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).replace(function(doc) {
-      return {id: 1, foo: doc('foo').add(1)}
+      return {id: 1, foo: doc('foo').add(1)};
     }, {returnChanges: true});
     compare(query, done);
   });
 
   it('replace - 10', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).filter({id: 1}).replace(function(doc) {
-      return {id: 1, foo: doc('foo').add(1)}
+      return {id: 1, foo: doc('foo').add(1)};
     }, {returnChanges: true});
     compare(query, done);
   });
 
   it('replace - 11', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).replace(function(doc) {
-      return {id: 1, foo: doc('foo').add(1)}
+      return {id: 1, foo: doc('foo').add(1)};
     }, {returnChanges: true}).do(function(result) {
       return result.merge({
         changes: result('changes').orderBy(function(change) {
           return change;
         })
-      })
-    })
+      });
+    });
     compare(query, done, function(result) {
       delete result.first_error;
       return result;
@@ -629,7 +629,7 @@ describe('writing-data.js', function(){
         changes: result('changes').orderBy(function(change) {
           return change;
         })
-      })
+      });
     });
     compare(query, done);
   });

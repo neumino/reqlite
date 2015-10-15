@@ -24,7 +24,7 @@ var COMPLEX_OBJECT = {
       {monde: 3000, ciao: 6000},
     ]
   },
-}
+};
 
 var compare = require('./util.js').generateCompare(connections);
 
@@ -43,14 +43,14 @@ describe('transformations.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
@@ -69,28 +69,28 @@ describe('transformations.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foo')
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foo');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('bar')
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('bar');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {multi: true})
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {multi: true});
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait()
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait();
         return this.query.run(connections.rethinkdb);
       }).catch(function(e) { // ignore errors
       }).finally(function() {
@@ -99,19 +99,19 @@ describe('transformations.js', function(){
       }).finally(function() {
         done();
       });
-    }, 700)
+    }, 700);
   });
 
   it('map - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).map(function(doc) {
-      return 1
+      return 1;
     });
     compare(query, done);
   });
 
   it('map - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).map(function(doc) {
-      return doc('id')
+      return doc('id');
     }).orderBy(r.row);
     compare(query, done);
   });
@@ -135,44 +135,44 @@ describe('transformations.js', function(){
 
   it('map - 5', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).map(function(doc) {
-      return doc.merge({bar: 'lol'})
+      return doc.merge({bar: 'lol'});
     }).orderBy(r.row('id'));
     compare(query, done);
   });
 
   it('map - 6', function(done) {
-    var query = r.expr([1, 2, 3]).map(function(x) { return [x, x.mul(2)] })
+    var query = r.expr([1, 2, 3]).map(function(x) { return [x, x.mul(2)]; });
     compare(query, done);
   });
 
   it('map - 7', function(done) {
-    var query = r.expr('foo').map(function(x) { return [x, x.mul(2)] })
+    var query = r.expr('foo').map(function(x) { return [x, x.mul(2)]; });
     compare(query, done);
   });
 
   it('map - 8', function(done) {
-    var query = r.map([1,2,3], 'foo', function(x) { return [x, x.mul(2)] })
+    var query = r.map([1,2,3], 'foo', function(x) { return [x, x.mul(2)]; });
     compare(query, done);
   });
 
   it('map - 9', function(done) {
     var query = r.map([1,2,3], [1,2,3], function(x, y) {
-      return r.db(TEST_DB).table(TEST_TABLE)
-    })
+      return r.db(TEST_DB).table(TEST_TABLE);
+    });
     compare(query, done);
   });
 
   it('map - 10', function(done) {
     var query = r.map([1,2,3], [1,2,3], function(x) {
       return x;
-    })
+    });
     compare(query, done);
   });
 
   it('map - 11', function(done) {
     var query = r.expr([1,2,3]).map(function(x, y) {
       return x;
-    })
+    });
     compare(query, done);
   });
 
@@ -187,12 +187,12 @@ describe('transformations.js', function(){
   });
 
   it('map - 14', function(done) {
-    var query = r.map([1,2,3], [10, 20, 30], r.js('(function(x, y) { return x+y; })'))
+    var query = r.map([1,2,3], [10, 20, 30], r.js('(function(x, y) { return x+y; })'));
     compare(query, done);
   });
 
   it('map - 15', function(done) {
-    var query = r.map([1,2,3], [10, 0, 30], r.js('(function(x, y) { return x/y; })'))
+    var query = r.map([1,2,3], [10, 0, 30], r.js('(function(x, y) { return x/y; })'));
     compare(query, done);
   });
 
@@ -252,13 +252,13 @@ describe('transformations.js', function(){
   });
 
   it('concatMap - 1', function(done) {
-    var query = r.expr([1, 2, 3]).concatMap(function(x) { return [x, x.mul(2)] });
+    var query = r.expr([1, 2, 3]).concatMap(function(x) { return [x, x.mul(2)]; });
     compare(query, done);
   });
 
   it('concatMap - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).concatMap(function(doc) {
-      return doc('bar')
+      return doc('bar');
     }).orderBy(r.row);
     compare(query, done);
   });
@@ -272,7 +272,7 @@ describe('transformations.js', function(){
 
   it('concatMap - 4', function(done) {
     var query = r.expr([1, 2, 3]).concatMap(function(x) {
-      return 'foo'
+      return 'foo';
     });
     compare(query, done);
   });
@@ -321,7 +321,7 @@ describe('transformations.js', function(){
 
   it('orderBy - 3', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).orderBy(function(doc) {
-      return doc('id')
+      return doc('id');
     });
     compare(query, done);
   });
@@ -348,30 +348,30 @@ describe('transformations.js', function(){
 
   it('orderBy - 8', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).orderBy(function(doc) {
-      return doc('foo')
+      return doc('foo');
     }, r.row('id'));
     compare(query, done);
   });
 
   it('orderBy - 9', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'id'})
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'id'});
     compare(query, done);
   });
 
   it('orderBy - 10', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'foo'})
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'foo'});
     compare(query, done, function(result) {
-      return [result[0].foo, result[1].foo, result[2].foo,result[3].foo]
+      return [result[0].foo, result[1].foo, result[2].foo,result[3].foo];
     });
   });
 
   it('orderBy - 11', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: MISSING_INDEX})
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: MISSING_INDEX});
     compare(query, done);
   });
 
   it('orderBy - 11', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy('id', {index: MISSING_INDEX})
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy('id', {index: MISSING_INDEX});
     compare(query, done);
   });
 
@@ -405,12 +405,12 @@ describe('transformations.js', function(){
   });
 
   it('orderBy - 17', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: r.expr([1,2,3])})
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: r.expr([1,2,3])});
     compare(query, done);
   });
 
   it('orderBy - 18', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: r.expr(1)})
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: r.expr(1)});
     compare(query, done);
   });
 
@@ -431,7 +431,7 @@ describe('transformations.js', function(){
 
   it('orderBy - 22', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy(function(doc) {
-      return doc('id')
+      return doc('id');
     });
     compare(query, done);
   });
@@ -458,28 +458,28 @@ describe('transformations.js', function(){
 
   it('orderBy - 27', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy(function(doc) {
-      return doc('foo')
+      return doc('foo');
     }, r.row('id'));
     compare(query, done);
   });
 
   it('orderBy - 28', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy({index: 'id'})
+    var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy({index: 'id'});
     compare(query, done);
   });
 
   it('orderBy - 29', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy({index: 'foo'})
+    var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy({index: 'foo'});
     compare(query, done);
   });
 
   it('orderBy - 30', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy({index: MISSING_INDEX})
+    var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy({index: MISSING_INDEX});
     compare(query, done);
   });
 
   it('orderBy - 31', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy('id', {index: MISSING_INDEX})
+    var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy('id', {index: MISSING_INDEX});
     compare(query, done);
   });
 
@@ -494,12 +494,12 @@ describe('transformations.js', function(){
   });
 
   it('orderBy - 34', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy({index: r.expr([1,2,3])})
+    var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy({index: r.expr([1,2,3])});
     compare(query, done);
   });
 
   it('orderBy - 35', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy({index: r.expr([1,2,3])})
+    var query = r.db(TEST_DB).table(TEST_TABLE).coerceTo("ARRAY").orderBy({index: r.expr([1,2,3])});
     compare(query, done);
   });
 
@@ -529,22 +529,22 @@ describe('transformations.js', function(){
   });
 
   it('orderBy - 41', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: r.desc('id')})
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: r.desc('id')});
     compare(query, done);
   });
 
   it('orderBy - 42', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: r.asc('id')})
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: r.asc('id')});
     compare(query, done);
   });
 
   it('orderBy - 43', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy('id', {index: r.asc('foo')})
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy('id', {index: r.asc('foo')});
     compare(query, done);
   });
 
   it('orderBy - 44', function(done) {
-    var query = r.expr([1,2,3]).orderBy({index: 'foo'})
+    var query = r.expr([1,2,3]).orderBy({index: 'foo'});
     compare(query, done);
   });
 
@@ -825,20 +825,20 @@ describe('transformations.js', function(){
 
   it('offsetsOf - 3', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).orderBy('id').map(function(doc) {
-      return doc('id')
-    }).offsetsOf(2)
+      return doc('id');
+    }).offsetsOf(2);
     compare(query, done);
   });
 
   it('offsetsOf - 4', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).between(r.minval, r.maxval).orderBy('id')
-      .offsetsOf({id: 3, foo: 10, bar: [300, 301, 302]})
+      .offsetsOf({id: 3, foo: 10, bar: [300, 301, 302]});
     compare(query, done);
   });
 
   it('offsetsOf - 5', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).between(r.minval, r.maxval).orderBy('foo', 'id')
-      .offsetsOf({id: 3, foo: 10, bar: [300, 301, 302]})
+      .offsetsOf({id: 3, foo: 10, bar: [300, 301, 302]});
     compare(query, done);
   });
 
@@ -854,7 +854,7 @@ describe('transformations.js', function(){
 
   it('offsetsOf - 8', function(done) {
     var query = r.expr([1,2,3]).offsetsOf(function(value) {
-      return r.db(TEST_DB).table(TEST_TABLE)
+      return r.db(TEST_DB).table(TEST_TABLE);
     });
     compare(query, done);
   });
@@ -872,37 +872,37 @@ describe('transformations.js', function(){
   });
 
   it('isEmpty - 1', function(done) {
-    var query = r.expr([]).isEmpty()
+    var query = r.expr([]).isEmpty();
     compare(query, done);
   });
 
   it('isEmpty - 2', function(done) {
-    var query = r.expr([0]).isEmpty()
+    var query = r.expr([0]).isEmpty();
     compare(query, done);
   });
 
   it('isEmpty - 3', function(done) {
-    var query = r.expr({}).isEmpty()
+    var query = r.expr({}).isEmpty();
     compare(query, done);
   });
 
   it('isEmpty - 4', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).isEmpty()
+    var query = r.db(TEST_DB).table(TEST_TABLE).isEmpty();
     compare(query, done);
   });
 
   it('isEmpty - 5', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).limit(0).isEmpty()
+    var query = r.db(TEST_DB).table(TEST_TABLE).limit(0).isEmpty();
     compare(query, done);
   });
 
   it('isEmpty - 6', function(done) {
-    var query = r.expr('foo').isEmpty()
+    var query = r.expr('foo').isEmpty();
     compare(query, done);
   });
 
   it('isEmpty - 7', function(done) {
-    var query = r.expr([]).isEmpty('foo')
+    var query = r.expr([]).isEmpty('foo');
     compare(query, done);
   });
 

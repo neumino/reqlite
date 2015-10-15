@@ -24,7 +24,7 @@ var COMPLEX_OBJECT = {
       {monde: 3000, ciao: 6000},
     ]
   },
-}
+};
 
 var compare = require('./util.js').generateCompare(connections);
 
@@ -43,14 +43,14 @@ describe('document-manipulation.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
@@ -69,35 +69,35 @@ describe('document-manipulation.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foo')
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foo');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('bar')
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('bar');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {multi: true})
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('barmulti', r.row('bar'), {multi: true});
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('optional')
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('optional');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait()
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait();
         return this.query.run(connections.rethinkdb);
       }).catch(function(e) { // ignore errors
       }).finally(function() {
@@ -106,7 +106,7 @@ describe('document-manipulation.js', function(){
       }).finally(function() {
         done();
       });
-    }, 400)
+    }, 400);
   });
 
   it('r.row - 1', function(done) {
@@ -120,17 +120,17 @@ describe('document-manipulation.js', function(){
   });
 
   it('pluck - 1', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).pluck('id').orderBy(r.row('id'))
+    var query = r.db(TEST_DB).table(TEST_TABLE).pluck('id').orderBy(r.row('id'));
     compare(query, done);
   });
 
   it('pluck - 2', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).pluck('id', 'foo').orderBy(r.row('id'))
+    var query = r.db(TEST_DB).table(TEST_TABLE).pluck('id', 'foo').orderBy(r.row('id'));
     compare(query, done);
   });
 
   it('pluck - 3', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).pluck(MISSING_FIELD).orderBy(r.row('id'))
+    var query = r.db(TEST_DB).table(TEST_TABLE).pluck(MISSING_FIELD).orderBy(r.row('id'));
     compare(query, done);
   });
 
@@ -245,17 +245,17 @@ describe('document-manipulation.js', function(){
   });
 
   it('pluck - 26', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).pluck({foo: false})
+    var query = r.expr(COMPLEX_OBJECT).pluck({foo: false});
     compare(query, done);
   });
 
   it('pluck - 27', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).pluck({foo: null})
+    var query = r.expr(COMPLEX_OBJECT).pluck({foo: null});
     compare(query, done);
   });
 
   it('pluck - 28', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).pluck({foo: {bar: true}})
+    var query = r.expr(COMPLEX_OBJECT).pluck({foo: {bar: true}});
     compare(query, done);
   });
 
@@ -265,12 +265,12 @@ describe('document-manipulation.js', function(){
   });
 
   it('without - 1', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).without('foo').orderBy(r.row('id'))
+    var query = r.db(TEST_DB).table(TEST_TABLE).without('foo').orderBy(r.row('id'));
     compare(query, done);
   });
 
   it('without - 2', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).without('foo', 'bar').orderBy(r.row('id'))
+    var query = r.db(TEST_DB).table(TEST_TABLE).without('foo', 'bar').orderBy(r.row('id'));
     compare(query, done);
   });
 
@@ -390,17 +390,17 @@ describe('document-manipulation.js', function(){
   });
 
   it('without - 26', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).without({foo: false})
+    var query = r.expr(COMPLEX_OBJECT).without({foo: false});
     compare(query, done);
   });
 
   it('without - 27', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).without({foo: null})
+    var query = r.expr(COMPLEX_OBJECT).without({foo: null});
     compare(query, done);
   });
 
   it('without - 28', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).without({foo: {bar: true}})
+    var query = r.expr(COMPLEX_OBJECT).without({foo: {bar: true}});
     compare(query, done);
   });
 
@@ -459,59 +459,59 @@ describe('document-manipulation.js', function(){
   });
 
   it('merge - 1', function(done) {
-    var query = r.expr({foo: 'bar'}).merge({foo: 'lol'})
+    var query = r.expr({foo: 'bar'}).merge({foo: 'lol'});
     compare(query, done);
   });
 
   it('merge - 2', function(done) {
-    var query = r.expr({foo: {bar: 2}}).merge({foo: {bar: 3}})
+    var query = r.expr({foo: {bar: 2}}).merge({foo: {bar: 3}});
     compare(query, done);
   });
 
   it('merge - 3', function(done) {
-    var query = r.expr({foo: {bar: 2}}).merge({foo: {bar: 3, buzz: 4}})
+    var query = r.expr({foo: {bar: 2}}).merge({foo: {bar: 3, buzz: 4}});
     compare(query, done);
   });
 
   it('merge - 4', function(done) {
-    var query = r.expr({foo: {bar: 2}}).merge({foo: {buzz: 4}})
+    var query = r.expr({foo: {bar: 2}}).merge({foo: {buzz: 4}});
     compare(query, done);
   });
 
   it('merge - 5', function(done) {
-    var query = r.expr({foo: {bar: 2}}).merge({foo: r.literal({buzz: 4})})
+    var query = r.expr({foo: {bar: 2}}).merge({foo: r.literal({buzz: 4})});
     compare(query, done);
   });
 
   it('merge - 6', function(done) {
-    var query = r.expr({foo: {bar: [1,2,3,4]}}).merge({foo: r.literal({buzz: 4})})
+    var query = r.expr({foo: {bar: [1,2,3,4]}}).merge({foo: r.literal({buzz: 4})});
     compare(query, done);
   });
 
   it('merge - 7', function(done) {
-    var query = r.expr({foo: {bar: [1,2,3,4]}}).merge({foo: {bar: [10,20]}})
+    var query = r.expr({foo: {bar: [1,2,3,4]}}).merge({foo: {bar: [10,20]}});
     compare(query, done);
   });
 
   it('merge - 8', function(done) {
-    var query = r.expr({foo: 10, bar: 2}).merge({foo: r.row('foo').add(1)})
+    var query = r.expr({foo: 10, bar: 2}).merge({foo: r.row('foo').add(1)});
     compare(query, done);
   });
 
   it('merge - 9', function(done) {
-    var query = r.expr({foo: 10, bar: 2}).merge({bar: r.row('foo').add(1)})
+    var query = r.expr({foo: 10, bar: 2}).merge({bar: r.row('foo').add(1)});
     compare(query, done);
   });
 
   it('merge - 10', function(done) {
     var query = r.expr({a: [1,2]}).merge(function(doc) {
-      return {b: doc('a').count() }
+      return {b: doc('a').count() };
     });
     compare(query, done);
   });
 
   it('merge - 11', function(done) {
-    var query = r.expr({foo: {bar: 2}}).merge({foo: {buzz: 4}}, {bar :'lol'})
+    var query = r.expr({foo: {bar: 2}}).merge({foo: {buzz: 4}}, {bar :'lol'});
     compare(query, done);
   });
 
@@ -546,7 +546,7 @@ describe('document-manipulation.js', function(){
   });
 
   it('merge - 18', function(done) {
-    var query = r.expr({foo: 2}).merge({foo: r.row('foo').mul(r.row('foo'))}, {foo: r.row('foo').mul(r.row('foo'))})
+    var query = r.expr({foo: 2}).merge({foo: r.row('foo').mul(r.row('foo'))}, {foo: r.row('foo').mul(r.row('foo'))});
     compare(query, done);
   });
 
@@ -568,32 +568,32 @@ describe('document-manipulation.js', function(){
   });
 
   it('append - 4', function(done) {
-    var query = r.expr(1).append()
+    var query = r.expr(1).append();
     compare(query, done);
   });
 
   it('append - 5', function(done) {
-    var query = r.expr([]).append(r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.expr([]).append(r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
   it('append - 6', function(done) {
-    var query = r.expr(1).append(r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.expr(1).append(r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
   it('append - 7', function(done) {
-    var query = r.expr(1).append(2, r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.expr(1).append(2, r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
   it('append - 8', function(done) {
-    var query = r.expr(2).append('foo')
+    var query = r.expr(2).append('foo');
     compare(query, done);
   });
 
   it('append - 9', function(done) {
-    var query = r.expr('foo').append(2)
+    var query = r.expr('foo').append(2);
     compare(query, done);
   });
 
@@ -615,77 +615,77 @@ describe('document-manipulation.js', function(){
   });
 
   it('prepend - 4', function(done) {
-    var query = r.expr(1).prepend()
+    var query = r.expr(1).prepend();
     compare(query, done);
   });
 
   it('prepend - 5', function(done) {
-    var query = r.expr([]).prepend(r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.expr([]).prepend(r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
   it('prepend - 6', function(done) {
-    var query = r.expr(1).prepend(r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.expr(1).prepend(r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
   it('prepend - 7', function(done) {
-    var query = r.expr(1).prepend(2, r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.expr(1).prepend(2, r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
   it('prepend - 8', function(done) {
-    var query = r.expr(2).prepend('foo')
+    var query = r.expr(2).prepend('foo');
     compare(query, done);
   });
 
   it('prepend - 9', function(done) {
-    var query = r.expr('foo').prepend(2)
+    var query = r.expr('foo').prepend(2);
     compare(query, done);
   });
 
   it('difference - 1', function(done) {
-    var query = r.expr([1,2,3]).difference([1,2,3])
+    var query = r.expr([1,2,3]).difference([1,2,3]);
     compare(query, done);
   });
 
   it('difference - 2', function(done) {
-    var query = r.expr([1,2,3]).difference([2,3])
+    var query = r.expr([1,2,3]).difference([2,3]);
     compare(query, done);
   });
 
   it('difference - 3', function(done) {
-    var query = r.expr([1,2,3]).difference([4,5])
+    var query = r.expr([1,2,3]).difference([4,5]);
     compare(query, done);
   });
 
   it('difference - 4', function(done) {
-    var query = r.expr([{id: 1}, {id: 2}, {id: 3}]).difference([{id: 2}, {id: 4}])
+    var query = r.expr([{id: 1}, {id: 2}, {id: 3}]).difference([{id: 2}, {id: 4}]);
     compare(query, done);
   });
 
   it('difference - 5', function(done) {
-    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).difference([{id: {nested: 2}}, {id: {nested: 4}}])
+    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).difference([{id: {nested: 2}}, {id: {nested: 4}}]);
     compare(query, done);
   });
 
   it('difference - 6', function(done) {
-    var query = r.expr([1,2,3]).difference()
+    var query = r.expr([1,2,3]).difference();
     compare(query, done);
   });
 
   it('difference - 7', function(done) {
-    var query = r.expr([1,2,3]).difference('foo')
+    var query = r.expr([1,2,3]).difference('foo');
     compare(query, done);
   });
 
   it('difference - 8', function(done) {
-    var query = r.expr('bar').difference([1,2,3])
+    var query = r.expr('bar').difference([1,2,3]);
     compare(query, done);
   });
 
   it('difference - 9', function(done) {
-    var query = r.expr([1,2,3]).difference(r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.expr([1,2,3]).difference(r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
@@ -695,245 +695,245 @@ describe('document-manipulation.js', function(){
   });
 
   it('setInsert - 1', function(done) {
-    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).setInsert({id: {nested: 2}})
+    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).setInsert({id: {nested: 2}});
     compare(query, done);
   });
 
   it('setInsert - 2', function(done) {
-    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).setInsert({id: {nested: 5}})
+    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).setInsert({id: {nested: 5}});
     compare(query, done);
   });
 
   it('setInsert - 3', function(done) {
-    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 1}}, {id: {nested: 3}}]).setInsert({id: {nested: 5}})
+    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 1}}, {id: {nested: 3}}]).setInsert({id: {nested: 5}});
     compare(query, done);
   });
 
   it('setInsert - 4', function(done) {
-    var query = r.expr([1,2,3]).setInsert()
+    var query = r.expr([1,2,3]).setInsert();
     compare(query, done);
   });
 
   it('setInsert - 5', function(done) {
-    var query = r.expr([1,2,3]).setInsert('foo')
+    var query = r.expr([1,2,3]).setInsert('foo');
     compare(query, done);
   });
 
   it('setInsert - 6', function(done) {
-    var query = r.expr('foo').setInsert([1,2,3])
+    var query = r.expr('foo').setInsert([1,2,3]);
     compare(query, done);
   });
 
   it('setInsert - 7', function(done) {
-    var query = r.expr('foo').setInsert(r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.expr('foo').setInsert(r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
   it('setInsert - 8', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).setInsert([1,2,3])
+    var query = r.db(TEST_DB).table(TEST_TABLE).setInsert([1,2,3]);
     compare(query, done);
   });
 
   it('setInsert - 9', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).setInsert('bar')
+    var query = r.db(TEST_DB).table(TEST_TABLE).setInsert('bar');
     compare(query, done);
   });
 
   it('setUnion - 1', function(done) {
-    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).setUnion([{id: {nested: 2}}])
+    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).setUnion([{id: {nested: 2}}]);
     compare(query, done);
   });
 
   it('setUnion - 2', function(done) {
-    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).setUnion([{id: {nested: 5}}])
+    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).setUnion([{id: {nested: 5}}]);
     compare(query, done);
   });
 
   it('setUnion - 3', function(done) {
-    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).setUnion([{id: {nested: 2}}, {id: {nested: 4}}])
+    var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}]).setUnion([{id: {nested: 2}}, {id: {nested: 4}}]);
     compare(query, done);
   });
 
   it('setUnion - 4', function(done) {
     var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 1}}, {id: {nested: 3}}])
-      .setUnion([{id: {nested: 2}}, {id: {nested: 4}}])
+      .setUnion([{id: {nested: 2}}, {id: {nested: 4}}]);
     compare(query, done);
   });
 
   it('setUnion - 5', function(done) {
-    var query = r.expr([1,2,3]).setUnion()
+    var query = r.expr([1,2,3]).setUnion();
     compare(query, done);
   });
 
   it('setUnion - 6', function(done) {
-    var query = r.expr([1,2,3]).setUnion('foo')
+    var query = r.expr([1,2,3]).setUnion('foo');
     compare(query, done);
   });
 
   it('setUnion - 7', function(done) {
-    var query = r.expr('foo').setUnion([1,2,3])
+    var query = r.expr('foo').setUnion([1,2,3]);
     compare(query, done);
   });
 
   it('setUnion - 8', function(done) {
-    var query = r.expr('foo').setUnion(r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.expr('foo').setUnion(r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
   it('setUnion - 9', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).setUnion([1,2,3])
+    var query = r.db(TEST_DB).table(TEST_TABLE).setUnion([1,2,3]);
     compare(query, done);
   });
 
   it('setUnion - 10', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).setUnion('bar')
+    var query = r.db(TEST_DB).table(TEST_TABLE).setUnion('bar');
     compare(query, done);
   });
 
   it('setIntersection - 1', function(done) {
     var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}])
-      .setIntersection([{id: {nested: 2}}])
+      .setIntersection([{id: {nested: 2}}]);
     compare(query, done);
   });
 
   it('setIntersection - 2', function(done) {
     var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}])
-      .setIntersection([{id: {nested: 4}}])
+      .setIntersection([{id: {nested: 4}}]);
     compare(query, done);
   });
 
   it('setIntersection - 3', function(done) {
     var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 1}}, {id: {nested: 3}}])
-      .setIntersection([{id: {nested: 2}}, {id: {nested: 4}}])
+      .setIntersection([{id: {nested: 2}}, {id: {nested: 4}}]);
     compare(query, done);
   });
 
   it('setIntersection - 4', function(done) {
-    var query = r.expr([1,2,3]).setIntersection()
+    var query = r.expr([1,2,3]).setIntersection();
     compare(query, done);
   });
 
   it('setIntersection - 5', function(done) {
-    var query = r.expr([1,2,3]).setIntersection('foo')
+    var query = r.expr([1,2,3]).setIntersection('foo');
     compare(query, done);
   });
 
   it('setIntersection - 6', function(done) {
-    var query = r.expr('foo').setIntersection([1,2,3])
+    var query = r.expr('foo').setIntersection([1,2,3]);
     compare(query, done);
   });
 
   it('setIntersection - 7', function(done) {
-    var query = r.expr('foo').setIntersection(r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.expr('foo').setIntersection(r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
   it('setIntersection - 8', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).setIntersection([1,2,3])
+    var query = r.db(TEST_DB).table(TEST_TABLE).setIntersection([1,2,3]);
     compare(query, done);
   });
 
   it('setIntersection - 9', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).setIntersection('bar')
+    var query = r.db(TEST_DB).table(TEST_TABLE).setIntersection('bar');
     compare(query, done);
   });
 
   it('setDifference - 1', function(done) {
     var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}])
-      .setDifference([{id: {nested: 2}}])
+      .setDifference([{id: {nested: 2}}]);
     compare(query, done);
   });
 
   it('setDifference - 2', function(done) {
     var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}])
-      .setDifference([{id: {nested: 4}}])
+      .setDifference([{id: {nested: 4}}]);
     compare(query, done);
   });
 
   it('setDifference - 3', function(done) {
     var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 3}}])
-      .setDifference([{id: {nested: 2}}, {id: {nested: 4}}])
+      .setDifference([{id: {nested: 2}}, {id: {nested: 4}}]);
     compare(query, done);
   });
 
   it('setDifference - 4', function(done) {
     var query = r.expr([{id: {nested: 1}}, {id: {nested: 2}}, {id: {nested: 1}}, {id: {nested: 3}}])
-      .setDifference([{id: {nested: 2}}, {id: {nested: 4}}])
+      .setDifference([{id: {nested: 2}}, {id: {nested: 4}}]);
     compare(query, done);
   });
 
   it('setDifference - 5', function(done) {
-    var query = r.expr([1,2,3]).setDifference()
+    var query = r.expr([1,2,3]).setDifference();
     compare(query, done);
   });
 
   it('setDifference - 6', function(done) {
-    var query = r.expr([1,2,3]).setDifference('foo')
+    var query = r.expr([1,2,3]).setDifference('foo');
     compare(query, done);
   });
 
   it('setDifference - 7', function(done) {
-    var query = r.expr('foo').setDifference([1,2,3])
+    var query = r.expr('foo').setDifference([1,2,3]);
     compare(query, done);
   });
 
   it('setDifference - 8', function(done) {
-    var query = r.expr('foo').setDifference(r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.expr('foo').setDifference(r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
   it('setDifference - 9', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).setDifference([1,2,3])
+    var query = r.db(TEST_DB).table(TEST_TABLE).setDifference([1,2,3]);
     compare(query, done);
   });
 
   it('setDifference - 10', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).setDifference('bar')
+    var query = r.db(TEST_DB).table(TEST_TABLE).setDifference('bar');
     compare(query, done);
   });
 
   it('getField - 1', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).getField('id')
+    var query = r.expr(COMPLEX_OBJECT).getField('id');
     compare(query, done);
   });
 
   it('getField - 2', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).getField('buzz').getField('hello')
+    var query = r.expr(COMPLEX_OBJECT).getField('buzz').getField('hello');
     compare(query, done);
   });
 
   it('getField - 3', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).getField('buzz').getField('hello').nth(2)
+    var query = r.expr(COMPLEX_OBJECT).getField('buzz').getField('hello').nth(2);
     compare(query, done);
   });
 
   it('getField - 4', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).getField(MISSING_FIELD)
+    var query = r.expr(COMPLEX_OBJECT).getField(MISSING_FIELD);
     compare(query, done, function(err) {
-      var result = err.match(/^No attribute `nonExistingField` in object:/)[0]
+      var result = err.match(/^No attribute `nonExistingField` in object:/)[0];
       return result;
     });
   });
 
   it('getField - 5', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).getField(r.args(['id', 'foo']))
+    var query = r.expr(COMPLEX_OBJECT).getField(r.args(['id', 'foo']));
     compare(query, done);
   });
 
   it('getField - 6', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).getField(r.args())
+    var query = r.expr(COMPLEX_OBJECT).getField(r.args());
     compare(query, done, function(error) {
       return /^Expected 1 argument but found 0/.test(error);
     });
   });
 
   it('getField - 7', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).getField(r.db(TEST_DB).table(TEST_TABLE))
+    var query = r.expr(COMPLEX_OBJECT).getField(r.db(TEST_DB).table(TEST_TABLE));
     compare(query, done);
   });
 
   it('getField - 8', function(done) {
-    var query = r.expr(null).getField('foo')
+    var query = r.expr(null).getField('foo');
     compare(query, done);
   });
 
@@ -948,70 +948,70 @@ describe('document-manipulation.js', function(){
   });
 
   it('() - 1', function(done) {
-    var query = r.expr(COMPLEX_OBJECT)('id')
+    var query = r.expr(COMPLEX_OBJECT)('id');
     compare(query, done);
   });
 
   it('() - 2', function(done) {
-    var query = r.expr(COMPLEX_OBJECT)('buzz')('hello')
+    var query = r.expr(COMPLEX_OBJECT)('buzz')('hello');
     compare(query, done);
   });
 
   it('() - 3', function(done) {
-    var query = r.expr(COMPLEX_OBJECT)('buzz')('hello')(2)
+    var query = r.expr(COMPLEX_OBJECT)('buzz')('hello')(2);
     compare(query, done);
   });
 
   it('() - 4', function(done) {
-    var query = r.expr(COMPLEX_OBJECT)(MISSING_FIELD)
+    var query = r.expr(COMPLEX_OBJECT)(MISSING_FIELD);
     compare(query, done, function(err) {
-      var result = err.match(/^No attribute `nonExistingField` in object:/)[0]
+      var result = err.match(/^No attribute `nonExistingField` in object:/)[0];
       return result;
     });
   });
 
   it('() - 5', function(done) {
-    var query = r.expr([COMPLEX_OBJECT])('id')
+    var query = r.expr([COMPLEX_OBJECT])('id');
     compare(query, done);
   });
 
   it('() - 6', function(done) {
-    var query = r.expr('foo')('id')
+    var query = r.expr('foo')('id');
     compare(query, done);
   });
 
   it('() - 7', function(done) {
-    var query = r.expr({})(1)
+    var query = r.expr({})(1);
     compare(query, done);
   });
 
   it('() - 8', function(done) {
-    var query = r.expr([])('foo')
+    var query = r.expr([])('foo');
     compare(query, done);
   });
 
   it('() - 9', function(done) {
-    var query = r.expr([[]])('foo')
+    var query = r.expr([[]])('foo');
     compare(query, done);
   });
 
   it('() - 10', function(done) {
-    var query = r.expr(null)('foo')
+    var query = r.expr(null)('foo');
     compare(query, done);
   });
 
   it('hasFields - 1', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).hasFields('id')
+    var query = r.expr(COMPLEX_OBJECT).hasFields('id');
     compare(query, done);
   });
 
   it('hasFields - 2', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).hasFields(MISSING_FIELD)
+    var query = r.expr(COMPLEX_OBJECT).hasFields(MISSING_FIELD);
     compare(query, done);
   });
 
   it('hasFields - 3', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).hasFields({'buzz': true})
+    var query = r.expr(COMPLEX_OBJECT).hasFields({'buzz': true});
     compare(query, done);
   });
 
@@ -1023,17 +1023,17 @@ describe('document-manipulation.js', function(){
   });
 
   it('hasFields - 5', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).hasFields({'buzz': ['hello']})
+    var query = r.expr(COMPLEX_OBJECT).hasFields({'buzz': ['hello']});
     compare(query, done);
   });
 
   it('hasFields - 6', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).hasFields({'buzz': [MISSING_FIELD]})
+    var query = r.expr(COMPLEX_OBJECT).hasFields({'buzz': [MISSING_FIELD]});
     compare(query, done);
   });
 
   it('hasFields - 7', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).hasFields({'buzz': [MISSING_FIELD, 'hello']})
+    var query = r.expr(COMPLEX_OBJECT).hasFields({'buzz': [MISSING_FIELD, 'hello']});
     compare(query, done);
   });
 
@@ -1043,17 +1043,17 @@ describe('document-manipulation.js', function(){
   });
 
   it('hasFields - 9', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).hasFields({'buzz': {'bonjour': ['monde']}})
+    var query = r.expr(COMPLEX_OBJECT).hasFields({'buzz': {'bonjour': ['monde']}});
     compare(query, done);
   });
 
   it('hasFields - 10', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).hasFields({'bonjour': ['monde']})
+    var query = r.expr(COMPLEX_OBJECT).hasFields({'bonjour': ['monde']});
     compare(query, done);
   });
 
   it('hasFields - 11', function(done) {
-    var query = r.expr(COMPLEX_OBJECT).hasFields({'bonjour': [MISSING_FIELD]})
+    var query = r.expr(COMPLEX_OBJECT).hasFields({'bonjour': [MISSING_FIELD]});
     compare(query, done);
   });
 
@@ -1093,87 +1093,87 @@ describe('document-manipulation.js', function(){
   });
 
   it('insertAt - 1', function(done) {
-    var query = r.expr([1,2,3,4,5]).insertAt(0, 'foo')
+    var query = r.expr([1,2,3,4,5]).insertAt(0, 'foo');
     compare(query, done);
   });
 
   it('insertAt - 2', function(done) {
-    var query = r.expr([1,2,3,4,5]).insertAt(2, 'foo')
+    var query = r.expr([1,2,3,4,5]).insertAt(2, 'foo');
     compare(query, done);
   });
 
   it('insertAt - 3', function(done) {
-    var query = r.expr([1,2,3,4,5]).insertAt(4, 'foo')
+    var query = r.expr([1,2,3,4,5]).insertAt(4, 'foo');
     compare(query, done);
   });
 
   it('insertAt - 4', function(done) {
-    var query = r.expr([1,2,3,4,5]).insertAt(5, 'foo')
+    var query = r.expr([1,2,3,4,5]).insertAt(5, 'foo');
     compare(query, done);
   });
 
   it('insertAt - 5', function(done) {
-    var query = r.expr([1,2,3,4,5]).insertAt(200, 'foo')
+    var query = r.expr([1,2,3,4,5]).insertAt(200, 'foo');
     compare(query, done);
   });
 
   it('insertAt - 6', function(done) {
-    var query = r.expr([1,2,3,4,5]).insertAt(-1, 'foo')
+    var query = r.expr([1,2,3,4,5]).insertAt(-1, 'foo');
     compare(query, done);
   });
 
   it('insertAt - 7', function(done) {
-    var query = r.expr([1,2,3,4,5]).insertAt(-200, 'foo')
+    var query = r.expr([1,2,3,4,5]).insertAt(-200, 'foo');
     compare(query, done);
   });
 
   it('insertAt - 8', function(done) {
-    var query = r.expr([1,2,3,4,5]).insertAt('foo', 'foo')
+    var query = r.expr([1,2,3,4,5]).insertAt('foo', 'foo');
     compare(query, done);
   });
 
   it('insertAt - 9', function(done) {
-    var query = r.expr([1,2,3,4,5]).insertAt(1,2,3)
+    var query = r.expr([1,2,3,4,5]).insertAt(1,2,3);
     compare(query, done);
   });
 
   it('insertAt - 10', function(done) {
-    var query = r.expr('foo').insertAt(1,2)
+    var query = r.expr('foo').insertAt(1,2);
     compare(query, done);
   });
 
   it('insertAt - 11', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).insertAt(1,2)
+    var query = r.db(TEST_DB).table(TEST_TABLE).insertAt(1,2);
     compare(query, done);
   });
 
   it('spliceAt - 1', function(done) {
-    var query = r.expr([1,2,3,4,5]).spliceAt(0, ['foo', 'bar'])
+    var query = r.expr([1,2,3,4,5]).spliceAt(0, ['foo', 'bar']);
     compare(query, done);
   });
 
   it('spliceAt - 2', function(done) {
-    var query = r.expr([1,2,3,4,5]).spliceAt(2, ['foo', 'bar'])
+    var query = r.expr([1,2,3,4,5]).spliceAt(2, ['foo', 'bar']);
     compare(query, done);
   });
 
   it('spliceAt - 3', function(done) {
-    var query = r.expr([1,2,3,4,5]).spliceAt(5, ['foo', 'bar'])
+    var query = r.expr([1,2,3,4,5]).spliceAt(5, ['foo', 'bar']);
     compare(query, done);
   });
 
   it('spliceAt - 4', function(done) {
-    var query = r.expr([1,2,3,4,5]).spliceAt(200, ['foo', 'bar'])
+    var query = r.expr([1,2,3,4,5]).spliceAt(200, ['foo', 'bar']);
     compare(query, done);
   });
 
   it('spliceAt - 5', function(done) {
-    var query = r.expr([1,2,3,4,5]).spliceAt(-1, ['foo', 'bar'])
+    var query = r.expr([1,2,3,4,5]).spliceAt(-1, ['foo', 'bar']);
     compare(query, done);
   });
 
   it('spliceAt - 6', function(done) {
-    var query = r.expr([1,2,3,4,5]).spliceAt(-200, ['foo', 'bar'])
+    var query = r.expr([1,2,3,4,5]).spliceAt(-200, ['foo', 'bar']);
     compare(query, done);
   });
 
@@ -1376,7 +1376,7 @@ describe('document-manipulation.js', function(){
   it('literal - 1', function(done) {
     var query = r.expr({foo: {bar: 1, buzz: 2}, hello: 3, world: 4}).merge({
       foo: r.literal({bar: 2})
-    })
+    });
     compare(query, done);
   });
 
@@ -1396,7 +1396,7 @@ describe('document-manipulation.js', function(){
   });
 
   it('literal - 3', function(done) {
-    var query = r.expr({foo: 'bar'}).merge({foo: r.literal()})
+    var query = r.expr({foo: 'bar'}).merge({foo: r.literal()});
     compare(query, done);
   });
 
@@ -1416,32 +1416,32 @@ describe('document-manipulation.js', function(){
   });
 
   it('literal - 5', function(done) {
-    var query = r.expr({}).merge({a: r.literal('a', 'b')})
+    var query = r.expr({}).merge({a: r.literal('a', 'b')});
     compare(query, done);
   });
 
   it('object - 1', function(done) {
-    var query = r.object('foo', 1, 'bar', 2)
+    var query = r.object('foo', 1, 'bar', 2);
     compare(query, done);
   });
 
   it('object - 2', function(done) {
-    var query = r.object('foo', 1, 'bar')
+    var query = r.object('foo', 1, 'bar');
     compare(query, done);
   });
 
   it('object - 3', function(done) {
-    var query = r.object('foo', 1, 1, 2)
+    var query = r.object('foo', 1, 1, 2);
     compare(query, done);
   });
 
   it('object - 4', function(done) {
-    var query = r.object('foo', 1, 'foo', 2)
+    var query = r.object('foo', 1, 'foo', 2);
     compare(query, done);
   });
 
   it('object - 5', function(done) {
-    var query = r.object('foo', {hello: 'world'}, 'foo', {ciao: 'amici'})
+    var query = r.object('foo', {hello: 'world'}, 'foo', {ciao: 'amici'});
     compare(query, done, function(error) {
       var result = error.split('.')[0];
       assert(result.length > 0);
@@ -1450,7 +1450,7 @@ describe('document-manipulation.js', function(){
   });
 
   it('object - 6', function(done) {
-    var query = r.object(1, 1, 'bar', 2)
+    var query = r.object(1, 1, 'bar', 2);
     compare(query, done);
   });
 

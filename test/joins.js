@@ -28,28 +28,28 @@ describe('joins.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE)
+        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE2)
+        this.query = r.db(TEST_DB).tableDrop(TEST_TABLE2);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE2)
+        this.query = r.db(TEST_DB).tableCreate(TEST_TABLE2);
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
@@ -80,42 +80,42 @@ describe('joins.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE2).indexCreate('foo')
+        this.query = r.db(TEST_DB).table(TEST_TABLE2).indexCreate('foo');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE2).indexCreate('optional')
+        this.query = r.db(TEST_DB).table(TEST_TABLE2).indexCreate('optional');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE2).indexCreate('bar')
+        this.query = r.db(TEST_DB).table(TEST_TABLE2).indexCreate('bar');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE2).indexCreate('barmulti', r.row('bar'), {multi: true})
+        this.query = r.db(TEST_DB).table(TEST_TABLE2).indexCreate('barmulti', r.row('bar'), {multi: true});
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait()
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexWait();
         return this.query.run(connections.rethinkdb);
       }).catch(function(e) { // ignore errors
       }).finally(function() {
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
-        this.query = r.db(TEST_DB).table(TEST_TABLE2).indexWait()
+        this.query = r.db(TEST_DB).table(TEST_TABLE2).indexWait();
         return this.query.run(connections.rethinkdb);
       }).catch(function(e) { // ignore errors
       }).finally(function() {
@@ -125,7 +125,7 @@ describe('joins.js', function(){
         //TODO Add and test a geo index
         done();
       });
-    }, 400)
+    }, 400);
   });
 
   it('check init join - 1', function(done) {
@@ -167,7 +167,7 @@ describe('joins.js', function(){
   it('innerJoin - 5', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).innerJoin(
         r.db(TEST_DB).table(TEST_TABLE2),
-        function(left) { return left('id').eq(left('id')) }
+        function(left) { return left('id').eq(left('id')); }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done, function(error) {
       return /^Expected 1 argument but found 2/.test(error);
@@ -177,7 +177,7 @@ describe('joins.js', function(){
   it('innerJoin - 6', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).innerJoin(
         r.db(TEST_DB).table(TEST_TABLE2),
-        function(left, right, extra) { return left('id').eq(right('id')) }
+        function(left, right, extra) { return left('id').eq(right('id')); }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done, function(error) {
       return /^Expected 3 arguments but found 2/.test(error);
@@ -187,7 +187,7 @@ describe('joins.js', function(){
   it('innerJoin - 7', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).innerJoin(
         'foo',
-        function(left, right, extra) { return left('id').eq(right('id')) }
+        function(left, right, extra) { return left('id').eq(right('id')); }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done);
   });
@@ -195,7 +195,7 @@ describe('joins.js', function(){
   it('innerJoin - 8', function(done) {
     var query = r.expr('foo').innerJoin(
         r.db(TEST_DB).table(TEST_TABLE2),
-        function(left, right) { return left('id').eq(right('id')) }
+        function(left, right) { return left('id').eq(right('id')); }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done);
   });
@@ -203,7 +203,7 @@ describe('joins.js', function(){
   it('innerJoin - 9', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE2).innerJoin(
         r.db(TEST_DB).table(TEST_TABLE2),
-        function(left, right) { return left('optional').eq(right('optional')) }
+        function(left, right) { return left('optional').eq(right('optional')); }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done, function(error) {
       var message = error.split(':')[0];
@@ -286,7 +286,7 @@ describe('joins.js', function(){
   it('outerJoin - 5', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).outerJoin(
         r.db(TEST_DB).table(TEST_TABLE2),
-        function(left) { return left('id').eq(left('id')) }
+        function(left) { return left('id').eq(left('id')); }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done, function(error) {
       return /^Expected 1 argument but found 2/.test(error);
@@ -296,7 +296,7 @@ describe('joins.js', function(){
   it('outerJoin - 6', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).outerJoin(
         r.db(TEST_DB).table(TEST_TABLE2),
-        function(left, right, extra) { return left('id').eq(right('id')) }
+        function(left, right, extra) { return left('id').eq(right('id')); }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done, function(error) {
       return /^Expected 3 arguments but found 2/.test(error);
@@ -306,7 +306,7 @@ describe('joins.js', function(){
   it('outerJoin - 7', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).outerJoin(
         'foo',
-        function(left, right, extra) { return left('id').eq(right('id')) }
+        function(left, right, extra) { return left('id').eq(right('id')); }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done);
   });
@@ -314,7 +314,7 @@ describe('joins.js', function(){
   it('outerJoin - 8', function(done) {
     var query = r.expr('foo').outerJoin(
         r.db(TEST_DB).table(TEST_TABLE2),
-        function(left, right) { return left('id').eq(right('id')) }
+        function(left, right) { return left('id').eq(right('id')); }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done);
   });
@@ -322,7 +322,7 @@ describe('joins.js', function(){
   it('outerJoin - 9', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE2).outerJoin(
         r.db(TEST_DB).table(TEST_TABLE2),
-        function(left, right) { return left('optional').eq(right('optional')) }
+        function(left, right) { return left('optional').eq(right('optional')); }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done, function(error) {
       var message = error.split(':')[0];

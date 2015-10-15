@@ -11,7 +11,7 @@ describe('coverage.js', function(){
       DATUM: true,
       MAKE_OBJ: true,
       BETWEEN_DEPRECATED: true,
-    }
+    };
     var missing = [];
     for(var i=0; i<keys.length; i++) {
       if (ignoredKeys[keys[i]] === true) {
@@ -28,5 +28,5 @@ describe('coverage.js', function(){
     else {
       done();
     }
-  })
-})
+  });
+});
