@@ -64,7 +64,9 @@ describe('manipulating-tables.js', function(){
 
   it('tableCreate - 4', function(done) {
     var query = r.db(TEST_DB).tableCreate(r.args());
-    compare(query, done);
+    compare(query, done, function(error) {
+      return /^Expected 1 argument but found 0/.test(error);
+    });
   });
 
   it('tableCreate - 5', function(done) {
@@ -400,7 +402,9 @@ describe('manipulating-tables.js', function(){
 
   it('tableDrop - 4', function(done) {
     var query = r.db(TEST_DB).tableDrop(r.args());
-    compare(query, done);
+    compare(query, done, function(error) {
+      return /^Expected 1 argument but found 0/.test(error);
+    });
   });
 
   it('tableDrop - 5', function(done) {

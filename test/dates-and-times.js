@@ -170,7 +170,7 @@ describe('dates-and-times.js', function(){
     compare(query, done);
   });
 
-  it('time - 15', function(done) {
+  it('time - 21', function(done) {
     var query = r.time(1986, 11, 3)
     compare(query, done)
   })

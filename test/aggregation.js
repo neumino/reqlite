@@ -429,14 +429,18 @@ describe('aggregation.js', function(){
     var query = r.expr([1,2,3]).reduce(function(left) {
       return left;
     });
-    compare(query, done);
+    compare(query, done, function(error) {
+      return /^Expected 1 argument but found 2/.test(error);
+    });
   });
 
   it('reduce - 7', function(done) {
     var query = r.expr([1,2,3]).reduce(function(left, right, extra) {
       return left;
     });
-    compare(query, done);
+    compare(query, done, function(error) {
+      return /^Expected 3 arguments but found 2/.test(error);
+    });
   });
 
   it('reduce - 8', function(done) {

@@ -170,9 +170,7 @@ describe('joins.js', function(){
         function(left) { return left('id').eq(left('id')) }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done, function(error) {
-      var message = error.split(':')[0];
-      assert(message.length > 0);
-      return message;
+      return /^Expected 1 argument but found 2/.test(error);
     });
   });
 
@@ -182,9 +180,7 @@ describe('joins.js', function(){
         function(left, right, extra) { return left('id').eq(right('id')) }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done, function(error) {
-      var message = error.split(':')[0];
-      assert(message.length > 0);
-      return message;
+      return /^Expected 3 arguments but found 2/.test(error);
     });
   });
 
@@ -293,9 +289,7 @@ describe('joins.js', function(){
         function(left) { return left('id').eq(left('id')) }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done, function(error) {
-      var message = error.split(':')[0];
-      assert(message.length > 0);
-      return message;
+      return /^Expected 1 argument but found 2/.test(error);
     });
   });
 
@@ -305,9 +299,7 @@ describe('joins.js', function(){
         function(left, right, extra) { return left('id').eq(right('id')) }
     ).orderBy(r.row('left')('id'), r.row('right')('id'));
     compare(query, done, function(error) {
-      var message = error.split(':')[0];
-      assert(message.length > 0);
-      return message;
+      return /^Expected 3 arguments but found 2/.test(error);
     });
   });
 

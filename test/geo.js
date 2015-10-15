@@ -176,7 +176,9 @@ describe('geo.js', function(){
 
   it('circle - 2', function(done) {
     var query = r.circle(r.args([-122, 37], 1000000), 'bar')
-    compare(query, done);
+    compare(query, done, function(error) {
+      return /^Expected 1 argument but found 2/.test(error);
+    });
   });
 
   it('circle - 3', function(done) {
@@ -1042,7 +1044,9 @@ describe('geo.js', function(){
 
   it('getIntersecting - 4', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).getIntersecting(r.args([r.circle([10, 10], 100), r.circle([10, 10], 100)]), {index: 'location'}).orderBy('id');
-    compare(query, done);
+    compare(query, done, function(error) {
+      return /^Expected 2 argument but found 3/.test(error);
+    });
   });
 
   it('getIntersecting - 5', function(done) {
@@ -1072,8 +1076,9 @@ describe('geo.js', function(){
 
   it('getNearest - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).getNearest(r.args([10, 10]), {index: 'location'}).orderBy('id');
-    compare(query, done);
-  });
+    compare(query, done, function(error) {
+      return /^Expected 2 arguments but found 3/.test(error);
+    });  });
 
   it('getNearest - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).getNearest('bar', {index: 'location'}).orderBy('id');

@@ -5841,6 +5841,95 @@ describe('math-and-logic.js', function(){
     });
   });
 
+  it('floor - 1', function(done) {
+    var query = r.floor(1);
+    compare(query, done);
+  });
+
+  it('floor - 2', function(done) {
+    var query = r.floor(1.5);
+    compare(query, done);
+  });
+
+  it('floor - 3', function(done) {
+    var query = r.floor(1.8);
+    compare(query, done);
+  });
+
+  it('floor - 4', function(done) {
+    var query = r.floor('foo');
+    compare(query, done);
+  });
+
+  it('floor - 5', function(done) {
+    var query = r.floor();
+    compare(query, done);
+  });
+
+  it('floor - 6', function(done) {
+    var query = r.floor(1.2, 2.8);
+    compare(query, done);
+  });
+
+  it('ceil - 1', function(done) {
+    var query = r.ceil(1);
+    compare(query, done);
+  });
+
+  it('ceil - 2', function(done) {
+    var query = r.ceil(1.5);
+    compare(query, done);
+  });
+
+  it('ceil - 3', function(done) {
+    var query = r.ceil(1.8);
+    compare(query, done);
+  });
+
+  it('ceil - 4', function(done) {
+    var query = r.ceil('foo');
+    compare(query, done);
+  });
+
+  it('ceil - 5', function(done) {
+    var query = r.ceil();
+    compare(query, done);
+  });
+
+  it('ceil - 6', function(done) {
+    var query = r.ceil(1.2, 2.8);
+    compare(query, done);
+  });
+
+  it('round - 1', function(done) {
+    var query = r.round(1);
+    compare(query, done);
+  });
+
+  it('round - 2', function(done) {
+    var query = r.round(1.5);
+    compare(query, done);
+  });
+
+  it('round - 3', function(done) {
+    var query = r.round(1.8);
+    compare(query, done);
+  });
+
+  it('round - 4', function(done) {
+    var query = r.round('foo');
+    compare(query, done);
+  });
+
+  it('round - 5', function(done) {
+    var query = r.round();
+    compare(query, done);
+  });
+
+  it('round - 6', function(done) {
+    var query = r.round(1.2, 2.8);
+    compare(query, done);
+  });
   /*
   */
 });
