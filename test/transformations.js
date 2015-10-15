@@ -6,7 +6,6 @@ var assert = require('assert');
 var connections = {};
 var TEST_DB = 'reqlitetest';
 var TEST_TABLE = 'reqlitetesttransformation';
-var MISSING_ID = 'nonExistingId';
 var MISSING_FIELD = 'nonExistingField';
 var MISSING_INDEX = 'nonExistingIndex';
 var COMPLEX_OBJECT = {
