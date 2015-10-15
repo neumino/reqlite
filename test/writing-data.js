@@ -662,6 +662,43 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
+  it('replace - 14 - pre', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({
+      id: "deep/nested",
+      foo: {
+        bar: [ 1, 2, 3, {bar: { buzz: "lol"}}],
+        yo: {
+          lo: {
+            carpe: 1
+          },
+          diem: 3
+        }
+      }
+    })
+    compare(query, done);
+  });
+
+  it('replace - 14', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("deep/nested").replace({
+      id: "deep/nested",
+      foo: {
+        bar: [ 10, 20, {hello: "bonjour"}, {bar: { buzz: "yolo"}}],
+        yo: {
+          lo: {
+            nocarpe: 3
+          },
+          diem: 2
+        },
+        boo: "om"
+      }
+    })
+    compare(query, done);
+  });
+
+  it('replace - 14 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("deep/nested")
+    compare(query, done);
+  });
   it('delete - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).delete();
     compare(query, done);
