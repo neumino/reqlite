@@ -57,7 +57,7 @@
     "no-invalid-regexp": 1,          // disallow invalid regular expression strings in the RegExp constructor
     "no-negated-in-lhs": 1,          // disallow negation of the left operand of an in expression
     "no-obj-calls": 1,               // disallow the use of object properties of the global object (Math and JSON) as functions
-    "no-regex-spaces": 1,            // disallow multiple spaces in a regular expression literal
+    "no-regex-spaces": 0,            // disallow multiple spaces in a regular expression literal
     "no-reserved-keys": 0,           // disallow reserved words being used as object literal keys (off by default)
     "no-sparse-arrays": 1,           // disallow sparse arrays
     "no-unreachable": 1,             // disallow unreachable statements after a return, throw, continue, or break statement
