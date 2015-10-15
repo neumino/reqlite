@@ -922,7 +922,9 @@ describe('document-manipulation.js', function(){
 
   it('getField - 6', function(done) {
     var query = r.expr(COMPLEX_OBJECT).getField(r.args())
-    compare(query, done);
+    compare(query, done, function(error) {
+      return /^Expected 1 argument but found 0/.test(error);
+    });
   });
 
   it('getField - 7', function(done) {

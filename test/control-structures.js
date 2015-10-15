@@ -115,7 +115,9 @@ describe('control-structures.js', function(){
 
   it('args - 5', function(done) {
     var query = r.add(1, 2, r.args(), 4, 5)
-    compare(query, done);
+    compare(query, done, function(error) {
+      return /^Expected 1 argument but found 0/.test(error);
+    });
   });
 
   it('args - 6', function(done) {
@@ -130,7 +132,9 @@ describe('control-structures.js', function(){
 
   it('args - 8', function(done) {
     var query = r.add(r.args([1,2,], 'foo'))
-    compare(query, done);
+    compare(query, done, function(error) {
+      return /^Expected 1 argument but found 2/.test(error);
+    });
   });
 
   it('args - 9', function(done) {
@@ -210,7 +214,9 @@ describe('control-structures.js', function(){
   it('do - 7', function(done) {
     var query = r.do('foo',
                      function(x, y, z) { return 2});
-    compare(query, done);
+    compare(query, done, function(error) {
+      return /^Expected 3 arguments but found 1/.test(error);
+    });
   });
 
   it('branch - 1', function(done) {
@@ -1084,9 +1090,8 @@ describe('control-structures.js', function(){
   it('asc - 1', function(done) {
     // See https://github.com/rethinkdb/rethinkdb/issues/4951
     var query = r.expr({foo: r.asc('foo')})
-    compare(query, done, function(err) {
-      //TODO Properly create a backtrace using internalOptions
-      return err.split('\n')[0]
+    compare(query, done, function(error) {
+      return /^ASC may only be used as an argument to ORDER_BY/.test(error);
     });
   });
 
@@ -1100,8 +1105,8 @@ describe('control-structures.js', function(){
 
   it('desc - 1', function(done) {
     var query = r.expr({foo: r.desc('foo')})
-    compare(query, done, function(err) {
-      return err.split('\n')[0]
+    compare(query, done, function(error) {
+      return /^ASC may only be used as an argument to ORDER_BY/.test(error);
     });
   });
 
