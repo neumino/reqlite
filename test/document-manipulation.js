@@ -1147,6 +1147,11 @@ describe('document-manipulation.js', function(){
     compare(query, done);
   });
 
+  it('insertAt - 12', function(done) {
+    var query = r.expr([1,2,3]).add(r.expr([1,2,3,4,5]).insertAt(200, 'foo'));
+    compare(query, done);
+  });
+
   it('spliceAt - 1', function(done) {
     var query = r.expr([1,2,3,4,5]).spliceAt(0, ['foo', 'bar']);
     compare(query, done);
