@@ -1075,7 +1075,7 @@ describe('geo.js', function(){
   });
 
   it('getNearest - 1', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).getNearest(r.args([10, 10]), {index: 'location'}).orderBy('id');;
+    var query = r.db(TEST_DB).table(TEST_TABLE).getNearest(r.args([10, 10]), {index: 'location'}).orderBy('id');
     compare(query, done, function(error) {
       return /^Expected 2 arguments but found 3/.test(error);
     });
