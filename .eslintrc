@@ -78,11 +78,11 @@
     "guard-for-in": 0,               // make sure for-in loops have an if statement (off by default)
     "no-alert": 1,                   // disallow the use of alert, confirm, and prompt
     "no-caller": 1,                  // disallow use of arguments.caller or arguments.callee
-    "no-div-regex": 1,               // disallow division operators explicitly at beginning of regular expression (off by default)
+    "no-div-regex": 0,               // disallow division operators explicitly at beginning of regular expression (off by default)
     "no-else-return": 0,             // disallow else after a return in an if (off by default)
     "no-empty-label": 1,             // disallow use of labels for anything other then loops and switches
     "no-eq-null": 0,                 // disallow comparisons to null without a type-checking operator (off by default)
-    "no-eval": 1,                    // disallow use of eval()
+    "no-eval": 0,                    // disallow use of eval()
     "no-extend-native": 1,           // disallow adding to native types
     "no-extra-bind": 1,              // disallow unnecessary function binding
     "no-fallthrough": 1,             // disallow fallthrough of case statements
@@ -94,7 +94,7 @@
     "no-loop-func": 0,               // disallow creation of functions within loops
     "no-multi-str": 0,               // disallow use of multiline strings
     "no-native-reassign": 0,         // disallow reassignments of native objects
-    "no-new": 1,                     // disallow use of new operator when not part of the assignment or comparison
+    "no-new": 0,                     // disallow use of new operator when not part of the assignment or comparison
     "no-new-func": 1,                // disallow use of new operator for Function object
     "no-new-wrappers": 1,            // disallows creating new instances of String,Number, and Boolean
     "no-octal": 1,                   // disallow use of octal literals
@@ -126,8 +126,8 @@
     "no-catch-shadow": 1,            // disallow the catch clause parameter name being the same as a variable in the outer scope (off by default in the node environment)
     "no-delete-var": 1,              // disallow deletion of variables
     "no-label-var": 1,               // disallow labels that share a name with a variable
-    "no-shadow": 1,                  // disallow declaration of variables already declared in the outer scope
-    "no-shadow-restricted-names": 1, // disallow shadowing of names such as arguments
+    "no-shadow": 0,                  // disallow declaration of variables already declared in the outer scope
+    "no-shadow-restricted-names": 0, // disallow shadowing of names such as arguments
     "no-undef": 2,                   // disallow use of undeclared variables unless mentioned in a /*global */ block
     "no-undefined": 0,               // disallow use of undefined variable (off by default)
     "no-undef-init": 1,              // disallow use of undefined when initializing variables
