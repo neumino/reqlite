@@ -457,6 +457,18 @@ describe('document-manipulation.js', function(){
     }).pluck({foo: {bar : true}}, 'foo');
     compare(query, done);
   });
+  
+  it('without - 38', function(done) {
+    var mergedoc = r.db(TEST_DB).table(TEST_TABLE).get(1);
+    var query = r.expr(COMPLEX_OBJECT).merge({"baz": mergedoc}).without("buzz");
+    compare(query, done);
+  });
+  
+  it('without - 39', function(done) {
+    var mergedoc = r.db(TEST_DB).table(TEST_TABLE).get(1);
+    var query = r.expr(COMPLEX_OBJECT).without("buzz").merge({"baz": mergedoc});
+    compare(query, done);
+  });
 
   it('merge - 1', function(done) {
     var query = r.expr({foo: 'bar'}).merge({foo: 'lol'})
@@ -546,7 +558,7 @@ describe('document-manipulation.js', function(){
   });
 
   it('merge - 18', function(done) {
-    var query = r.expr({foo: 2}).merge({foo: r.row('foo').mul(r.row('foo'))}, {foo: r.row('foo').mul(r.row('foo'))}) 
+    var query = r.expr({foo: 2}).merge({foo: r.row('foo').mul(r.row('foo'))}, {foo: r.row('foo').mul(r.row('foo'))})
     compare(query, done);
   });
 
