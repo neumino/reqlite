@@ -54,6 +54,9 @@ module.exports.generateCompare = function(connections) {
           console.log('=== reqlite / rethinkdb ===');
           console.log(transform(errorreqlite.message));
           console.log(transform(errorrethinkdb.message));
+          console.log(transform(errorreqlite.frames));
+          console.log(transform(errorrethinkdb.frames));
+
           done(err);
         }
       });

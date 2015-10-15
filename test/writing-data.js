@@ -384,6 +384,7 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
+  /*
   it('update - 16', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).update(function(doc) {
       return r.db(TEST_DB).table(TEST_TABLE).get(doc('id'));
@@ -456,6 +457,13 @@ describe('writing-data.js', function(){
   });
   it('update - 25 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1);
+    compare(query, done);
+  });
+
+  it('update - 26', function(done) {
+    var query = r.expr([1,2,3]).forEach(function(x) {
+      return r.db(TEST_DB).table(TEST_TABLE).update(r.js('(function(doc) { return {copyId: doc.id} })'));
+    });
     compare(query, done);
   });
 
