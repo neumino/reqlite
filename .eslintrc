@@ -153,7 +153,7 @@
     "no-multi-spaces": 0,
     "brace-style": 0,                // enforce one true brace style (off by default)
     "camelcase": 0,                  // require camel case names
-    "consistent-this": [1, "self"],            // enforces consistent naming when capturing the current execution context (off by default)
+    "consistent-this": 0,            // enforces consistent naming when capturing the current execution context (off by default)
     "eol-last": 1,                   // enforce newline at the end of file, with no multiple empty lines
     "func-names": 0,                 // require function expressions to have a name (off by default)
     "func-style": 0,                 // enforces use of function declarations or expressions (off by default)
