@@ -5,7 +5,7 @@ module.exports = {
     example: ['./example/index']
   },
   output: {
-    path: path.join(__dirname, '../example'),
+    path: path.join(__dirname),
     filename: 'bundle.js',
     publicPath: '/example'
   },
@@ -13,10 +13,7 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       loaders: ['babel'],
-      include: path.join(__dirname, '../example')
+      include: path.join(__dirname)
     }]
-  },
-  node: {
-    fs: 'empty',
   }
 };

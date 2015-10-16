@@ -19,7 +19,7 @@ TlsStubPlugin.prototype.apply = function(compiler) {
       }
       if (/^tls$/.test(result.request)) {
         if (contextPattern.test(result.context)) {
-          result.request = path.join(__dirname ,'../lib/browser/TLSStub.js');
+          result.request = path.join(__dirname ,'TLSStub.js');
         }
       }
       return callback(null, result);
