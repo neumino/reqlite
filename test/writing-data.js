@@ -474,7 +474,7 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({id: 2}, {returnChanges: 'always'});
     compare(query, done, function(result) {
       delete result.first_error;
-      return result
+      return result;
     });
   });
 
@@ -643,7 +643,7 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({
       id: "merge/replace",
       foo: [ {bar: "lol"}, {bar: "buzz"} ]
-    })
+    });
     compare(query, done);
   });
 
@@ -651,12 +651,12 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace").replace({
       id: "merge/replace",
       foo: [ {buzz: "om"}, 2 ]
-    })
+    });
     compare(query, done);
   });
 
   it('replace - 13 - follow up', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace")
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace");
     compare(query, done);
   });
 
@@ -664,7 +664,7 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({
       id: "merge/replace/array",
       foo: [ {bar: "lol"}, 2 ]
-    })
+    });
     compare(query, done);
   });
 
@@ -672,12 +672,12 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace/array").replace({
       id: "merge/replace/array",
       foo: [ {buzz: "om"}, {foo: "bar"} ]
-    })
+    });
     compare(query, done);
   });
 
   it('replace - 14 - follow up', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace/array")
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace/array");
     compare(query, done);
   });
 
@@ -693,7 +693,7 @@ describe('writing-data.js', function(){
           diem: 3
         }
       }
-    })
+    });
     compare(query, done);
   });
 
@@ -710,12 +710,12 @@ describe('writing-data.js', function(){
         },
         boo: "om"
       }
-    })
+    });
     compare(query, done);
   });
 
   it('replace - 15 - follow up', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get("deep/nested")
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("deep/nested");
     compare(query, done);
   });
 
@@ -723,7 +723,7 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({
       id: "array/length",
       foo: [1,2,3,4]
-    })
+    });
     compare(query, done);
   });
 
@@ -731,12 +731,12 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").replace({
       id: "array/length",
       foo: [1,2,3,4,5,6]
-    })
+    });
     compare(query, done);
   });
 
   it('replace - 16 - follow up', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length")
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length");
     compare(query, done);
   });
 
@@ -744,22 +744,22 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").replace({
       id: "array/length",
       foo: [1,2]
-    })
+    });
     compare(query, done);
   });
 
   it('replace - 17 - follow up', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length")
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length");
     compare(query, done);
   });
 
   it('replace - 18', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").update({}, {returnChanges: 'always'})
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").update({}, {returnChanges: 'always'});
     compare(query, done);
   });
 
   it('replace - 19', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").update({id: 2}, {returnChanges: 'always'})
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").update({id: 2}, {returnChanges: 'always'});
     compare(query, done, function(result) {
       delete result.first_error;
       return result;
