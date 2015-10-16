@@ -384,7 +384,6 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
-  /*
   it('update - 16', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).update(function(doc) {
       return r.db(TEST_DB).table(TEST_TABLE).get(doc('id'));
@@ -455,14 +454,60 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({foo: r.row('foo').add(1) }, {returnChanges: true});
     compare(query, done);
   });
+
   it('update - 25 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1);
     compare(query, done);
   });
 
   it('update - 26', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({}, {returnChanges: true});
+    compare(query, done);
+  });
+
+  it('update - 27', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({}, {returnChanges: 'always'});
+    compare(query, done);
+  });
+
+  it('update - 28', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({id: 2}, {returnChanges: 'always'});
+    compare(query, done, function(result) {
+      delete result.first_error;
+      return result;
+    });
+  });
+
+  it('update - 29', function(done) {
     var query = r.expr([1,2,3]).forEach(function(x) {
       return r.db(TEST_DB).table(TEST_TABLE).update(r.js('(function(doc) { return {copyId: doc.id} })'));
+    });
+    compare(query, done);
+  });
+
+  it('update - 30', function(done) {
+    var query = r.expr([1,2,3]).forEach(function(x) {
+      return r.db(TEST_DB).table(TEST_TABLE).update(function() {
+        return r.db(TEST_DB).table(TEST_TABLE).get(1);
+      });
+    });
+    compare(query, done);
+  });
+
+  it('update - 31', function(done) {
+    var query = r.expr([1,2,3]).forEach(function(x) {
+      return r.db(TEST_DB).table(TEST_TABLE).update(function() {
+        return r.random();
+      });
+    });
+    compare(query, done);
+  });
+
+  it('update - 32', function(done) {
+    var query = r.expr([1,2,3]).forEach(function(x) {
+      return r.db(TEST_DB).table(TEST_TABLE).update(function() {
+        return r.table(TEST_TABLE);
+      });
     });
     compare(query, done);
   });
@@ -471,6 +516,7 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).replace({id: 1, foo: 200});
     compare(query, done);
   });
+
   it('replace - 1 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1);
     compare(query, done);
@@ -593,6 +639,132 @@ describe('writing-data.js', function(){
     });
   });
 
+  it('replace - 13 - pre', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({
+      id: "merge/replace",
+      foo: [ {bar: "lol"}, {bar: "buzz"} ]
+    });
+    compare(query, done);
+  });
+
+  it('replace - 13', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace").replace({
+      id: "merge/replace",
+      foo: [ {buzz: "om"}, 2 ]
+    });
+    compare(query, done);
+  });
+
+  it('replace - 13 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace");
+    compare(query, done);
+  });
+
+  it('replace - 14 - pre', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({
+      id: "merge/replace/array",
+      foo: [ {bar: "lol"}, 2 ]
+    });
+    compare(query, done);
+  });
+
+  it('replace - 14', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace/array").replace({
+      id: "merge/replace/array",
+      foo: [ {buzz: "om"}, {foo: "bar"} ]
+    });
+    compare(query, done);
+  });
+
+  it('replace - 14 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("merge/replace/array");
+    compare(query, done);
+  });
+
+  it('replace - 15 - pre', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({
+      id: "deep/nested",
+      foo: {
+        bar: [1, 2, 3, {bar: { buzz: "lol"}}],
+        yo: {
+          lo: {
+            carpe: 1
+          },
+          diem: 3
+        }
+      }
+    });
+    compare(query, done);
+  });
+
+  it('replace - 15', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("deep/nested").replace({
+      id: "deep/nested",
+      foo: {
+        bar: [10, 20, {hello: "bonjour"}, {bar: { buzz: "yolo"}}],
+        yo: {
+          lo: {
+            nocarpe: 3
+          },
+          diem: 2
+        },
+        boo: "om"
+      }
+    });
+    compare(query, done);
+  });
+
+  it('replace - 15 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("deep/nested");
+    compare(query, done);
+  });
+
+  it('replace - 16 - pre', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({
+      id: "array/length",
+      foo: [1,2,3,4]
+    });
+    compare(query, done);
+  });
+
+  it('replace - 16', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").replace({
+      id: "array/length",
+      foo: [1,2,3,4,5,6]
+    });
+    compare(query, done);
+  });
+
+  it('replace - 16 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length");
+    compare(query, done);
+  });
+
+  it('replace - 17', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").replace({
+      id: "array/length",
+      foo: [1,2]
+    });
+    compare(query, done);
+  });
+
+  it('replace - 17 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length");
+    compare(query, done);
+  });
+
+  it('replace - 18', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").update({}, {returnChanges: 'always'});
+    compare(query, done);
+  });
+
+  it('replace - 19', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").update({id: 2}, {returnChanges: 'always'});
+    compare(query, done, function(result) {
+      delete result.first_error;
+      return result;
+    });
+  });
 
   it('delete - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).delete();

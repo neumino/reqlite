@@ -2,7 +2,6 @@ var config = require('./../config.js');
 
 var r = require('rethinkdb');
 //var r = require('rethinkdbdash')({pool: false});
-var assert = require('assert');
 
 var connections = {};
 var TEST_DB = 'reqlitetest';

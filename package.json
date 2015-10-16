@@ -1,6 +1,6 @@
 {
   "name": "reqlite",
-  "version": "2.1.1",
+  "version": "2.1.3",
   "description": "",
   "main": "lib/index.js",
   "bin": {

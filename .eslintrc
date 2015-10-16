@@ -58,7 +58,7 @@
     "no-invalid-regexp": 1,          // disallow invalid regular expression strings in the RegExp constructor
     "no-negated-in-lhs": 1,          // disallow negation of the left operand of an in expression
     "no-obj-calls": 1,               // disallow the use of object properties of the global object (Math and JSON) as functions
-    "no-regex-spaces": 1,            // disallow multiple spaces in a regular expression literal
+    "no-regex-spaces": 0,            // disallow multiple spaces in a regular expression literal
     "no-reserved-keys": 0,           // disallow reserved words being used as object literal keys (off by default)
     "no-sparse-arrays": 1,           // disallow sparse arrays
     "no-unreachable": 1,             // disallow unreachable statements after a return, throw, continue, or break statement
@@ -74,16 +74,16 @@
     "consistent-return": 0,          // require return statements to either always or never specify values
     "curly": 1,                      // specify curly brace conventions for all control statements
     "default-case": 0,               // require default case in switch statements (off by default)
-    "dot-notation": 1,               // encourages use of dot notation whenever possible
+    "dot-notation": 0,               // encourages use of dot notation whenever possible
     "eqeqeq": 0,                     // require the use of === and !==
     "guard-for-in": 0,               // make sure for-in loops have an if statement (off by default)
     "no-alert": 1,                   // disallow the use of alert, confirm, and prompt
     "no-caller": 1,                  // disallow use of arguments.caller or arguments.callee
-    "no-div-regex": 1,               // disallow division operators explicitly at beginning of regular expression (off by default)
+    "no-div-regex": 0,               // disallow division operators explicitly at beginning of regular expression (off by default)
     "no-else-return": 0,             // disallow else after a return in an if (off by default)
     "no-empty-label": 1,             // disallow use of labels for anything other then loops and switches
     "no-eq-null": 0,                 // disallow comparisons to null without a type-checking operator (off by default)
-    "no-eval": 1,                    // disallow use of eval()
+    "no-eval": 0,                    // disallow use of eval()
     "no-extend-native": 1,           // disallow adding to native types
     "no-extra-bind": 1,              // disallow unnecessary function binding
     "no-fallthrough": 1,             // disallow fallthrough of case statements
@@ -95,7 +95,7 @@
     "no-loop-func": 0,               // disallow creation of functions within loops
     "no-multi-str": 0,               // disallow use of multiline strings
     "no-native-reassign": 0,         // disallow reassignments of native objects
-    "no-new": 1,                     // disallow use of new operator when not part of the assignment or comparison
+    "no-new": 0,                     // disallow use of new operator when not part of the assignment or comparison
     "no-new-func": 1,                // disallow use of new operator for Function object
     "no-new-wrappers": 1,            // disallows creating new instances of String,Number, and Boolean
     "no-octal": 1,                   // disallow use of octal literals
@@ -104,7 +104,7 @@
     "no-redeclare": 0,               // disallow declaring the same variable more then once
     "no-return-assign": 1,           // disallow use of assignment in return statement
     "no-script-url": 1,              // disallow use of javascript: urls.
-    "no-self-compare": 1,            // disallow comparisons where both sides are exactly the same (off by default)
+    "no-self-compare": 0,            // disallow comparisons where both sides are exactly the same (off by default)
     "no-sequences": 1,               // disallow use of comma operator
     "no-unused-expressions": 1,      // disallow usage of expressions in statement position
     "no-void": 1,                    // disallow use of void operator (off by default)
@@ -127,12 +127,12 @@
     "no-catch-shadow": 1,            // disallow the catch clause parameter name being the same as a variable in the outer scope (off by default in the node environment)
     "no-delete-var": 1,              // disallow deletion of variables
     "no-label-var": 1,               // disallow labels that share a name with a variable
-    "no-shadow": 1,                  // disallow declaration of variables already declared in the outer scope
-    "no-shadow-restricted-names": 1, // disallow shadowing of names such as arguments
+    "no-shadow": 0,                  // disallow declaration of variables already declared in the outer scope
+    "no-shadow-restricted-names": 0, // disallow shadowing of names such as arguments
     "no-undef": 2,                   // disallow use of undeclared variables unless mentioned in a /*global */ block
     "no-undefined": 0,               // disallow use of undefined variable (off by default)
     "no-undef-init": 1,              // disallow use of undefined when initializing variables
-    "no-unused-vars": 1,            // disallow declaration of variables that are not used in the code
+    "no-unused-vars": 1,             // disallow declaration of variables that are not used in the code
     "no-use-before-define": 0,       // disallow use of variables before they are defined
 
   // Node.js
@@ -154,7 +154,7 @@
     "no-multi-spaces": 0,
     "brace-style": 0,                // enforce one true brace style (off by default)
     "camelcase": 0,                  // require camel case names
-    "consistent-this": [1, "self"],            // enforces consistent naming when capturing the current execution context (off by default)
+    "consistent-this": 0,            // enforces consistent naming when capturing the current execution context (off by default)
     "eol-last": 1,                   // enforce newline at the end of file, with no multiple empty lines
     "func-names": 0,                 // require function expressions to have a name (off by default)
     "func-style": 0,                 // enforces use of function declarations or expressions (off by default)
