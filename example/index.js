@@ -9,15 +9,20 @@ var server = new Server({
   'driver-port': 28015
 });
 
-function run(conn){
-  return new Promise((resolve, reject) =>
-    this.run(conn, (err, res) => err ? reject(err) : resolve(res)));
-}
+
 
 function promise(...args){
   return new Promise((resolve, reject) => {
     return this(...args, (err, res) => err ? reject(err) : resolve(res));
   });
+}
+
+function run(conn){
+  return (::this.run)::promise(conn);
+}
+
+function toArray(){
+  return (::this.toArray)::promise();
 }
 
 
@@ -35,7 +40,7 @@ async function go(){
     let cursor = await r.db('test').table('samples')::run(conn);
 
     if(cursor){
-      let arr = await (::cursor.toArray)::promise();
+      let arr = await cursor::toArray();
       console.log(arr.map(x => `${x.id}: ${x.value}`).join('\n'));
     }
     else{
