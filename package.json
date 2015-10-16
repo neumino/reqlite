@@ -23,10 +23,11 @@
   "bugs": {
     "url": "https://github.com/neumino/reqlite/issues"
   },
-  "dependencies":{
+  "dependencies": {
     "bluebird": ">= 2.0.0",
-    "minimist": "0.2.0",
+    "geographiclib": "^1.46.0-beta1",
     "geolib": "2.0.14",
+    "minimist": "0.2.0",
     "moment": "2.10.3",
     "request": "2.55.0"
   },
