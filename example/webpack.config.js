@@ -12,7 +12,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel'],
+      loaders: ['babel?optional[]=runtime'],
       include: path.join(__dirname)
     }]
   }
