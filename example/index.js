@@ -27,7 +27,6 @@ async function go(err, conn){
     if(err){
       throw err;
     }
-    // let conn = await connect({port: 28015}); // "fake" port
     await r.dbCreate('test')::run(conn);
     await r.db('test').tableCreate('samples')::run(conn);
     for (var i=0; i< 100; i++){
