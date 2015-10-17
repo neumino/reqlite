@@ -13,8 +13,9 @@ var servers = {};
 
 var Server = module.exports.Server = function(onConnect){
   this.onConnect = onConnect;
+  var t = this;
   ['close', 'address', 'unref', 'ref']
-    .forEach(function(name) { this[name] = function(){ notImpl(name); }; });
+    .forEach(function(name) { t[name] = function(){ notImpl(name); }; });
 };
 inherits(Server, EventEmitter);
 
