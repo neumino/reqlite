@@ -1,27 +1,6 @@
 // this is super messy right now
 // and should become redundant after #rethinkdb/4316 is fixed
-
-
-var inherits = (typeof Object.create === 'function') ?
-  function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor;
-    ctor.prototype = Object.create(superCtor.prototype, {
-      constructor: {
-        value: ctor,
-        enumerable: false,
-        writable: true,
-        configurable: true
-      }
-    });
-  } :
-  // older browsers
-  function inherits(ctor, superCtor) {
-    ctor.super_ = superCtor;
-    var TempCtor = function () {};
-    TempCtor.prototype = superCtor.prototype;
-    ctor.prototype = new TempCtor();
-    ctor.prototype.constructor = ctor;
-  };
+var inherits = require('util').inherits;
 
 var EventEmitter = require('events').EventEmitter;
 
