@@ -45,7 +45,9 @@ Socket.prototype.connect = function(port, host, connectListener){
   setTimeout(function(){
     s.emit('connect');
     t.emit('connect');
-    connectListener && connectListener();
+    if(connectListener){
+      connectListener();
+    }
   }, 0);
 };
 
