@@ -109,13 +109,33 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
+  it('insert - 8 - changes always', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: 101, foo: 'bar'}, {returnChanges: 'always'});
+    compare(query, done);
+  });
+
   it('insert - 9', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert([
-      {id: 101, foo: 'bar101'},
-      {id: 102, foo: 'bar012'},
+      {id: 102, foo: 'bar102'},
       {id: 103, foo: 'bar103'},
       {id: 104, foo: 'bar104'}
     ], {returnChanges: true}).do(function(result) {
+      return result.merge({
+        changes: result('changes').orderBy(function(change) {
+          return change;
+        })
+      });
+    });
+    compare(query, done);
+    //compare(query, done, function(e) { console.log(''); console.log(JSON.stringify(e, null, 4)); return e; });
+  });
+
+  it('insert - 9 - changes always', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert([
+      {id: 105, foo: 'bar105'},
+      {id: 106, foo: 'bar106'},
+      {id: 107, foo: 'bar107'}
+    ], {returnChanges: 'always'}).do(function(result) {
       return result.merge({
         changes: result('changes').orderBy(function(change) {
           return change;
@@ -137,6 +157,17 @@ describe('writing-data.js', function(){
     });
   });
 
+  it('insert - 10 - changes always', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({
+      id: 103, // primary key already used
+      foo: 'bar<always>'
+    }, {returnChanges: 'always'});
+    compare(query, done, function(e) {
+      delete e.first_error;
+      return e;
+    });
+  });
+
   it('insert - 11', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({
       id: 103, // primary key already used
@@ -145,7 +176,15 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
-  it('insert - 11', function(done) {
+  it('insert - 11 - changes always', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({
+      id: 103, // primary key already used
+      foo: 'bar<always>'
+    }, {conflict: 'replace', returnChanges: 'always'});
+    compare(query, done);
+  });
+
+  it('insert - 12', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({
       id: 103, // primary key already used
       buzz: 'extra<buzz>'
@@ -153,7 +192,15 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
-  it('insert - 12', function(done) {
+  it('insert - 12 - changes always', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({
+      id: 103, // primary key already used
+      buzz: 'extra<always>'
+    }, {conflict: 'update', returnChanges: 'always'});
+    compare(query, done);
+  });
+
+  it('insert - 13', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert([{}, {}, {}]);
     compare(query, done, function(result) {
       assert.equal(result.generated_keys.length, 3);
@@ -161,7 +208,7 @@ describe('writing-data.js', function(){
       return result;
     });
   });
-  it('insert - 12 - follow up', function(done) {
+  it('insert - 13 - follow up', function(done) {
     // We need to clean here as we have different primary keys in reqlite and rethinkdb
     var query = r.db(TEST_DB).table(TEST_TABLE).filter(function(doc) {
       return doc('id').typeOf().eq("STRING");
@@ -169,80 +216,80 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
-  it('insert - 13', function(done) {
+  it('insert - 14', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: true});
     compare(query, done);
   });
-  it('insert - 13 - follow up', function(done) {
+  it('insert - 14 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(true);
     compare(query, done);
   });
-  it('insert - 13 - follow up - 2', function(done) {
+  it('insert - 14 - follow up - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(true).delete();
     compare(query, done);
   });
 
-  it('insert - 14', function(done) {
+  it('insert - 15', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: null});
     compare(query, done);
   });
-  it('insert - 14 - follow up', function(done) {
+  it('insert - 15 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(null);
     compare(query, done);
   });
-  it('insert - 14 - follow up - 2', function(done) {
+  it('insert - 15 - follow up - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(null).delete();
     compare(query, done);
   });
 
-  it('insert - 15', function(done) {
+  it('insert - 16', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: r.point(0, 0)});
     compare(query, done);
   });
-  it('insert - 15 - follow up', function(done) {
+  it('insert - 16 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(r.point(0, 0));
     compare(query, done);
   });
-  it('insert - 15 - follow up - 2', function(done) {
+  it('insert - 16 - follow up - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(r.point(0, 0)).delete();
     compare(query, done);
   });
 
-  it('insert - 16', function(done) {
+  it('insert - 17', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: r.time(1986, 11, 3, 'Z')});
     compare(query, done);
   });
 
-  it('insert - 16 - follow up', function(done) {
+  it('insert - 17 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(r.time(1986, 11, 3, 'Z'));
     compare(query, done);
   });
-  it('insert - 16 - follow up - 2', function(done) {
+  it('insert - 17 - follow up - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: r.time(1986, 11, 3, '+00:00')});
     compare(query, done, function(e) {
       delete e.first_error;
       return e;
     });
   });
-  it('insert - 16 - follow up - 3', function(done) {
+  it('insert - 17 - follow up - 3', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(r.time(1986, 11, 3, 'Z')).delete();
     compare(query, done);
   });
 
-  it('insert - 17', function(done) {
+  it('insert - 18', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({id: new Buffer('Hello world')});
     compare(query, done);
   });
-  it('insert - 17 - follow up', function(done) {
+  it('insert - 18 - follow up', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(new Buffer('Hello world'));
     compare(query, done);
   });
-  it('insert - 17 - follow up - 2', function(done) {
+  it('insert - 18 - follow up - 2', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(new Buffer('Hello world')).delete();
     compare(query, done);
   });
 
-  it('insert - 18', function(done) {
+  it('insert - 19', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).insert({}, {returnChanges: true});
     compare(query, done, function(result) {
       assert(typeof result.generated_keys[0] === 'string');
@@ -252,7 +299,25 @@ describe('writing-data.js', function(){
       return result;
     });
   });
-  it('insert - 18 - follow up', function(done) {
+  it('insert - 19 - follow up', function(done) {
+    // We need to clean here as we have different primary keys in reqlite and rethinkdb
+    var query = r.db(TEST_DB).table(TEST_TABLE).filter(function(doc) {
+      return doc('id').typeOf().eq("STRING");
+    }).delete();
+    compare(query, done);
+  });
+
+  it('insert - 20', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).insert({}, {returnChanges: 'always'});
+    compare(query, done, function(result) {
+      assert(typeof result.generated_keys[0] === 'string');
+      assert(result.changes.length === 1);
+      delete result.generated_keys;
+      delete result.changes;
+      return result;
+    });
+  });
+  it('insert - 20 - follow up', function(done) {
     // We need to clean here as we have different primary keys in reqlite and rethinkdb
     var query = r.db(TEST_DB).table(TEST_TABLE).filter(function(doc) {
       return doc('id').typeOf().eq("STRING");
@@ -807,7 +872,7 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).filter(true).delete({returnChanges: true}).do(function(result) {
       return result.merge({
         changes: result('changes').orderBy(function(change) {
-          return change;
+          return change('old_val')('id');
         })
       });
     });
