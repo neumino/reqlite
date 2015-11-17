@@ -5,3 +5,5 @@ test.js
 rethinkdb_data
 test/new.js
 repos
+example/bundle.js
+browser.js

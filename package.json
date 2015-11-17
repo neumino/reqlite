@@ -11,7 +11,8 @@
   },
   "scripts": {
     "test": "mocha --check-leaks -t 20000",
-    "lint": "eslint lib --quiet && eslint test --quiet"
+    "lint": "eslint lib --quiet && eslint test --quiet",
+    "browser": "webpack --config webpack/config.js"
   },
   "repository": {
     "type": "git",
@@ -30,12 +31,13 @@
     "geolib": "2.0.14",
     "minimist": "0.2.0",
     "moment": "2.10.3",
-    "request": "2.55.0"
+    "superagent": "^1.4.0"
   },
   "devDependencies": {
     "eslint": "^1.6.0",
     "mocha": ">= 1.20.0",
     "rethinkdb": "~ 2.1.0",
-    "rethinkdbdash": "~ 2.1.0"
+    "rethinkdbdash": "~ 2.1.0",
+    "webpack": "^1.12.2"
   }
 }
