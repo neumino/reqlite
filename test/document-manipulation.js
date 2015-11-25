@@ -597,6 +597,20 @@ describe('document-manipulation.js', function(){
     compare(query, done);
   });
 
+  it('append - 10 - a', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({
+      bar: r.row('bar').append(103).filter(r.expr(true))
+    }, {returnChanges: true});
+    compare(query, done);
+  });
+
+  it('append - 10 - b', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({
+      bar: r.row('bar').filter(r.expr(true)).append(104)
+    }, {returnChanges: true});
+    compare(query, done);
+  });
+
   it('prepend - 1', function(done) {
     var query = r.expr([]).prepend(1);
     compare(query, done);
