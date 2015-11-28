@@ -114,6 +114,15 @@ describe('new.js', function(){
     }).catch(done);
   });
 
+  it('noreplyWait - 1', function(done) {
+    connections.reqlite.server().then(function(result) {
+      assert(result.name);
+      assert(result.id);
+      done();
+    }).catch(done);
+  });
+
+
   /*
   */
 });
