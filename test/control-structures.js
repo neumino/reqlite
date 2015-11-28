@@ -214,9 +214,7 @@ describe('control-structures.js', function(){
   it('do - 7', function(done) {
     var query = r.do('foo',
                      function(x, y, z) { return 2;});
-    compare(query, done, function(error) {
-      return /^Expected 3 arguments but found 1/.test(error);
-    });
+    compare(query, done);
   });
 
   it('branch - 1', function(done) {
@@ -436,6 +434,16 @@ describe('control-structures.js', function(){
 
   it('default - 5', function(done) {
     var query = r.error('foo').default('bar');
+    compare(query, done);
+  });
+
+  it('default - 6', function(done) {
+    var query = r.expr([1,2,3]).nth(5).default('bar');
+    compare(query, done);
+  });
+
+  it('default - 7', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).nth(500).default('bar');
     compare(query, done);
   });
 
