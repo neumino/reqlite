@@ -302,6 +302,8 @@ describe('manipulating-tables.js', function(){
         delete indexes[i].ready;
         delete indexes[i].blocks_processed;
         delete indexes[i].blocks_total;
+        delete indexes[i].progress;
+        delete indexes[i].query;
       }
       return indexes;
     });
@@ -316,6 +318,8 @@ describe('manipulating-tables.js', function(){
         delete indexes[i].ready;
         delete indexes[i].blocks_processed;
         delete indexes[i].blocks_total;
+        delete indexes[i].progress;
+        delete indexes[i].query;
       }
       indexes.sort(function(a, b) {
         if (a.index > b.index) { return 1; }
@@ -346,6 +350,8 @@ describe('manipulating-tables.js', function(){
     compare(query, done, function(indexes) {
       for(var i=0; i<indexes.length; i++) {
         delete indexes[i].function; //TODO
+        delete indexes[i].progress;
+        delete indexes[i].query;
       }
       return indexes;
     });
@@ -356,6 +362,8 @@ describe('manipulating-tables.js', function(){
     compare(query, done, function(indexes) {
       for(var i=0; i<indexes.length; i++) {
         delete indexes[i].function; //TODO
+        delete indexes[i].progress;
+        delete indexes[i].query;
       }
       indexes.sort(function(a, b) {
         if (a.index > b.index) { return 1; }

@@ -1012,6 +1012,7 @@ describe('control-structures.js', function(){
     compare(query, done);
   });
 
+  /*
   it('forEach - 1', function(done) {
     var query = r.expr([
         {id: 10},

@@ -30,7 +30,8 @@
     "geolib": "2.0.14",
     "minimist": "0.2.0",
     "moment": "2.10.3",
-    "request": "2.55.0"
+    "request": "2.55.0",
+    "uuid-1345": "0.99.6"
   },
   "devDependencies": {
     "eslint": "^1.6.0",
