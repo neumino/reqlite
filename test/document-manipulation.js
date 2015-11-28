@@ -1378,6 +1378,48 @@ describe('document-manipulation.js', function(){
     compare(query, done);
   });
 
+  it('values - 1', function(done) {
+    var query = r.expr({foo: 1, bar: 2, buzz: 3}).values().orderBy(r.row);
+    compare(query, done);
+  });
+
+  it('values - 2', function(done) {
+    function Foo() {
+      this.foo = 1;
+      this.bar = 2;
+      this.buzz = 3;
+    }
+    Foo.prototype.extraBar = 2;
+    var query = r.expr(new Foo()).values().orderBy(r.row);
+    compare(query, done);
+  });
+
+  it('values - 3', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).values().orderBy(r.row);
+    compare(query, done);
+  });
+
+  it('values - 4', function(done) {
+    var query = r.expr(COMPLEX_OBJECT).values().orderBy(r.row);
+    compare(query, done);
+  });
+
+  it('values - 5', function(done) {
+    var query = r.expr('foo').values();
+    compare(query, done);
+  });
+
+  it('values - 6', function(done) {
+    var query = r.expr('foo').values().orderBy(r.row);
+    compare(query, done);
+  });
+
+  it('values - 7', function(done) {
+    var query = r.expr({}).values(1, 2);
+    compare(query, done);
+  });
+
+
   it('literal - 1', function(done) {
     var query = r.expr({foo: {bar: 1, buzz: 2}, hello: 3, world: 4}).merge({
       foo: r.literal({bar: 2})
