@@ -429,9 +429,12 @@ describe('aggregation.js', function(){
     var query = r.expr([1,2,3]).reduce(function(left) {
       return left;
     });
+    compare(query, done);
+    /*
     compare(query, done, function(error) {
       return /^Expected 1 argument but found 2/.test(error);
     });
+    */
   });
 
   it('reduce - 7', function(done) {
