@@ -35,7 +35,7 @@
   "devDependencies": {
     "eslint": "^1.6.0",
     "mocha": ">= 1.20.0",
-    "rethinkdb": "~ 2.1.0",
-    "rethinkdbdash": "~ 2.1.0"
+    "rethinkdb": "~ 2.2.0",
+    "rethinkdbdash": "~ 2.2.0"
   }
 }
