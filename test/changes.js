@@ -194,9 +194,6 @@ describe('changes.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get(6).changes();
     query.run(mainConnection).then(function(feed) {
       feed.next().then(function(change) {
-        assert.deepEqual(change, { new_val: null });
-        return feed.next();
-      }).then(function(change) {
         assert.deepEqual(change, {
           new_val: {id: 6, foo: 60, redundant: 200},
           old_val: null
@@ -216,9 +213,6 @@ describe('changes.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get(6).changes();
     query.run(mainConnection).then(function(feed) {
       feed.next().then(function(change) {
-        assert.deepEqual(change, {new_val: {id: 6, foo: 60, redundant: 200}});
-        return feed.next();
-      }).then(function(change) {
         assert.deepEqual(change, {
           new_val: {id: 6, foo: 61, redundant: 200},
           old_val: {id: 6, foo: 60, redundant: 200}
@@ -238,9 +232,6 @@ describe('changes.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get(6).changes();
     query.run(mainConnection).then(function(feed) {
       feed.next().then(function(change) {
-        assert.deepEqual(change, {new_val: {id: 6, foo: 61, redundant: 200}});
-        return feed.next();
-      }).then(function(change) {
         assert.deepEqual(change, {
           new_val: null,
           old_val: {id: 6, foo: 61, redundant: 200}
@@ -254,6 +245,7 @@ describe('changes.js', function(){
       }).catch(done);
     }).catch(done);
   });
+
 
   it('changes - 11', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).between(2, 4, {index: 'id'}).changes();
@@ -328,7 +320,9 @@ describe('changes.js', function(){
   });
 
   it('changes - 13', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'id'}).limit(3).changes();
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'id'}).limit(3).changes({
+      includeInitial: true
+    });
     query.run(mainConnection).then(function(feed) {
       feed.next().then(function(change) {
         assert.deepEqual(change, {new_val: {id: 1, foo: 10, redundant: 100, optional: 1000}});
@@ -357,6 +351,7 @@ describe('changes.js', function(){
         done();
       }).catch(done);
 
+      r.db(TEST_DB).table(TEST_TABLE).get(2).update({foo: 23}).run(mainConnection)
       r.db(TEST_DB).table(TEST_TABLE).get(2).update({foo: 23}).run(mainConnection).then(function(result) {
         return r.db(TEST_DB).table(TEST_TABLE).insert({id: 6}).run(mainConnection);
       }).then(function() {
@@ -372,7 +367,9 @@ describe('changes.js', function(){
   });
 
   it('changes - 14', function(done) {
-    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'id'}).limit(8).changes();
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'id'}).limit(8).changes({
+      includeInitial: true
+    });
     query.run(mainConnection).then(function(feed) {
       feed.next().then(function(change) {
         assert.deepEqual(change, {new_val: {id: 1, foo: 10, redundant: 100, optional: 1000}});
@@ -1050,7 +1047,7 @@ describe('changes.js', function(){
     }).catch(done);
   });
 
-  it('changes - 55', function(done) {
+  it('changes - 56', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).changes().outerJoin(
       [{id: 10, foo: 'bar'}, {id: 11, foo: 'buzz'}],
       function(change, right) {
@@ -1076,7 +1073,7 @@ describe('changes.js', function(){
     }).catch(done);
   });
 
-  it('changes - 55', function(done) {
+  it('changes - 57', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).changes().eqJoin(
         r.row('new_val')('id'),
         r.db(TEST_DB).table(TEST_TABLE)
@@ -1098,6 +1095,140 @@ describe('changes.js', function(){
       return r.db(TEST_DB).table(TEST_TABLE).insert({id: 10}).run(mainConnection);
     }).then(function() {
       return r.db(TEST_DB).table(TEST_TABLE).insert({id: 11}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 58', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).changes({
+      includeInitial: true
+    })
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(change) {
+        assert.deepEqual(change, {
+          new_val: {
+            foo: 10,
+            id: 1,
+            optional: 1000,
+            redundant: 100
+          }
+        })
+        return feed.next();
+      }).then(function(change) {
+        assert.deepEqual(change, {
+          new_val: {
+            foo: 10,
+            id: 1,
+            newField: 'foo',
+            optional: 1000,
+            redundant: 100
+          },
+          old_val: {
+            foo: 10,
+            id: 1,
+            optional: 1000,
+            redundant: 100
+          }
+        })
+        return feed.next();
+      }).then(function(change) {
+        assert.deepEqual(change, {
+          new_val: {
+            foo: 10,
+            id: 1,
+            newField: 'bar',
+            optional: 1000,
+            redundant: 100
+          },
+          old_val: {
+            foo: 10,
+            id: 1,
+            newField: 'foo',
+            optional: 1000,
+            redundant: 100
+          }
+        })
+        return feed.close();
+      }).then(function() {
+        done();
+      }).catch(done);
+      return null;
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).get(1).update({newField: 'foo'}).run(mainConnection);
+    }).then(function() {
+      return r.db(TEST_DB).table(TEST_TABLE).get(1).update({newField: 'bar'}).run(mainConnection);
+    }).catch(done);
+  });
+
+  it('changes - 59', function(done) {
+    var doc = {id: 600, foo: 60, redundant: 200};
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(600).changes({
+      includeInitial: true
+    });
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(change) {
+        assert.deepEqual(change, { new_val: null });
+        return feed.next();
+      }).then(function(change) {
+        assert.deepEqual(change, {
+          new_val: {id: 600, foo: 60, redundant: 200},
+          old_val: null
+        });
+        return feed.close();
+      }).then(function() {
+        done();
+      }).catch(done);
+
+      r.db(TEST_DB).table(TEST_TABLE).insert(doc).run(mainConnection).then(function(result) {
+      }).catch(done);
+    }).catch(done);
+  });
+
+
+  it('changes - 60', function(done) {
+    var doc = {id: 600, foo: 60, redundant: 200};
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(600).changes({
+      includeInitial: true
+    });
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(change) {
+        assert.deepEqual(change, {new_val: {id: 600, foo: 60, redundant: 200}});
+        return feed.next();
+      }).then(function(change) {
+        assert.deepEqual(change, {
+          new_val: {id: 600, foo: 61, redundant: 200},
+          old_val: {id: 600, foo: 60, redundant: 200}
+        });
+        return feed.close();
+      }).then(function() {
+        done();
+      }).catch(done);
+
+      r.db(TEST_DB).table(TEST_TABLE).get(600).update({foo: 61}).run(mainConnection).then(function(result) {
+      }).catch(done);
+    }).catch(done);
+  });
+
+  it('changes - 61', function(done) {
+    var doc = {id: 600, foo: 60, redundant: 200};
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(600).changes({
+      includeInitial: true
+    });
+    query.run(mainConnection).then(function(feed) {
+      feed.next().then(function(change) {
+        assert.deepEqual(change, {new_val: {id: 600, foo: 61, redundant: 200}});
+        return feed.next();
+      }).then(function(change) {
+        assert.deepEqual(change, {
+          new_val: null,
+          old_val: {id: 600, foo: 61, redundant: 200}
+        });
+        return feed.close();
+      }).then(function() {
+        done();
+      }).catch(done);
+
+      r.db(TEST_DB).table(TEST_TABLE).get(600).delete().run(mainConnection).then(function(result) {
+      }).catch(done);
     }).catch(done);
   });
 
