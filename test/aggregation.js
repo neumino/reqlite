@@ -430,11 +430,6 @@ describe('aggregation.js', function(){
       return left;
     });
     compare(query, done);
-    /*
-    compare(query, done, function(error) {
-      return /^Expected 1 argument but found 2/.test(error);
-    });
-    */
   });
 
   it('reduce - 7', function(done) {
