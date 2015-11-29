@@ -889,6 +889,11 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
+  it('delete - 7', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).limit(1).delete({returnChanges: 'always'})
+    compare(query, done);
+  });
+
   /*
   */
 });
