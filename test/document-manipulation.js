@@ -597,10 +597,19 @@ describe('document-manipulation.js', function(){
     compare(query, done);
   });
 
-  it('append - 10 - a', function(done) {
+  it('append - 10', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update(function(doc) {
+      return {
+        bar: doc('bar').append(103).filter(r.expr(true))
+      }, {returnChanges: true}
+    });
+    compare(query, done);
+  });
+
+  it('append - 11', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({
-      bar: r.row('bar').append(103).filter(r.expr(true))
-    }, {returnChanges: true});
+        bar: r.row('bar').append(104).filter(r.expr(true))
+      }, {returnChanges: true});
     compare(query, done);
   });
 
