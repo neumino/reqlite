@@ -14,6 +14,7 @@ var REQUIRE_FILES = [
   'geo.js',
   'group.js',
   'literal.js',
+  'local_connection.js',
   'maxval.js',
   'minval.js',
   'missing_doc.js',
@@ -29,7 +30,7 @@ var REQUIRE_FILES = [
 var b = browserify('./lib/')
 b.add('./lib/index.js')
 for(var i=0; i<REQUIRE_FILES.length; i++) {
-  b.require('./lib/'+REQUIRE_FILES[i], {expose: './lib/'+REQUIRE_FILES[i]})
+  b.require('./lib/'+REQUIRE_FILES[i], {expose: '/lib/'+REQUIRE_FILES[i]})
 }
 b.require('./lib/index.js', {expose: 'reqlite'})
 b.bundle(function(err, result) {
