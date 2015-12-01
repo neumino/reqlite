@@ -1,14 +1,14 @@
 language: node_js
+sudo: false
 node_js:
   - "node"
 before_install:
-  - source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list
-  - wget -qO- http://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -
-  - sudo apt-get update
-  - sudo apt-get install rethinkdb -y --force-yes
-  - rethinkdb --version
+  - wget http://download.rethinkdb.com/apt/pool/precise/main/r/rethinkdb/rethinkdb_2.2.1~0precise_amd64.deb
+  - ar x *.deb
+  - tar xvzf data.tar.gz
 before_script:
-  - sudo rethinkdb --daemon
+  - ls -al
+  - ./usr/bin/rethinkdb --daemon
   - npm install
   - ./bin/reqlite --port-offset 1 &
   - sleep 10
