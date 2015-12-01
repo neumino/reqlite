@@ -11,7 +11,8 @@
   },
   "scripts": {
     "test": "mocha --check-leaks -t 20000",
-    "lint": "eslint lib --quiet && eslint test --quiet"
+    "lint": "eslint lib --quiet && eslint test --quiet",
+    "browserify": "node browserify.js"
   },
   "repository": {
     "type": "git",
