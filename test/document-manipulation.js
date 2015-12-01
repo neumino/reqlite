@@ -458,6 +458,18 @@ describe('document-manipulation.js', function(){
     compare(query, done);
   });
 
+  it('without - 38', function(done) {
+    var mergedoc = r.db(TEST_DB).table(TEST_TABLE).get(1);
+    var query = r.expr(COMPLEX_OBJECT).merge({"baz": mergedoc}).without("buzz");
+    compare(query, done);
+  });
+  
+  it('without - 39', function(done) {
+    var mergedoc = r.db(TEST_DB).table(TEST_TABLE).get(1);
+    var query = r.expr(COMPLEX_OBJECT).without("buzz").merge({"baz": mergedoc});
+    compare(query, done);
+  });
+
   it('merge - 1', function(done) {
     var query = r.expr({foo: 'bar'}).merge({foo: 'lol'});
     compare(query, done);
