@@ -43,6 +43,8 @@ r.connect({
   return r.http('http://httpbin.org').run(this.connection);
 }).then(function(result) {
   console.log(JSON.stringify(result, null, 2));
+  return this.connection.close();
+}).then(function() {
   console.log('Done');
 }).catch(function(error) {
   console.log(error);
