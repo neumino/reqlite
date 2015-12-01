@@ -5,4 +5,6 @@ test.js
 rethinkdb_data
 test/new.js
 repos
-browser/index.js
+browser/reqlite.js
+browser/rethinkdb.js
+browser/rethinkdbdash.js

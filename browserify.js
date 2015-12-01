@@ -13,7 +13,6 @@ var REQUIRE_FILES = [
   'error.js',
   'geo.js',
   'group.js',
-  'index.js',
   'literal.js',
   'maxval.js',
   'minval.js',
@@ -32,10 +31,11 @@ b.add('./lib/index.js')
 for(var i=0; i<REQUIRE_FILES.length; i++) {
   b.require('./lib/'+REQUIRE_FILES[i], {expose: './lib/'+REQUIRE_FILES[i]})
 }
+b.require('./lib/index.js', {expose: 'reqlite'})
 b.bundle(function(err, result) {
   if (err) {
     console.log(err);
     return;
   }
-  fs.writeFileSync('./browser/index.js', result);
+  fs.writeFileSync('./browser/reqlite.js', result);
 });
