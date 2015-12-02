@@ -30,7 +30,7 @@ to start a RethinkDB server.
 
 ## Version of RethinkDB supported
 
-It currently tries to match RethinkDB 2.0.x.
+It currently tries to match RethinkDB 2.2.x.
 
 
 ## Run tests
@@ -54,6 +54,49 @@ nodemon lib/node.js -- -L --port-offset 1 --debug
 Then run:
 ```
 npm test
+```
+
+## Use in the browser
+
+### Build
+Run in the reqlite repository:
+```
+npm run browserify
+```
+
+You then need a driver to connect to reqlite. Clone
+[rethinkdbdash](https://github.com/neumino/rethinkdbdash) and run:
+```
+npm run browserify
+```
+
+_Note:_ The official JavaScript driver currently doesn't work with
+reqlite because it cannot use a fake tcp connection (yet).
+
+
+### Example
+
+Import `rethinkdbdash.js` and `reqlite.js` in your page. Then you can write:
+
+```js
+var Reqlite = require('reqlite');
+// You cannot use a pool with reqlite
+var r = require('rethinkdbdash')({pool: false});
+
+var server = new Reqlite();
+// This simulate a fake tcp connection
+var fakeTcpConnection = server.createConnection();
+
+// Create a rethinkdbdash connection by providing the fake tcp connection
+r.connect({
+  connection: fakeTcpConnection
+}).bind({}).then(function(connection) {
+  return r.expr('Ok').run(connection);
+}).then(function(result) {
+  // result === 'Ok'
+}).error(function(error) {
+  // Handle error
+});
 ```
 
 ## Roadmap
