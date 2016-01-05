@@ -55,6 +55,16 @@ describe('dates-and-times.js', function(){
     compare(query, done);
   });
 
+  it('now - 4', function(done) {
+    var query = r.now().add(1).sub(r.now());
+    compare(query, done);
+  });
+
+  it('now - 5', function(done) {
+    var query = r.now().sub(r.now().sub(1));
+    compare(query, done);
+  });
+
   it('time - 1', function(done) {
     var query = r.time(1986, 11, 3, 'Z');
     compare(query, done);
