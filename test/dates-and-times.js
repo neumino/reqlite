@@ -289,6 +289,76 @@ describe('dates-and-times.js', function(){
     });
   });
 
+  it('lt - 1', function(done) {
+    var query = r.epochTime(1).lt(r.epochTime(0));
+    compare(query, done);
+  });
+
+  it('lt - 2', function(done) {
+    var query = r.epochTime(1).lt(r.epochTime(1));
+    compare(query, done);
+  });
+
+  it('lt - 3', function(done) {
+    var query = r.epochTime(1).lt(r.epochTime(2));
+    compare(query, done);
+  });
+
+  it('lt - 4', function(done) {
+    var query = r.epochTime(1).lt(new Date(0));
+    compare(query, done);
+  });
+
+  it('lt - 5', function(done) {
+    var query = r.epochTime(1).lt(new Date(1));
+    compare(query, done);
+  });
+
+  it('lt - 6', function(done) {
+    var query = r.epochTime(1).lt(new Date(2));
+    compare(query, done);
+  });
+
+  it('eq - 1', function(done) {
+    var query = r.epochTime(1).eq(r.epochTime(0));
+    compare(query, done);
+  });
+
+  it('eq - 2', function(done) {
+    var query = r.epochTime(1).eq(r.epochTime(1));
+    compare(query, done);
+  });
+
+  it('eq - 3', function(done) {
+    var query = r.epochTime(1).eq(new Date(0));
+    compare(query, done);
+  });
+
+  it('eq - 4', function(done) {
+    var query = r.epochTime(1).eq(new Date(1));
+    compare(query, done);
+  });
+
+  it('eq - 5', function(done) {
+    var query = r.time(2016, 1, 1, 'Z').inTimezone('+08:00').eq(new Date(Date.UTC(2016, 0, 1)));
+    compare(query, done);
+  });
+
+  it('eq - 6', function(done) {
+    var query = r.time(2016, 1, 1, 'Z').inTimezone('+08:00').eq(r.time(2016, 1, 1, 'Z'))
+    compare(query, done);
+  });
+
+  it('eq - 7', function(done) {
+    var query = r.time(2016, 1, 1, 8, 0, 0, 'Z').inTimezone('+08:00').eq(new Date(Date.UTC(2016, 0, 1)));
+    compare(query, done);
+  });
+
+  it('eq - 8', function(done) {
+    var query = r.time(2016, 1, 1, 8, 0, 0, 'Z').inTimezone('+08:00').eq(r.time(2016, 1, 1, 'Z'))
+    compare(query, done);
+  });
+
   it('during - 1', function(done) {
     var query = r.time(2013, 12, 4, 'Z').during(r.time(2013, 12, 1, "Z"), r.time(2013, 12, 10, "Z"));
     compare(query, done);
