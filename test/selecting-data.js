@@ -60,6 +60,15 @@ describe('selecting-data.js', function(){
         return this.query.run(connections.reqlite);
       }).catch(function() { // ignore errors
       }).finally(function() {
+        this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('foobar', function(doc) {
+          return [doc('foo'), doc('bar')];
+        });
+        return this.query.run(connections.rethinkdb);
+      }).catch(function() { // ignore errors
+      }).finally(function() {
+        return this.query.run(connections.reqlite);
+      }).catch(function() { // ignore errors
+      }).finally(function() {
         this.query = r.db(TEST_DB).table(TEST_TABLE).indexCreate('bar');
         return this.query.run(connections.rethinkdb);
       }).catch(function() { // ignore errors
@@ -357,6 +366,11 @@ describe('selecting-data.js', function(){
 
   it('between - 24', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).between(200, 300, {index: 'barmulti'});
+    compare(query, done);
+  });
+
+  it('between - 25', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).between([20, r.minval], [20, r.maxval], {index: 'foobar'}).orderBy('id');
     compare(query, done);
   });
 
