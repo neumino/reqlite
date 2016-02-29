@@ -161,6 +161,16 @@ describe('selecting-data.js', function(){
     compare(query, done);
   });
 
+  it('table - 8', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: 'foo'});
+    compare(query, done);
+  });
+
+  it('table - 9', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).orderBy({index: r.desc('foo')});
+    compare(query, done);
+  });
+
   it('get - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1);
     compare(query, done);
@@ -371,6 +381,16 @@ describe('selecting-data.js', function(){
 
   it('between - 25', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).between([20, r.minval], [20, r.maxval], {index: 'foobar'}).orderBy('id');
+    compare(query, done);
+  });
+
+  it('between - 26', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).between(10, 30, {index: 'foo'}).orderBy({index: 'foo'});
+    compare(query, done);
+  });
+
+  it('between - 27', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).between(10, 30, {index: 'foo'}).orderBy({index: r.desc('foo')});
     compare(query, done);
   });
 
