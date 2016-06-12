@@ -582,6 +582,15 @@ describe('writing-data.js', function(){
     compare(query, done);
   });
 
+  it('update - 34', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({foo: {bar: {buzz: 2}}});
+    compare(query, done);
+  });
+  it('update - 34 - follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1);
+    compare(query, done);
+  });
+
   it('replace - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).replace({id: 1, foo: 200});
     compare(query, done);
