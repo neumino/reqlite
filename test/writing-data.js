@@ -590,6 +590,14 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1);
     compare(query, done);
   });
+  it('update - 34 - more update', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({foo: {bar2: {buzz2: 3}}});
+    compare(query, done);
+  });
+  it('update - 34 - more follow up', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(1);
+    compare(query, done);
+  });
 
   it('replace - 1', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).replace({id: 1, foo: 200});
