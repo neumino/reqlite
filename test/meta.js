@@ -73,23 +73,11 @@ describe('meta.js', function(){
   });
 
   it('cluster_config - 3', function(done) {
-    var query = r.db('rethinkdb').table('cluster_config').get('auth').update({auth_key: 'foo'});
-    compare(query, done);
-  });
-
-  it('cluster_config - 4', function(done) {
     var query = r.db('rethinkdb').table('cluster_config').get('auth');
     compare(query, done);
   });
 
-  it('cluster_config - 5', function(done) {
-    var query = r.db('rethinkdb').table('cluster_config').get('auth').update({auth_key: ''});
-    compare(query, done);
-  });
-
-  it('cluster_config - 6', function(done) {
-    var query = r.db('rethinkdb').table('cluster_config').get('auth');
-    compare(query, done);
-  });
+  /*
+  */
 });
 
