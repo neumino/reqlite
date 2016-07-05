@@ -164,6 +164,7 @@ describe('writing-data.js', function(){
     }, {returnChanges: 'always'});
     compare(query, done, function(e) {
       delete e.first_error;
+      delete e.changes[0].error;
       return e;
     });
   });
@@ -539,6 +540,7 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get(1).update({id: 2}, {returnChanges: 'always'});
     compare(query, done, function(result) {
       delete result.first_error;
+      delete result.changes[0].error;
       return result;
     });
   });
@@ -849,6 +851,7 @@ describe('writing-data.js', function(){
     var query = r.db(TEST_DB).table(TEST_TABLE).get("array/length").update({id: 2}, {returnChanges: 'always'});
     compare(query, done, function(result) {
       delete result.first_error;
+      delete result.changes[0].error;
       return result;
     });
   });
