@@ -1,6 +1,9 @@
 var config = require('./../config.js');
 
-var r = require('rethinkdb');
+// Use rethinkdbdash as rethinkdb doesn't properly reject errors
+// See https://github.com/rethinkdb/rethinkdb/issues/5916
+var r = require('rethinkdbdash')({pool: false});
+
 var assert = require('assert');
 
 var connections = {};
@@ -27,6 +30,16 @@ var COMPLEX_OBJECT = {
 };
 
 var compare = require('./util.js').generateCompare(connections);
+describe('connect', function(){
+  it('should work', function(done) {
+    r.connect(config.reqlite).then(function(connection) {
+      return r.expr(1).run(connection);
+    }).then(function(result) {
+      assert.equal(1, result);
+      done();
+    }).catch(done);
+  });
+});
 
 describe('new.js', function(){
   before(function(done) {
