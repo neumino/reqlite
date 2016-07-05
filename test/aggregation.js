@@ -972,6 +972,35 @@ describe('aggregation.js', function(){
     var query = r.expr([1,2,3,4]).contains(r.row.eq(2))
     compare(query, done);
   });
+  */
+
+  it('fold - 1', function(done) {
+    var query = r.expr(['hello', 'world', 'foo', 'bar', 'buzz']).orderBy(r.row)
+      .fold('', function (acc, word) {
+          return acc.add(r.branch(acc.eq(''), '', ', ')).add(word);
+      });
+    compare(query, done);
+  });
+
+  it('fold - 2', function(done) {
+    var query = r.expr(['hello', 'world', 'foo', 'bar', 'buzz']).fold(0, function(acc, row) {
+        return acc.add(1);
+      }, {emit: function (prev_acc, row, new_acc) {
+        return r.branch(prev_acc.mod(2).eq(0), [row], []);
+      }
+    });
+    compare(query, done);
+  });
+
+  it('fold - 3', function(done) {
+    var query = r.expr(['hello', 'world', 'foo', 'bar', 'buzz']).orderBy(r.row)
+      .fold('', 'notafunction');
+    compare(query, done, function(error) {
+      var result = error.split(':')[0];
+      return result;
+    });
+  });
+
   /*
   */
 
