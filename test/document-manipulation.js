@@ -1492,6 +1492,11 @@ describe('document-manipulation.js', function(){
     compare(query, done);
   });
 
+  it('literal - 4 - branch', function(done) {
+    var query = r.db(TEST_DB).table(TEST_TABLE).get(100).update(r.branch(true, {foo: r.literal()}, {foo: r.literal()}));
+    compare(query, done);
+  });
+
   it('literal - 4 - post', function(done) {
     var query = r.db(TEST_DB).table(TEST_TABLE).get(100);
     compare(query, done);
